@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.geekalliance</groupId>
+    <artifactId>platform</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>TaurusPlatform</name>
+    <description>Taurus Platform Service</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>taurus-toolkit</module>
+        <module>taurus-parent</module>
+        <module>taurus-core</module>
+        <module>taurus-database</module>
+        <module>taurus-base-service</module>
+    </modules>
+</project>
