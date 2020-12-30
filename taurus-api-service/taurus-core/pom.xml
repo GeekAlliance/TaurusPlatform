@@ -11,6 +11,12 @@
     <artifactId>taurus-core</artifactId>
     <name>TaurusPlatformCore</name>
     <description>Taurus Platform Core</description>
-    <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.geekalliance</groupId>
+            <artifactId>taurus-toolkit</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -8,4 +8,7 @@
     <name>TaurusPlatformToolkit</name>
     <description>Taurus Platform Toolkit</description>
 
+    <dependencies>
+
+    </dependencies>
 </project>
