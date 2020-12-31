@@ -1,0 +1,569 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!--设备表-->
+    <changeSet id="AS-CT-20201228-01" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_DEVICE"/>
+            </not>
+        </preConditions>
+        <comment>创建设备表</comment>
+        <createTable tableName="AS_DEVICE" remarks="设备表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_DEVICE"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="设备编码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="${Name}" remarks="设备名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ALIAS" type="${Name}" remarks="设备别名"/>
+            <column name="PARENT_ID" type="${ID}" remarks="父级编号" defaultValue="-1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPECIFICATION" type="${ShortChar}" remarks="规格型号"/>
+            <column name="FEATURE" type="${ShortChar}" remarks="主体特征"/>
+            <column name="SUPPLIER" type="${ID}" remarks="供应商"/>
+            <column name="MANUFACTURER" type="${ID}" remarks="生产厂家"/>
+            <column name="CATEGORY" type="${TypeCode}" remarks="设备类别">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STATUS" type="${TypeCode}" remarks="设备状态">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MARK" type="${TypeCode}" remarks="设备标识"/>
+            <column name="PURCHASE_TIME" type="${DateTime}" remarks="购置时间"/>
+            <column name="PURCHASE_TYPE" type="${TypeCode}" remarks="购置方式"/>
+            <column name="PRINCIPAL" type="${ID}" remarks="负责人"/>
+            <column name="DEPRECIATION" type="${TypeCode}" remarks="折旧方式"/>
+            <column name="ORIGINAL_VALUE" type="${Money}" remarks="资产原值"/>
+            <column name="RESIDUAL_RATE" type="${Ratio}" remarks="净残率"/>
+            <column name="INSPECT_CYCLE" type="${TypeCode}" remarks="检验周期"/>
+            <column name="LAST_INSPECT" type="${DateTime}" remarks="上次检验"/>
+            <column name="NEXT_INSPECT" type="${DateTime}" remarks="下次检验"/>
+            <column name="LAST_REPAIR" type="${DateTime}" remarks="上次维修"/>
+            <column name="LAST_MAINTAIN" type="${DateTime}" remarks="上次保养"/>
+            <column name="LAST_IMPROVE" type="${DateTime}" remarks="上次改善"/>
+            <column name="OPERATOR" type="${ID}" remarks="操作人员"/>
+            <column name="USAGE_STATUS" type="${TypeCode}" remarks="使用状态"/>
+            <column name="USE_DEPARTMENT" type="${ID}" remarks="使用部门"/>
+            <column name="LOCATION" type="${CommonValue}" remarks="安装位置"/>
+            <column name="ACTIVATION_TIME" type="${DateTime}" remarks="启用日期"/>
+            <column name="REMARK" type="${Remark}" remarks="备注信息"/>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--设备属性表-->
+    <changeSet id="AS-CT-20201230-02" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_DEVICE_PROPERTY"/>
+            </not>
+        </preConditions>
+        <comment>创建设备属性表</comment>
+        <createTable tableName="AS_DEVICE_PROPERTY" remarks="设备属性表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_DEVICE_PROPERTY"/>
+            </column>
+            <column name="DEVICE_ID" type="${ID}" remarks="设备编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROPERTY_NAME" type="${Name}" remarks="属性名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROPERTY_VALUE" type="${CommonValue}" remarks="属性值">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="${Remark}" remarks="备注信息"/>
+        </createTable>
+    </changeSet>
+    <!--设备资源表-->
+    <changeSet id="AS-CT-20201228-03" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_DEVICE_RESOURCE"/>
+            </not>
+        </preConditions>
+        <comment>创建设备资源表</comment>
+        <createTable tableName="AS_DEVICE_RESOURCE" remarks="设备资源表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_DEVICE_RESOURCE"/>
+            </column>
+            <column name="DEVICE_ID" type="${ID}" remarks="设备编号">
+                <constraints nullable="false" notNullConstraintName="NU_DEVICE_RES_DEVICE_ID"/>
+            </column>
+            <column name="CATEGORY" type="${TypeCode}" remarks="资源种类">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="${Name}" remarks="资源名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="资源类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="${Remark}" remarks="资源描述"/>
+            <column name="RESOURCE_PATH" type="${URL}" remarks="资源路径">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--备品备件表-->
+    <changeSet id="AS-CT-20201228-04" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_SPARE_PART"/>
+            </not>
+        </preConditions>
+        <comment>创建备品备件表</comment>
+        <createTable tableName="AS_SPARE_PART" remarks="备品备件表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_SPARE_PART"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="编码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="${Name}" remarks="名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="类型"/>
+            <column name="FEATURE" type="${ShortChar}" remarks="主体特征"/>
+            <column name="SPECIFICATION" type="${SerialNo}" remarks="规格型号"/>
+            <column name="MIN_INVENTORY" type="${Numerical}" remarks="最小库存"/>
+            <column name="MAX_INVENTORY" type="${Numerical}" remarks="最大库存"/>
+            <column name="INVENTORY" type="${Numerical}" remarks="库存量"/>
+            <column name="MEASURE_UNIT" type="${Name}" remarks="计量单位"/>
+            <column name="WAREHOUSE" type="${Name}" remarks="仓库名称"/>
+            <column name="SHELF" type="${Name}" remarks="货架名称"/>
+            <column name="SUPPLIER" type="${ID}" remarks="供应商"/>
+            <column name="REMARK" type="${Remark}" remarks="备注"/>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--工具表-->
+    <changeSet id="AS-CT-20201228-05" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_INSTRUMENT"/>
+            </not>
+        </preConditions>
+        <comment>创建工具表</comment>
+        <createTable tableName="AS_INSTRUMENT" remarks="工具表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_INSTRUMENT"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="编码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPARE_PART_ID" type="${ID}" remarks="物料编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITY" type="${Numerical}" remarks="数量">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OWNER" type="${ID}" remarks="归属人员">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--工具领用记录表-->
+    <changeSet id="AS-CT-20201228-06" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_INSTRUMENT_USAGE"/>
+            </not>
+        </preConditions>
+        <comment>创建工具领用记录表</comment>
+        <createTable tableName="AS_INSTRUMENT_USAGE" remarks="工具领用记录表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_INSTRUMENT_USAGE"/>
+            </column>
+            <column name="INSTRUMENT_ID" type="${ID}" remarks="工具编号"/>
+            <column name="ORGANIZATION" type="${ID}" remarks="领用部门"/>
+            <column name="RECEIVE_QUANTITY" type="${Numerical}" remarks="领用数量"/>
+            <column name="RECEIVER" type="${ID}" remarks="领用人"/>
+            <column name="RECEIVE_TIME" type="${DateTime}" remarks="领用时间"/>
+            <column name="RECEIVE_REASON" type="${Remark}" remarks="领用原因"/>
+            <column name="RETURN_QUANTITY" type="${Numerical}" remarks="归还数量"/>
+            <column name="RETURNEE" type="${ID}" remarks="归还人"/>
+            <column name="RETURN_TIME" type="${DateTime}" remarks="归还时间"/>
+        </createTable>
+    </changeSet>
+    <!--维保标准-->
+    <changeSet id="AS-CT-20201228-07" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_MAINTAIN_STANDARD"/>
+            </not>
+        </preConditions>
+        <comment>创建维保标准表</comment>
+        <createTable tableName="AS_MAINTAIN_STANDARD" remarks="维保标准表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_MAINTAIN_STANDARD"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="标准编码"/>
+            <column name="CATEGORY" type="${TypeCode}" remarks="设备类别">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="标准分类">
+                <constraints nullable="false"/>
+            </column>
+            <column name="REMARK" type="${ShortString}" remarks="描述信息"/>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--维保标准明细表-->
+    <changeSet id="AS-CT-20201228-08" author="WangXun" logicalFilePath="AssetManage.xml">
+        <createTable tableName="AS_MAINTAIN_STANDARD_DETAIL" remarks="维保标准明细表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_MAINTAIN_STANDARD_DETAIL"/>
+            </column>
+            <column name="MAINTAIN_STANDARD_ID" type="${ID}" remarks="维保标准">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION" type="${Name}" remarks="保养部位">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STANDARD" type="${CommonValue}" remarks="保养标准">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPARE_PART_ID" type="${ID}" remarks="备件编号"/>
+            <column name="QUANTITY" type="${Numerical}" remarks="数量"/>
+            <column name="MEASURE_UNIT" type="${Name}" remarks="计量单位"/>
+        </createTable>
+    </changeSet>
+    <!--维保计划表-->
+    <changeSet id="AS-CT-20201228-09" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_MAINTAIN_PLAN"/>
+            </not>
+        </preConditions>
+        <comment>创建维保计划表</comment>
+        <createTable tableName="AS_MAINTAIN_PLAN" remarks="维保计划表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_MAINTAIN_PLAN"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="计划编码"/>
+            <column name="DEVICE_ID" type="${ID}" remarks="设备编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="计划类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVITY_TYPE" type="${TypeCode}" remarks="活动类型"/>
+            <column name="CYCLE_TYPE" type="${TypeCode}" remarks="循环方式"/>
+            <column name="LAST_MAINTAIN" type="${DateTime}" remarks="上次维保"/>
+            <column name="INTERVAL" type="${Numerical}" remarks="间隔时间"/>
+            <column name="INTERVAL_UNIT" type="${Name}" remarks="间隔单位"/>
+            <column name="NEXT_MAINTAIN" type="${DateTime}" remarks="下次维保"/>
+            <column name="EMERGENCY" type="${TypeCode}" remarks="紧急程度"/>
+            <column name="SPECIAL_FLAG" type="${Boole}" remarks="特种作业" defaultValue="N"/>
+            <column name="SPECIAL_TYPE" type="${TypeCode}" remarks="特种类型"/>
+            <column name="PLANNER" type="${ID}" remarks="制定人"/>
+            <column name="PRINCIPAL" type="${ID}" remarks="负责人"/>
+            <column name="REMARK" type="${ShortString}" remarks="描述信息"/>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--维保计划保养明细表-->
+    <changeSet id="AS-CT-20201228-10" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_MAINTAIN_PLAN_DETAIL"/>
+            </not>
+        </preConditions>
+        <comment>创建维保计划保养明细表</comment>
+        <createTable tableName="AS_MAINTAIN_PLAN_DETAIL" remarks="维保计划保养明细表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_MAINTAIN_DETAIL"/>
+            </column>
+            <column name="MAINTAIN_PLAN_ID" type="${ID}" remarks="维保计划">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POSITION" type="${Name}" remarks="保养部位">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STANDARD" type="${CommonValue}" remarks="保养标准">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPARE_PART_ID" type="${ID}" remarks="备件编号"/>
+            <column name="QUANTITY" type="${Numerical}" remarks="数量"/>
+            <column name="MEASURE_UNIT" type="${Name}" remarks="计量单位"/>
+        </createTable>
+    </changeSet>
+    <!--维保计划更换备件表-->
+    <changeSet id="AS-CT-20201228-11" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_SPARE_PART_DETAIL"/>
+            </not>
+        </preConditions>
+        <comment>创建维保计划更换备件表</comment>
+        <createTable tableName="AS_MAINTAIN_PLAN_REPLACE" remarks="维保计划更换备件表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_MAINTAIN_PLAN_REPLACE"/>
+            </column>
+            <column name="MAINTAIN_PLAN_ID" type="${ID}" remarks="维保计划">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPARE_PART_ID" type="${ID}" remarks="备件编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITY" type="${Numerical}" remarks="数量">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MEASURE_UNIT" type="${Name}" remarks="计量单位"/>
+        </createTable>
+    </changeSet>
+    <!--维保工单表-->
+    <changeSet id="AS-CT-20201228-12" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_WORK_ORDER"/>
+            </not>
+        </preConditions>
+        <comment>创建维保工单表</comment>
+        <createTable tableName="AS_WORK_ORDER" remarks="维保工单表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_WORK_ORDER"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="工单编码">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DEVICE_ID" type="${ID}" remarks="设备编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="工单类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACTIVITY_TYPE" type="${TypeCode}" remarks="活动类型"/>
+            <column name="PLAN_TIME" type="${DateTime}" remarks="计划时间"/>
+            <column name="EMERGENCY" type="${TypeCode}" remarks="紧急程度">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPECIAL_FLAG" type="${Boole}" remarks="特种作业" defaultValue="N"/>
+            <column name="SPECIAL_TYPE" type="${TypeCode}" remarks="特种类型"/>
+            <column name="PLANNER" type="${ID}" remarks="制定人"/>
+            <column name="PRINCIPAL" type="${ID}" remarks="负责人"/>
+            <column name="REMARK" type="${ShortString}" remarks="描述信息"/>
+            <column name="PARTICIPANT" type="${ShortString}" remarks="参与人"/>
+            <column name="START_TIME" type="${DateTime}" remarks="开始时间"/>
+            <column name="COMPLETE_TIME" type="${DateTime}" remarks="完成时间"/>
+            <column name="STOP_FLAG" type="${Boole}" remarks="停机标识" defaultValue="N"/>
+            <column name="DOWNTIME" type="${Numerical}" remarks="停机时长"/>
+            <column name="OUTSOURCING" type="${Name}" remarks="外委单位"/>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--维护工单明细表-->
+    <changeSet id="AS-CT-20201228-13" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_WORK_ORDER_DETAIL"/>
+            </not>
+        </preConditions>
+        <comment>创建维护工单明细表</comment>
+        <createTable tableName="AS_WORK_ORDER_DETAIL" remarks="维护工单明细表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_WORK_ORDER_DETAIL"/>
+            </column>
+            <column name="WORK_ORDER_ID" type="${ID}" remarks="工单编号"/>
+            <column name="POSITION" type="${Name}" remarks="保养部位">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STANDARD" type="${CommonValue}" remarks="保养标准">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPARE_PART_ID" type="${ID}" remarks="备件编号"/>
+            <column name="QUANTITY" type="${Numerical}" remarks="数量"/>
+            <column name="MEASURE_UNIT" type="${Name}" remarks="计量单位"/>
+            <column name="COMPLETE_FLAG" type="${Boole}" remarks="完成标识"/>
+            <column name="REMARK" type="${Remark}" remarks="备注信息"/>
+        </createTable>
+    </changeSet>
+    <!--检验计划-->
+    <changeSet id="AS-CT-20201228-14" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_INSPECT_PLAN"/>
+            </not>
+        </preConditions>
+        <comment>创建检验计划表</comment>
+        <createTable tableName="AS_INSPECT_PLAN" remarks="检验计划表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_INSPECT_PLAN"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="计划编码"/>
+            <column name="DEVICE_ID" type="${ID}" remarks="设备编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="检验方式">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_INSPECT" type="${DateTime}" remarks="上次检验"/>
+            <column name="CYCLE_TYPE" type="${TypeCode}" remarks="循环方式">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INTERVAL" type="${Numerical}" remarks="间隔时间">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INTERVAL_UNIT" type="${Name}" remarks="间隔单位">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NEXT_INSPECT" type="${DateTime}" remarks="下次检验">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INSPECT_ITEM" type="${ID}" remarks="检验项目">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PLANNER" type="${ID}" remarks="计划人"/>
+            <column name="PRINCIPAL" type="${ID}" remarks="负责人"/>
+            <column name="REMARK" type="${ShortString}" remarks="描述信息"/>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--检验单-->
+    <changeSet id="AS-CT-20201228-15" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_INSPECTION"/>
+            </not>
+        </preConditions>
+        <comment>创建检验单</comment>
+        <createTable tableName="AS_INSPECTION" remarks="检验单">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_INSPECTION"/>
+            </column>
+            <column name="CODE" type="${Code}" remarks="编码"/>
+            <column name="DEVICE_ID" type="${ID}" remarks="设备编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INSPECT_ITEM" type="${ID}" remarks="检验项目">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="${TypeCode}" remarks="检验方式">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_INSPECT" type="${DateTime}" remarks="上次检验"/>
+            <column name="NEXT_INSPECT" type="${DateTime}" remarks="下次检验"/>
+            <column name="PLANNER" type="${ID}" remarks="计划人"/>
+            <column name="PRINCIPAL" type="${ID}" remarks="负责人"/>
+            <column name="STATUS" type="${TypeCode}" remarks="状态"/>
+            <column name="SENDER" type="${ID}" remarks="送检人"/>
+            <column name="SEND_TIME" type="${DateTime}" remarks="送检时间"/>
+            <column name="INSPECT_COMPANY" type="${Name}" remarks="检验单位"/>
+            <column name="INSPECT_RESULT" type="${TypeCode}" remarks="检验结果"/>
+            <column name="CERTIFICATE" type="${Code}" remarks="证书编号"/>
+            <column name="INSPECTOR" type="${Name}" remarks="检验员"/>
+            <column name="CONTACT" type="${ShortChar}" remarks="联系电话"/>
+            <column name="REMARK" type="${Remark}" remarks="备注信息"/>
+        </createTable>
+    </changeSet>
+    <!--设备处置记录表-->
+    <changeSet id="AS-CT-20201228-17" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_DEVICE_DISPOSITION"/>
+            </not>
+        </preConditions>
+        <comment>创建设备处置记录表</comment>
+        <createTable tableName="AS_DEVICE_DISPOSITION" remarks="设备处置记录表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_DEVICE_DISPOSITION"/>
+            </column>
+            <column name="DEVICE_ID" type="${ID}" remarks="设备编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OLD_STATUS" type="${TypeCode}" remarks="原始状态">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NEW_STATUS" type="${TypeCode}" remarks="新状态">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DISPOSE_REASON" type="${Remark}" remarks="处置原因">
+                <constraints nullable="false"/>
+            </column>
+            <column name="APPLICANT" type="${ID}" remarks="申请人"/>
+            <column name="APPLY_TIME" type="${Datetime}" remarks="申请时间"/>
+            <column name="APPROVER" type="${ID}" remarks="审批人"/>
+            <column name="APPROVE_TIME" type="${Datetime}" remarks="审批时间"/>
+            <column name="DELETE_FLAG" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="CREATE_BY" type="${ID}" remarks="创建人"/>
+            <column name="CREATE_TIME" type="${DateTime}" remarks="创建时间"/>
+            <column name="UPDATE_BY" type="${ID}" remarks="修改人"/>
+            <column name="UPDATE_TIME" type="${DateTime}" remarks="修改时间"/>
+        </createTable>
+    </changeSet>
+    <!--备品备件使用记录-->
+    <changeSet id="AS-CT-20201228-18" author="WangXun" logicalFilePath="AssetManage.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="AS_SPARE_PART_USAGE"/>
+            </not>
+        </preConditions>
+        <comment>创建备品备件使用记录表</comment>
+        <createTable tableName="AS_SPARE_PART_USAGE" remarks="备品备件使用记录表">
+            <column name="ID" type="${ID}" remarks="主键编号">
+                <constraints primaryKey="true" primaryKeyName="PK_SPARE_PART_USAGE"/>
+            </column>
+            <column name="SPARE_PART_ID" type="${ID}" remarks="备件编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="WORK_ORDER_ID" type="${ID}" remarks="工单编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="QUANTITY" type="${Numerical}" remarks="使用数量">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MEASURE_UNIT" type="${Name}" remarks="计量单位">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER" type="${ID}" remarks="使用人">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
