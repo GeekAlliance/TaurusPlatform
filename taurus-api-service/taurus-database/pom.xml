@@ -60,8 +60,19 @@
                 <configuration>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
                     <propertyFile>
-                        ${basedir}/src/main/resources/script/config/${dbms}/${environment}.properties
+                        src/main/resources/script/config/${dbms}/${environment}.properties
                     </propertyFile>
+                    <changeLogFile>src/main/resources/script/ChangelogMaster.xml</changeLogFile>
+                    <databaseChangeLogTableName>dv_change_log</databaseChangeLogTableName>
+                    <databaseChangeLogLockTableName>dv_change_log_lock</databaseChangeLogLockTableName>
+                    <outputDirectory>src/main/resources/script/document</outputDirectory>
+                    <migrationSqlOutputFile>
+                        src/main/resources/script/${dbms}/update/${current.time}-${dbms}-update.sql
+                    </migrationSqlOutputFile>
+                    <outputChangeLogFile>src/main/resources/script/generate/${current.time}-${dbms}-generate.xml
+                    </outputChangeLogFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <changeSetAuthor>${author}</changeSetAuthor>
                 </configuration>
             </plugin>
 
@@ -69,15 +80,27 @@
                 <groupId>cn.smallbun.screw</groupId>
                 <artifactId>screw-maven-plugin</artifactId>
                 <version>1.0.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.zaxxer</groupId>
+                        <artifactId>HikariCP</artifactId>
+                        <version>3.4.5</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.18</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <!--username -->
                     <username>root</username>
                     <!--password -->
-                    <password>geek_alliance</password>
+                    <password>HiODS-9527</password>
                     <!--driver -->
                     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
                     <!--jdbc url -->
-                    <jdbcUrl>jdbc:mysql://192.168.3.66:3306/taurus</jdbcUrl>
+                    <jdbcUrl>jdbc:mysql://127.0.0.1:3306/taurus?serverTimezone=GMT%2B8</jdbcUrl>
                     <!--生成文件类型 -->
                     <fileType>WORD</fileType>
                     <!--打开文件输出目录 -->
@@ -90,7 +113,7 @@
                     <version>${project.version}</version>
                     <!--标题 -->
                     <title>数据库文档</title>
-                    <fileOutputDir>${basedir}/src/main/resources/script/config/document</fileOutputDir>
+                    <fileOutputDir>${basedir}/src/main/resources/script/document</fileOutputDir>
                 </configuration>
                 <executions>
                     <execution>
