@@ -7,7 +7,6 @@
         <artifactId>taurus-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.geekalliance</groupId>
     <artifactId>taurus-database</artifactId>
     <name>TaurusPlatformDatabase</name>
     <description>Taurus Platform Database</description>
@@ -15,8 +14,12 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <liquibase.version>3.10.3</liquibase.version>
         <environment>dev</environment>
         <dbms>mysql</dbms>
+        <author>GeeKeeper</author>
+        <current.time>${maven.build.timestamp}</current.time>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
     </properties>
 
     <dependencies>
@@ -53,10 +56,11 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.10.3</version>
+                <version>${liquibase.version}</version>
                 <configuration>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
-                    <propertyFile>${basedir}/src/main/resources/script/config/${dbms}/${environment}.properties
+                    <propertyFile>
+                        ${basedir}/src/main/resources/script/config/${dbms}/${environment}.properties
                     </propertyFile>
                 </configuration>
             </plugin>
@@ -81,9 +85,9 @@
                     <!--生成模板 -->
                     <produceType>freemarker</produceType>
                     <!--描述 -->
-                    <description>数据库文档生成</description>
+                    <description>数据库文档</description>
                     <!--版本 -->
-                    <version>1.0.0</version>
+                    <version>${project.version}</version>
                     <!--标题 -->
                     <title>数据库文档</title>
                     <fileOutputDir>${basedir}/src/main/resources/script/config/document</fileOutputDir>

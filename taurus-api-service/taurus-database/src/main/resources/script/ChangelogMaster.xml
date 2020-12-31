@@ -4,4 +4,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <include file="domain/CommonProperty.xml" relativeToChangelogFile="true"/>
+    
+    <include file="changelog/AS-V3.0.12.0.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

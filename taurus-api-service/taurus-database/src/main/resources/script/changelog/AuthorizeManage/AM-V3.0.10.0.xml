@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <!--模块行为表修改编码数据类型-->
+    <changeSet logicalFilePath="AuthorizeManage.xml" id="AM-MD-20201125-01" author="WangXun">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <changeSetExecuted id="AM-MD-20201125-01" author="WangXun"/>
+            </not>
+        </preConditions>
+        <comment>修改编码CODE数据类型</comment>
+        <modifyDataType tableName="AM_MODULE_ACTION" columnName="CODE" newDataType="${ShortChar}"/>
+        <rollback/>
+    </changeSet>
+
+
+</databaseChangeLog>

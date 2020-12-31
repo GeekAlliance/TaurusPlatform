@@ -1,0 +1,77 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!--工时表:标准工时和包装工时-->
+    <changeSet logicalFilePath="BasicDictionary.xml" author="WangXun" id="BD-ID-20201219-01">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="1">
+                    SELECT COUNT(*) FROM BD_SYSTEM_CONFIG WHERE ID = '2a6adcf5ac3e4dcd8478087ddf1a5c5a'
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <insert tableName="BD_SYSTEM_CONFIG">
+            <column name="ID" value="2a6adcf5ac3e4dcd8478087ddf1a5c5a"/>
+            <column name="MODULE_CODE" value="erp"/>
+            <column name="CODE" value="product_into_tank_car"/>
+            <column name="VALUE"
+                    value="{&quot;appCode&quot;:&quot;1010A005&quot;,&quot;code&quot;:&quot;1010W002&quot;,&quot;operationType&quot;:&quot;D_0100&quot;,&quot;source&quot;:&quot;801037&quot;,&quot;target&quot;:&quot;801037&quot;}"/>
+            <column name="LANGUAGE_CODE" value="zh_CN"/>
+            <column name="NAME" value="反应釜成品出库入槽罐车"/>
+            <column name="REMARK" value="反应釜成品出库入槽罐车"/>
+            <column name="SORT_INDEX" valueNumeric="10"/>
+        </insert>
+        <rollback/>
+    </changeSet>
+    <!--同步对列表添加字段：系统类型、同步次数-->
+    <changeSet logicalFilePath="BasicDictionary.xml" author="WangXun" id="BD-ID-20201219-02">
+        <preConditions>
+            <not>
+                <columnExists tableName="BD_SYNC_QUEUE" columnName="SYSTEM_TYPE"/>
+                <columnExists tableName="BD_SYNC_QUEUE" columnName="SYNC_TIMES"/>
+            </not>
+        </preConditions>
+        <comment>同步对列表添加字段：系统类型、同步次数</comment>
+        <addColumn tableName="BD_SYNC_QUEUE">
+            <column name="SYSTEM_TYPE" type="${TypeCode}" remarks="系统类型"/>
+            <column name="SYNC_TIMES" type="${SmallInt}" remarks="同步次数"/>
+        </addColumn>
+        <rollback/>
+    </changeSet>
+    <!--物料表添加字段：真实名称、保质期-->
+    <changeSet logicalFilePath="BasicDictionary.xml" author="WangXun" id="BD-ID-20201219-03">
+        <preConditions>
+            <not>
+                <columnExists tableName="BD_MATERIAL" columnName="REAL_NAME"/>
+                <columnExists tableName="BD_MATERIAL" columnName="SHELF_LIFE"/>
+            </not>
+        </preConditions>
+        <comment>物料表添加字段：真实名称、保质期</comment>
+        <addColumn tableName="BD_MATERIAL">
+            <column name="REAL_NAME" type="${Name}" remarks="真实名称"/>
+            <column name="SHELF_LIFE" type="${Numerical}" remarks="保质期(月)"/>
+        </addColumn>
+        <rollback/>
+    </changeSet>
+    <!--修改初始化版权信息-->
+    <changeSet logicalFilePath="BasicDictionary.xml" author="WangXun" id="BD-UP-20201221-01">
+        <update tableName="BD_SYSTEM_CONFIG">
+            <column name="value"
+                    value="[CopyRight © 2020 北京和利时工业软件有限公司](http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=00000000000000)"/>
+            <where>ID = '1169c391d3ff47cab0678f2c0154f9db'</where>
+        </update>
+        <rollback/>
+    </changeSet>
+    <!--修改默认导出数量-->
+    <changeSet logicalFilePath="BasicDictionary.xml" author="WangXun" id="BD-UP-20201221-02">
+        <update tableName="BD_SYSTEM_CONFIG">
+            <column name="value" value="10000"/>
+            <where>ID = 'd241e5300a5a4882b45d6c8b103d5a42'</where>
+        </update>
+        <rollback/>
+    </changeSet>
+
+</databaseChangeLog>
