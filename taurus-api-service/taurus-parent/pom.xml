@@ -15,9 +15,11 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.boot.version>2.4.1</spring.boot.version>
         <spring.cloud.version>2020.0.0</spring.cloud.version>
+        <liquibase.version>3.10.3</liquibase.version>
         <mssql.version>7.4.0.jre8</mssql.version>
         <mysql.version>8.0.18</mysql.version>
         <oracle.version>11.2.0.4</oracle.version>
+        <screw.version>1.0.5</screw.version>
         <flowable.version>6.5.0</flowable.version>
         <assembly.version>2.5.5</assembly.version>
     </properties>

@@ -13,8 +13,6 @@
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>1.8</java.version>
-        <liquibase.version>3.10.3</liquibase.version>
         <environment>dev</environment>
         <dbms>mysql</dbms>
         <author>GeeKeeper</author>
@@ -22,64 +20,31 @@
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- HikariCP -->
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>3.4.5</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>${liquibase.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
                     <propertyFile>
                         src/main/resources/script/config/${dbms}/${environment}.properties
                     </propertyFile>
-                    <changeLogFile>src/main/resources/script/ChangelogMaster.xml</changeLogFile>
-                    <databaseChangeLogTableName>dv_change_log</databaseChangeLogTableName>
-                    <databaseChangeLogLockTableName>dv_change_log_lock</databaseChangeLogLockTableName>
-                    <outputDirectory>src/main/resources/script/document</outputDirectory>
-                    <migrationSqlOutputFile>
-                        src/main/resources/script/${dbms}/update/${current.time}-${dbms}-update.sql
-                    </migrationSqlOutputFile>
-                    <outputChangeLogFile>src/main/resources/script/generate/${current.time}-${dbms}-generate.xml
-                    </outputChangeLogFile>
-                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                    <changeSetAuthor>${author}</changeSetAuthor>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>cn.smallbun.screw</groupId>
                 <artifactId>screw-maven-plugin</artifactId>
-                <version>1.0.5</version>
+                <version>${screw.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.zaxxer</groupId>
@@ -89,18 +54,18 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>8.0.18</version>
+                        <version>${mysql.version}</version>
                     </dependency>
                 </dependencies>
                 <configuration>
                     <!--username -->
                     <username>root</username>
                     <!--password -->
-                    <password>HiODS-9527</password>
+                    <password>geek_alliance</password>
                     <!--driver -->
-                    <driverClassName>com.mysql.jdbc.Driver</driverClassName>
+                    <driverClassName>om.mysql.jdbc.Driver</driverClassName>
                     <!--jdbc url -->
-                    <jdbcUrl>jdbc:mysql://127.0.0.1:3306/taurus?serverTimezone=GMT%2B8</jdbcUrl>
+                    <jdbcUrl>jdbc:mysql://192.168.3.66:3306/taurus?serverTimezone=GMT</jdbcUrl>
                     <!--生成文件类型 -->
                     <fileType>WORD</fileType>
                     <!--打开文件输出目录 -->
