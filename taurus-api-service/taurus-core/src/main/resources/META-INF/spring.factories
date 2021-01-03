@@ -1,0 +1,13 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.geekalliance.taurus.core.utils.SpringContextUtil,\
+com.geekalliance.taurus.core.utils.BeanGeneratorWrapper,\
+com.geekalliance.taurus.core.i18n.LocaleMessage,\
+com.geekalliance.taurus.rdb.config.DynamicDataSourceConfig,\
+com.geekalliance.taurus.rdb.config.MybatisPlusAutoConfig,\
+com.geekalliance.taurus.rdb.config.DruidWebConfig,\
+com.geekalliance.taurus.rdb.listener.DownloadTakeEffectRdbRefreshListener,\
+com.geekalliance.taurus.rdb.interceptor.SpecialCharLikeInterceptor,\
+com.geekalliance.taurus.web.WebServerMacConfigureAdapter,\
+com.geekalliance.taurus.web.interceptor.UserInterceptor,\
+com.geekalliance.taurus.web.config.CustomCorsFilter,\
+com.geekalliance.taurus.web.config.SwaggerConfig

@@ -15,13 +15,22 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.boot.version>2.4.1</spring.boot.version>
         <spring.cloud.version>2020.0.0</spring.cloud.version>
+        <spring.admin.boot.version>2.2.2</spring.admin.boot.version>
         <liquibase.version>3.10.3</liquibase.version>
+        <screw.version>1.0.5</screw.version>
         <mssql.version>7.4.0.jre8</mssql.version>
         <mysql.version>8.0.18</mysql.version>
         <oracle.version>11.2.0.4</oracle.version>
-        <screw.version>1.0.5</screw.version>
         <flowable.version>6.5.0</flowable.version>
         <assembly.version>2.5.5</assembly.version>
+        <swagger.version>2.9.2</swagger.version>
+        <knife4j.version>2.0.1</knife4j.version>
+        <oauth2.version>2.1.0.RELEASE</oauth2.version>
+        <jwt.version>1.0.11.RELEASE</jwt.version>
+        <dozer.version>5.5.1</dozer.version>
+        <mybatis.plus.version>3.3.1.tmp</mybatis.plus.version>
+        <druid.version>1.1.21</druid.version>
+        <oauth2.version>2.1.0.RELEASE</oauth2.version>
     </properties>
     <distributionManagement>
         <repository>
@@ -65,4 +74,107 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+        <!--Spring Boot-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring.admin.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.winsw</groupId>
+            <artifactId>winsw</artifactId>
+            <classifier>bin</classifier>
+            <type>exe</type>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*.properties</include>
+                    <include>*.yml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${dist.dir}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/dist</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <!--默认关掉单元测试 -->
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
