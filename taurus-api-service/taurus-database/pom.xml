@@ -36,7 +36,7 @@
                 <configuration>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
                     <propertyFile>
-                        src/main/resources/script/config/${dbms}/${environment}.properties
+                        src/main/resources/liqubase/config/${dbms}/${environment}.properties
                     </propertyFile>
                 </configuration>
             </plugin>
