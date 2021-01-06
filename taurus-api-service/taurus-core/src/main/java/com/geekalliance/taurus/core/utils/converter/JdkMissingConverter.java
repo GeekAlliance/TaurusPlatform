@@ -1,6 +1,7 @@
 package com.geekalliance.taurus.core.utils.converter;
 
-import com.hollysys.platform.common.core.utils.converter.creator.CreatorFactory;
+
+import com.geekalliance.taurus.core.utils.converter.creator.CreatorFactory;
 import org.dozer.CustomConverter;
 
 import java.util.Locale;

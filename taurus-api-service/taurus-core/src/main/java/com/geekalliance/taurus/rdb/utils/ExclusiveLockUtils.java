@@ -1,114 +1,27 @@
 package com.geekalliance.taurus.rdb.utils;
 
 import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.core.toolkit.ExceptionUtils;
 import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
-import com.hollysys.platform.common.core.service.DataSourceService;
-import com.hollysys.platform.common.core.toolkit.DataSourceContextHolder;
-import com.hollysys.platform.common.core.toolkit.StringPool;
-import com.hollysys.platform.common.rdb.config.DynamicDataSourceConfig;
+import com.geekalliance.taurus.rdb.config.DynamicDataSourceConfig;
+import com.geekalliance.taurus.rdb.holder.DataSourceContextHolder;
+import com.geekalliance.taurus.toolkit.StringPool;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.reflection.ExceptionUtil;
-import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.MyBatisExceptionTranslator;
-import org.mybatis.spring.SqlSessionHolder;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author maxuqiang
  */
 @Slf4j
 public class ExclusiveLockUtils {
-    public synchronized static List<Connection> lockTableAllNodeMasterDb(String tableName, String fieldName) throws SQLException {
-        List<Connection> lockConnections = new ArrayList<>();
-        Map<Object, Object> dataSources = DynamicDataSourceConfig.getAllDataSource();
-        if (Objects.nonNull(dataSources) && !dataSources.isEmpty()) {
-            Set<Object> keys = dataSources.keySet().stream()
-                    .filter(data -> data.toString().startsWith(DataSourceService.MASTER_DATASOURCE_TAG) && !data.toString().equals(DataSourceService.MASTER_DATASOURCE_TAG))
-                    .collect(Collectors.toSet());
-            lockByAllNode(keys, lockConnections, tableName, fieldName);
-        }
-        if (lockConnections.isEmpty()) {
-            throw new RuntimeException("lock table all node master db error because lockConnections is empty");
-        }
-        return lockConnections;
-    }
 
-    /**
-     * 锁表顺序为
-     * AA（主节点A网卡） AB（主节点B网卡） BA（从节点A网卡） BB（从节点B网卡）
-     *
-     * @param keys
-     * @param lockConnections
-     * @param tableName
-     * @param fieldName
-     * @throws SQLException
-     */
-    private static void lockByAllNode(Set<Object> keys, List<Connection> lockConnections, String tableName, String fieldName) throws SQLException {
-        if (!CollectionUtils.isEmpty(keys)) {
-            String keyAA = StringPool.EMPTY, keyAB = StringPool.EMPTY, keyBA = StringPool.EMPTY, keyBB = StringPool.EMPTY;
-            for (Object key : keys) {
-                if (key.toString().endsWith(StringPool.A + StringPool.A)) {
-                    keyAA = key.toString();
-                }
-                if (key.toString().endsWith(StringPool.A + StringPool.B)) {
-                    keyAB = key.toString();
-                }
-                if (key.toString().endsWith(StringPool.B + StringPool.A)) {
-                    keyBA = key.toString();
-                }
-                if (key.toString().endsWith(StringPool.B + StringPool.B)) {
-                    keyBB = key.toString();
-                }
-            }
-            try {
-                // 锁主节点A网IP地址，锁表成功后直接锁从节点，锁定失败后尝试锁定主节点B网IP地址
-                lockByDataSourceKey(keyAA, lockConnections, tableName, fieldName);
-            } catch (Exception e) {
-                try {
-                    lockByDataSourceKey(keyAB, lockConnections, tableName, fieldName);
-                } catch (Exception ex) {
-                }
-            }
-            try {
-                // 锁从节点A网IP地址，锁表成功后结束，锁定失败后尝试锁定从节点B网IP地址
-                lockByDataSourceKey(keyBA, lockConnections, tableName, fieldName);
-            } catch (Exception e) {
-                try {
-                    lockByDataSourceKey(keyBB, lockConnections, tableName, fieldName);
-                } catch (Exception ex) {
-                }
-            }
-        } else {
-            lockByDataSourceKey(DataSourceService.MASTER_DATASOURCE_TAG, lockConnections, tableName, fieldName);
-        }
-    }
-
-    private static void lockByDataSourceKey(String key, List<Connection> lockConnections, String tableName, String fieldName) throws SQLException {
-        if (!StringUtils.isNotBlank(key)) {
-            return;
-        }
-        try {
-            Connection connection = DynamicDataSourceConfig.getConnection(key, 10000L);
-            lockTable(connection, tableName, fieldName);
-            log.info("tag {} lock table {} field {} success", key, tableName, fieldName);
-            lockConnections.add(connection);
-        } catch (Exception e) {
-            log.error("tag {} lock table {} field {} fail {}", key, tableName, fieldName, e.getMessage());
-            throw e;
-        }
-    }
 
     public static void lockTable(SqlSession sqlSession, String tableName, String fieldName) throws SQLException {
         if (Objects.isNull(sqlSession)) {

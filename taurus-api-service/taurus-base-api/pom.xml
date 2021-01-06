@@ -8,25 +8,14 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <groupId>com.geekalliance</groupId>
-    <artifactId>taurus-base-service</artifactId>
-    <name>TaurusPlatformBaseService</name>
-    <description>Taurus Platform Base Service</description>
+    <artifactId>taurus-base-api</artifactId>
+    <name>TaurusPlatformBaseApi</name>
+    <description>Taurus Platform Base Api</description>
     <dependencies>
         <dependency>
             <groupId>com.geekalliance</groupId>
             <artifactId>taurus-core</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.geekalliance</groupId>
-            <artifactId>taurus-base-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!--oauth2认证-->
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>${oauth2.version}</version>
         </dependency>
     </dependencies>
 </project>

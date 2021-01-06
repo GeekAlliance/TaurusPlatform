@@ -15,8 +15,6 @@ public interface DataSourceService {
 
     static final String MASTER_DATASOURCE_TAG = "master";
 
-    static final String BACKUP_DATASOURCE_TAG = "backup";
-
     /**
      * 初始化数据源
      */

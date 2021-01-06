@@ -83,30 +83,22 @@ public class DynamicDataSourceConfig extends AbstractDataSourceService implement
             if (!DATA_SOURCES.isEmpty()) {
                 Set<Object> dataSourceKey = DATA_SOURCES.keySet();
                 String defaultMasterDataSourceTag = MASTER_DATASOURCE_TAG + environment.getProperty("spring.datasource.addr");
-                String defaultBackupDataSourceTag = BACKUP_DATASOURCE_TAG + environment.getProperty("spring.datasource.addr");
                 for (Object key : dataSourceKey) {
                     if (key.toString().startsWith(defaultMasterDataSourceTag)) {
                         defaultMasterDataSourceTag = key.toString();
                     }
-                    if (key.toString().startsWith(defaultBackupDataSourceTag)) {
-                        defaultBackupDataSourceTag = key.toString();
-                    }
                 }
                 DATA_SOURCES.put(MASTER_DATASOURCE_TAG, DATA_SOURCES.get(defaultMasterDataSourceTag));
-                DATA_SOURCES.put(BACKUP_DATASOURCE_TAG, DATA_SOURCES.get(defaultBackupDataSourceTag));
             }
 
             if (Objects.isNull(DATA_SOURCES.get(MASTER_DATASOURCE_TAG))) {
                 initDefaultDataSource(MASTER_DATASOURCE_TAG, environment.getProperty("spring.datasource.dbname"));
             }
 
-            if (Objects.isNull(DATA_SOURCES.get(BACKUP_DATASOURCE_TAG))) {
-                initDefaultDataSource(BACKUP_DATASOURCE_TAG, environment.getProperty("spring.datasource.backup.dbname"));
-            }
             // 关闭不存在的数据源
             Set<Object> dataSourceKeys = getDataSourceKeys();
             for (Object k : dataSourceKeys) {
-                if (!k.equals(MASTER_DATASOURCE_TAG) && !k.equals(BACKUP_DATASOURCE_TAG)) {
+                if (!k.equals(MASTER_DATASOURCE_TAG)) {
                     if (cleanNotExistDataSource(k)) {
                         log.info("data source {} not exist clean it", k);
                     }
@@ -160,9 +152,6 @@ public class DynamicDataSourceConfig extends AbstractDataSourceService implement
                 url = url.replace("${spring.datasource.port}", dataBaseTypeEnum.getPort());
                 if (tag.equals(DataSourceService.MASTER_DATASOURCE_TAG)) {
                     url = url.replace("${spring.datasource.dbname}", environment.getProperty("spring.datasource.dbname"));
-                    initDataSourceByUrl(tag + node, url);
-                } else if (tag.equals(DataSourceService.BACKUP_DATASOURCE_TAG)) {
-                    url = url.replace("${spring.datasource.dbname}", environment.getProperty("spring.datasource.backup.dbname"));
                     initDataSourceByUrl(tag + node, url);
                 }
             }

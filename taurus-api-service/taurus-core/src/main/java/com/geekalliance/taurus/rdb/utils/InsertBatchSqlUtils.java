@@ -1,12 +1,13 @@
 package com.geekalliance.taurus.rdb.utils;
 
-import com.alibaba.fastjson.JSON;
+
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.hollysys.platform.common.core.utils.DateUtils;
-import com.hollysys.platform.common.rdb.enums.RdbSqlMethodEnum;
-import com.hollysys.platform.common.toolkit.StringPool;
+import com.geekalliance.taurus.rdb.enums.RdbSqlMethodEnum;
+import com.geekalliance.taurus.toolkit.StringPool;
+import com.geekalliance.taurus.toolkit.utils.DateUtils;
+import com.geekalliance.taurus.toolkit.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
@@ -19,7 +20,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import static com.hollysys.platform.common.toolkit.StringPool.*;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -32,26 +32,26 @@ public class InsertBatchSqlUtils {
         if (Objects.nonNull(obj)) {
             TableInfo tableInfo = TableInfoHelper.getTableInfo(modelClass);
             String insertSqlColumn = tableInfo.getKeyInsertSqlColumn(false) +
-                    filterTableFieldInfo(tableInfo.getFieldList(), null, TableFieldInfo::getInsertSqlColumn, EMPTY);
-            String columnScript = LEFT_BRACKET + insertSqlColumn.substring(0, insertSqlColumn.length() - 1) + RIGHT_BRACKET;
+                    filterTableFieldInfo(tableInfo.getFieldList(), null, TableFieldInfo::getInsertSqlColumn, StringPool.EMPTY);
+            String columnScript = StringPool.LEFT_BRACKET + insertSqlColumn.substring(0, insertSqlColumn.length() - 1) + StringPool.RIGHT_BRACKET;
             StringBuilder valuesScript = new StringBuilder();
             valuesScript.append(valueScript(tableInfo, obj));
             String sql = String.format(RdbSqlMethodEnum.INSERT_BATCH.getSql(), tableInfo.getTableName(), columnScript, valuesScript);
             return sql;
         }
-        return EMPTY;
+        return StringPool.EMPTY;
     }
 
     public static String genInsertBatchSql(Class<?> modelClass, Collection<?> list) {
         if (!CollectionUtils.isEmpty(list)) {
             TableInfo tableInfo = TableInfoHelper.getTableInfo(modelClass);
             String insertSqlColumn = tableInfo.getKeyInsertSqlColumn(false) +
-                    filterTableFieldInfo(tableInfo.getFieldList(), null, TableFieldInfo::getInsertSqlColumn, EMPTY);
-            String columnScript = LEFT_BRACKET + insertSqlColumn.substring(0, insertSqlColumn.length() - 1) + RIGHT_BRACKET;
+                    filterTableFieldInfo(tableInfo.getFieldList(), null, TableFieldInfo::getInsertSqlColumn, StringPool.EMPTY);
+            String columnScript = StringPool.LEFT_BRACKET + insertSqlColumn.substring(0, insertSqlColumn.length() - 1) + StringPool.RIGHT_BRACKET;
             StringBuilder valuesScript = new StringBuilder();
             list.forEach(data -> {
                 if (valuesScript.length() > 0) {
-                    valuesScript.append(COMMA);
+                    valuesScript.append(StringPool.COMMA);
                 }
                 valuesScript.append(valueScript(tableInfo, data));
             });
@@ -59,7 +59,7 @@ public class InsertBatchSqlUtils {
             return sql;
         }
 
-        return EMPTY;
+        return StringPool.EMPTY;
     }
 
     /**
@@ -75,9 +75,9 @@ public class InsertBatchSqlUtils {
     }
 
     private static String valueScript(TableInfo tableInfo, Object data) {
-        String valueScript = getValue(data, tableInfo.getKeyProperty()) + COMMA +
-                filterTableFieldInfo(tableInfo.getFieldList(), null, i -> getValue(data, i.getProperty()), COMMA);
-        valueScript = LEFT_BRACKET + valueScript.substring(0, valueScript.length()) + RIGHT_BRACKET;
+        String valueScript = getValue(data, tableInfo.getKeyProperty()) + StringPool.COMMA +
+                filterTableFieldInfo(tableInfo.getFieldList(), null, i -> getValue(data, i.getProperty()), StringPool.COMMA);
+        valueScript = StringPool.LEFT_BRACKET + valueScript.substring(0, valueScript.length()) + StringPool.RIGHT_BRACKET;
         return valueScript;
     }
 
@@ -95,11 +95,11 @@ public class InsertBatchSqlUtils {
                 }
             }
         } catch (NoSuchFieldException e) {
-            log.error("get value no such field exception error fieldName {} data {}", fieldName, JSON.toJSONString(data));
+            log.error("get value no such field exception error fieldName {} data {}", fieldName, JsonUtils.deserializer(data));
         } catch (IllegalAccessException e) {
-            log.error("get value illegal access exception error fieldName {} data {}", fieldName, JSON.toJSONString(data));
+            log.error("get value illegal access exception error fieldName {} data {}", fieldName, JsonUtils.deserializer(data));
         }
-        return NULL;
+        return StringPool.NULL;
     }
 
     private static boolean isNumber(Field field) {

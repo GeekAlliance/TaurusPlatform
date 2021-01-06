@@ -1,6 +1,6 @@
 package com.geekalliance.taurus.core.utils.converter;
 
-import com.hollysys.platform.common.core.utils.converter.creator.CreatorFactory;
+import com.geekalliance.taurus.core.utils.converter.creator.CreatorFactory;
 import org.dozer.CustomConverter;
 
 import java.time.*;
@@ -8,7 +8,7 @@ import java.time.*;
 /**
  * @author maxuqiang
  */
-public class Jdk8CompatibilityConverter implements  CustomConverter {
+public class Jdk8CompatibilityConverter implements CustomConverter {
     private CreatorFactory creatorFactory = new CreatorFactory();
 
     @Override
@@ -26,7 +26,7 @@ public class Jdk8CompatibilityConverter implements  CustomConverter {
         } else if (destinationClass.isAssignableFrom(LocalDateTime.class) && sourceClass.isAssignableFrom(LocalDateTime.class)) {
             destination = creatorFactory.createLocalDateTimeCreator().create(source);
             // use instance of source because otherwise it seems to be not possible to handle the package protected ZoneRegion class
-        }  else if (destinationClass.isAssignableFrom(OffsetDateTime.class) && sourceClass.isAssignableFrom(OffsetDateTime.class)) {
+        } else if (destinationClass.isAssignableFrom(OffsetDateTime.class) && sourceClass.isAssignableFrom(OffsetDateTime.class)) {
             destination = creatorFactory.createOffsetDateTimeCreator().create(source);
             // use instance of source because otherwise it seems to be not possible to handle the package protected ZoneRegion class
         } else if (destinationClass.isAssignableFrom(ZoneId.class) && (source instanceof ZoneId)) {

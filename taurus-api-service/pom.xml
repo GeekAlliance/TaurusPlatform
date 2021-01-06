@@ -14,5 +14,6 @@
         <module>taurus-core</module>
         <module>taurus-database</module>
         <module>taurus-base-service</module>
+        <module>taurus-base-api</module>
     </modules>
 </project>
