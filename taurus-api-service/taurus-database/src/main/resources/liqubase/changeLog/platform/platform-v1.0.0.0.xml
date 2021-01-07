@@ -5,6 +5,36 @@
 				   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
+    <!--应用表-->
+    <changeSet id="BP-ST-20210103-14" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
+        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
+            <not>
+                <tableExists tableName="BP_application"/>
+            </not>
+        </preConditions>
+        <comment>创建应用表(BP_application)</comment>
+        <createTable tableName="BP_application" remarks="应用表">
+            <column name="id" type="${ID}" remarks="应用编号">
+                <constraints primaryKey="true" primaryKeyName="PK_APPLICATION_ID"/>
+            </column>
+            <column name="name" type="${Name}" remarks="应用名称">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" type="${MiddleString}" remarks="请求地址"/>
+            <column name="enable_flag" type="${Boole}" remarks="启用标识" defaultValue="Y"/>
+            <column name="client_secret" type="${Secret}" remarks="客户端密钥"/>
+            <column name="grant_type" type="${ShortChar}" remarks="授权类型"/>
+            <column name="access_token_validity" type="${ShortChar}" remarks="验证令牌过期时间"/>
+            <column name="refresh_token_validity" type="${ShortChar}" remarks="刷新令牌过期时间"/>
+            <column name="system_flag" type="${Boole}" remarks="系统标识" defaultValue="N"/>
+            <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
+            <column name="create_by" type="${ID}" remarks="创建人"/>
+            <column name="create_on" type="${DateTime}" remarks="创建时间"/>
+            <column name="update_by" type="${ID}" remarks="修改人"/>
+            <column name="update_on" type="${DateTime}" remarks="修改时间"/>
+            <column name="remark" type="${Remark}" remarks="备注信息"/>
+        </createTable>
+    </changeSet>
     <!--组织机构表-->
     <changeSet id="BP-ST-20210103-01" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
         <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
@@ -18,22 +48,22 @@
                 <constraints primaryKey="true" primaryKeyName="pk_organization"/>
             </column>
             <column name="code" type="${Code}" remarks="机构编码"/>
-            <column name="short_name" type="${Name}" remarks="机构名称（简称）"/>
-            <column name="full_name" type="${Name}" remarks="机构名称（全称）"/>
-            <column name="type" type="${Code}" remarks="机构类型"/>
+            <column name="short_name" type="${Name}" remarks="机构名称(简称)"/>
+            <column name="full_name" type="${Name}" remarks="机构名称(全称)"/>
             <column name="icon" type="${URL}" remarks="机构图标"/>
             <column name="parent" type="${ID}" remarks="父级编号"/>
             <column name="level" type="${SmallInt}" remarks="层级编号"/>
-            <column name="sort_no" type="${Int}" remarks="排序编号"/>
+            <column name="sort_number" type="${Int}" remarks="排序编号"/>
             <column name="status" type="${TypeCode}" remarks="机构状态"/>
+            <column name="remark" type="${MiddleString}" remarks="备注信息"/>
             <column name="data_source" type="${TypeCode}" remarks="数据源"/>
+            <column name="leaf_flag" type="${Boole}" remarks="叶子标识" defaultValue="Y"/>
             <column name="system_flag" type="${Boole}" remarks="系统标识" defaultValue="N"/>
             <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
             <column name="create_by" type="${ID}" remarks="创建人"/>
             <column name="create_on" type="${DateTime}" remarks="创建时间"/>
             <column name="update_by" type="${ID}" remarks="修改人"/>
             <column name="update_on" type="${DateTime}" remarks="修改时间"/>
-            <column name="remark" type="${MiddleString}" remarks="备注信息"/>
         </createTable>
     </changeSet>
     <!--用户表-->
@@ -48,24 +78,21 @@
             <column name="id" type="${ID}" remarks="用户编号">
                 <constraints primaryKey="true" primaryKeyName="pk_user"/>
             </column>
-            <column name="username" type="${Name}" remarks="登录用户名">
-                <constraints nullable="false"/>
-            </column>
-            <column name="password" type="${Password}" remarks="密码">
-                <constraints nullable="false"/>
-            </column>
-            <column name="type" type="${Code}" remarks="用户类型"/>
-            <column name="name" type="${Name}" remarks="名称"/>
             <column name="nick_name" type="${Name}" remarks="昵称"/>
+            <column name="username" type="${username}" remarks="用户名"/>
+            <column name="password" type="${Password}" remarks="密码"/>
+            <column name="avatar" type="${URL}" remarks="头像"/>
+            <column name="expired_time" type="${DateTime}" remarks="失效时间"/>
+            <column name="status" type="${TypeCode}" remarks="用户状态"/>
+            <column name="name" type="${Name}" remarks="名称"/>
             <column name="job_number" type="${WorkNo}" remarks="工号"/>
+            <column name="birthday" type="${WorkNo}" remarks="生日"/>
             <column name="email" type="${Email}" remarks="邮箱"/>
             <column name="wechat" type="${WeChat}" remarks="微信"/>
             <column name="phone" type="${Phone}" remarks="手机"/>
-            <column name="expired_time" type="${DateTime}" remarks="密码失效时间"/>
-            <column name="pw_modify_time" type="${DateTime}" remarks="密码修改时间"/>
-            <column name="status" type="${TypeCode}" remarks="用户状态"/>
-            <column name="initial_flag" type="${Boole}" remarks="初始标识" defaultValue="Y"/>
-            <column name="extern_flag" type="${Boole}" remarks="外部标识" defaultValue="N"/>
+            <column name="telephone" type="${Phone}" remarks="电话"/>
+            <column name="remark" type="${Remark}" remarks="备注信息"/>
+            <column name="data_source" type="${TypeCode}" remarks="数据源"/>
             <column name="online_flag" type="${Boole}" remarks="在线标识" defaultValue="N"/>
             <column name="enable_flag" type="${Boole}" remarks="启用标识" defaultValue="Y"/>
             <column name="super_flag" type="${Boole}" remarks="超级管理员" defaultValue="N"/>
@@ -74,7 +101,6 @@
             <column name="create_by" type="${ID}" remarks="创建人"/>
             <column name="update_on" type="${DateTime}" remarks="修改时间"/>
             <column name="update_by" type="${ID}" remarks="修改人"/>
-            <column name="remark" type="${Remark}" remarks="备注信息"/>
         </createTable>
     </changeSet>
     <!--组织人员关系表-->
@@ -92,7 +118,7 @@
             <column name="organization_id" type="${ID}" remarks="组织编号">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_id" type="${ID}" remarks="人员编号">
+            <column name="person_id" type="${ID}" remarks="人员编号">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -111,13 +137,15 @@
             </column>
             <column name="code" type="${Code}" remarks="岗位编码"/>
             <column name="name" type="${Name}" remarks="岗位名称"/>
+            <column name="sort_number" type="${Int}" remarks="排序编号"/>
+            <column name="status" type="${TypeCode}" remarks="状态"/>
+            <column name="remark" type="${Remark}" remarks="备注信息"/>
             <column name="data_source" type="${TypeCode}" remarks="数据源"/>
             <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
             <column name="create_by" type="${ID}" remarks="创建人"/>
             <column name="create_on" type="${DateTime}" remarks="创建时间"/>
             <column name="update_by" type="${ID}" remarks="修改人"/>
             <column name="update_on" type="${DateTime}" remarks="修改时间"/>
-            <column name="remark" type="${Remark}" remarks="备注信息"/>
         </createTable>
     </changeSet>
     <!--人员岗位关系表-->
@@ -132,7 +160,7 @@
             <column name="id" type="${ID}" remarks="主键编号">
                 <constraints primaryKey="true" primaryKeyName="PK_PERSON_POST_ID"/>
             </column>
-            <column name="user_id" type="${ID}" remarks="人员编号">
+            <column name="person_id" type="${ID}" remarks="人员编号">
                 <constraints nullable="false"/>
             </column>
             <column name="post_id" type="${ID}" remarks="岗位编号">
@@ -156,13 +184,15 @@
             <column name="name" type="${Name}" remarks="角色名称">
                 <constraints nullable="false"/>
             </column>
-            <column name="type" type="${TypeCode}" remarks="角色类型"/>
+            <column name="sort_number" type="${Int}" remarks="排序编号"/>
+            <column name="data_scope" type="${TypeCode}" remarks="数据范围"/>
+            <column name="status" type="${TypeCode}" remarks="状态"/>
+            <column name="remark" type="${Remark}" remarks="备注信息"/>
             <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
             <column name="create_on" type="${DateTime}" remarks="创建时间"/>
             <column name="create_by" type="${ID}" remarks="创建人"/>
             <column name="update_on" type="${DateTime}" remarks="修改时间"/>
             <column name="update_by" type="${ID}" remarks="修改人"/>
-            <column name="remark" type="${Remark}" remarks="备注信息"/>
         </createTable>
     </changeSet>
     <!--资源表-->
@@ -171,6 +201,7 @@
             <column name="id" type="${ID}" remarks="主键编号">
                 <constraints primaryKey="true" primaryKeyName="pk_resource"/>
             </column>
+            <column name="application" type="${ID}" remarks="应用编码"/>
             <column name="code" type="${Code}" remarks="编码">
                 <constraints nullable="false"/>
             </column>
@@ -179,18 +210,25 @@
             </column>
             <column name="type" type="${TypeCode}" remarks="类型"/>
             <column name="icon" type="${URL}" remarks="图标"/>
-            <column name="path" type="${URL}" remarks="链接"/>
+            <column name="rout" type="${URL}" remarks="路由地址"/>
+            <column name="component" type="${URL}" remarks="组件地址"/>
+            <column name="link" type="${URL}" remarks="链接地址"/>
+            <column name="redirect" type="${URL}" remarks="重定向地址"/>
             <column name="parent" type="${ID}" remarks="父级"/>
             <column name="level" type="${SmallInt}" remarks="层级"/>
-            <column name="sort_no" type="${Int}" remarks="序号"/>
+            <column name="sort_number" type="${Int}" remarks="序号"/>
+            <column name="remark" type="${Remark}" remarks="备注信息"/>
             <column name="status" type="${TypeCode}" remarks="状态"/>
+            <column name="leaf_flag" type="${Boole}" remarks="叶子标识" defaultValue="Y"/>
+            <column name="permission" type="${Boole}" remarks="权限标识" defaultValue="Y"/>
+            <column name="visible" type="${Boole}" remarks="可见标识" defaultValue="Y"/>
             <column name="enable_flag" type="${Boole}" remarks="启用标识" defaultValue="Y"/>
             <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
             <column name="create_on" type="${DateTime}" remarks="创建时间"/>
             <column name="create_by" type="${ID}" remarks="创建人"/>
             <column name="update_on" type="${DateTime}" remarks="修改时间"/>
             <column name="update_by" type="${ID}" remarks="修改人"/>
-            <column name="remark" type="${Remark}" remarks="备注信息"/>
+
         </createTable>
     </changeSet>
     <!--用户角色关系表-->
@@ -213,7 +251,7 @@
             </column>
         </createTable>
     </changeSet>
-    <!--角色资源表-->
+    <!--角色资源关系表-->
     <changeSet id="BP-ST-20210103-09" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
         <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
             <not>
@@ -233,64 +271,63 @@
             </column>
         </createTable>
     </changeSet>
-    <!--字典键表-->
+    <!--字典类型表-->
     <changeSet id="BP-ST-20210103-10" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
         <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
             <not>
                 <tableExists tableName="bp_dictionary_key"/>
             </not>
         </preConditions>
-        <comment>创建字典键表(bp_dictionary_key)</comment>
-        <createTable tableName="bp_dictionary_key" remarks="字典键表">
+        <comment>创建字典键表(bp_dictionary_type)</comment>
+        <createTable tableName="bp_dictionary_type" remarks="字典键表">
             <column name="id" type="${ID}" remarks="主键编号">
-                <constraints primaryKey="true" primaryKeyName="pk_dictionary_type_id"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dictionary_type"/>
             </column>
             <column name="application" type="${ID}" remarks="应用编号"/>
             <column name="module" type="${ID}" remarks="模块编号">
                 <constraints nullable="false"/>
             </column>
-            <column name="code" type="${Code}" remarks="键编码">
+            <column name="code" type="${Code}" remarks="类型编码">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="${Name}" remarks="键名称">
+            <column name="name" type="${Name}" remarks="类型名称">
                 <constraints nullable="false"/>
             </column>
+            <column name="remark" type="${Remark}" remarks="备注信息"/>
             <column name="system_flag" type="${Boole}" remarks="系统标识" defaultValue="N"/>
             <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
             <column name="create_by" type="${ID}" remarks="创建人"/>
             <column name="create_on" type="${DateTime}" remarks="创建时间"/>
             <column name="update_by" type="${ID}" remarks="修改人"/>
             <column name="update_on" type="${DateTime}" remarks="修改时间"/>
-            <column name="remark" type="${Remark}" remarks="备注信息"/>
         </createTable>
     </changeSet>
-    <!--字典条目表-->
+    <!--字典表-->
     <changeSet id="BP-ST-20210103-11" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
         <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
             <not>
                 <tableExists tableName="bp_dictionary_item"/>
             </not>
         </preConditions>
-        <comment>创建字典条目表(BP_DICTIONARY_ITEM)</comment>
-        <createTable tableName="bp_dictionary_item" remarks="字典条目表">
+        <comment>创建字典表(bp_dictionary)</comment>
+        <createTable tableName="bp_dictionary" remarks="字典表">
             <column name="id" type="${ID}" remarks="条目编号">
-                <constraints primaryKey="true" primaryKeyName="PK_DICTIONARY_ITEM_ID"/>
+                <constraints primaryKey="true" primaryKeyName="PK_DICTIONARY"/>
             </column>
-            <column name="key_id" type="${ID}" remarks="键编号"/>
-            <column name="key_code" type="${ID}" remarks="键编码"/>
-            <column name="code" type="${Code}" remarks="值编码"/>
-            <column name="value" type="${ShortString}" remarks="值">
+            <column name="type" type="${TypeCode}" remarks="字典类型"/>
+            <column name="code" type="${Code}" remarks="字典编码"/>
+            <column name="dictionary_value" type="${Common}" remarks="字典值">
                 <constraints nullable="false"/>
             </column>
-            <column name="language_code" type="${Code}" remarks="语言编码"/>
-            <column name="sort_index" type="${Int}" remarks="排序编号"/>
+            <column name="remark" type="${Remark}" remarks="备注信息"/>
+            <column name="sort_index" type="${SmallInt}" remarks="排序编号"/>
             <column name="system_flag" type="${Boole}" remarks="系统标识" defaultValue="N"/>
             <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
             <column name="create_by" type="${ID}" remarks="创建人"/>
             <column name="create_on" type="${DateTime}" remarks="创建时间"/>
             <column name="update_by" type="${ID}" remarks="修改人"/>
             <column name="update_on" type="${DateTime}" remarks="修改时间"/>
-            <column name="remark" type="${Remark}" remarks="备注信息"/>
+
         </createTable>
     </changeSet>
     <!--系统配置表-->
@@ -360,36 +397,7 @@
             <column name="remark" type="${Remark}" remarks="备注信息"/>
         </createTable>
     </changeSet>
-    <!--应用表-->
-    <changeSet id="BP-ST-20210103-14" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
-        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
-            <not>
-                <tableExists tableName="BP_application"/>
-            </not>
-        </preConditions>
-        <comment>创建应用表(BP_application)</comment>
-        <createTable tableName="BP_application" remarks="应用表">
-            <column name="id" type="${ID}" remarks="应用编号">
-                <constraints primaryKey="true" primaryKeyName="PK_APPLICATION_ID"/>
-            </column>
-            <column name="name" type="${Name}" remarks="应用名称">
-                <constraints nullable="false"/>
-            </column>
-            <column name="url" type="${MiddleString}" remarks="请求地址"/>
-            <column name="enable_flag" type="${Boole}" remarks="启用标识" defaultValue="Y"/>
-            <column name="client_secret" type="${Secret}" remarks="客户端密钥"/>
-            <column name="grant_type" type="${ShortChar}" remarks="授权类型"/>
-            <column name="access_token_validity" type="${ShortChar}" remarks="验证令牌过期时间"/>
-            <column name="refresh_token_validity" type="${ShortChar}" remarks="刷新令牌过期时间"/>
-            <column name="system_flag" type="${Boole}" remarks="系统标识" defaultValue="N"/>
-            <column name="delete_flag" type="${Boole}" remarks="删除标识" defaultValue="N"/>
-            <column name="create_by" type="${ID}" remarks="创建人"/>
-            <column name="create_on" type="${DateTime}" remarks="创建时间"/>
-            <column name="update_by" type="${ID}" remarks="修改人"/>
-            <column name="update_on" type="${DateTime}" remarks="修改时间"/>
-            <column name="remark" type="${Remark}" remarks="备注信息"/>
-        </createTable>
-    </changeSet>
+
     <!--模块表-->
     <changeSet id="BP-ST-20210103-15" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
         <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
