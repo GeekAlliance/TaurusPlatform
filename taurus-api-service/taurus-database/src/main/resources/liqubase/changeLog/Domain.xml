@@ -2,261 +2,209 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-				   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
 
     <!--*****************全局属性：通用数据类型、数据库兼容配置**********************-->
     <!--*****************************通用数据类型*******************************-->
     <!--主键编号-->
-    <property global="true" name="ID" value="VARCHAR(32)" dbms="mssql"/>
-    <property global="true" name="ID" value="VARCHAR(32)" dbms="mysql"/>
-    <property global="true" name="ID" value="VARCHAR2(32)" dbms="oracle"/>
-    <property global="true" name="ID" value="VARCHAR(32)" dbms="sqlite"/>
+    <property global="true" name="ID" value="varchar(32)" dbms="mssql"/>
+    <property global="true" name="ID" value="varchar(32)" dbms="mysql"/>
+    <property global="true" name="ID" value="varchar2(32)" dbms="oracle"/>
+    <property global="true" name="ID" value="varchar(32)" dbms="sqlite"/>
 
-    <!--字典编码-->
-    <property global="true" name="Code" value="VARCHAR(32)" dbms="mssql"/>
-    <property global="true" name="Code" value="VARCHAR(32)" dbms="mysql"/>
-    <property global="true" name="Code" value="VARCHAR2(32)" dbms="oracle"/>
-    <property global="true" name="Code" value="VARCHAR(32)" dbms="sqlite"/>
+    <!--编码-->
+    <property global="true" name="CODE" value="varchar(32)" dbms="mssql"/>
+    <property global="true" name="CODE" value="varchar(32)" dbms="mysql"/>
+    <property global="true" name="CODE" value="varchar2(32)" dbms="oracle"/>
+    <property global="true" name="CODE" value="varchar(32)" dbms="sqlite"/>
 
     <!--布尔-->
-    <property global="true" name="Boole" value="CHAR(1)" dbms="mssql"/>
-    <property global="true" name="Boole" value="CHAR(1)" dbms="mysql"/>
-    <property global="true" name="Boole" value="CHAR(1)" dbms="oracle"/>
-    <property global="true" name="Boole" value="CHAR(1)" dbms="sqlite"/>
+    <property global="true" name="BOOLEAN" value="char(1)" dbms="mssql"/>
+    <property global="true" name="BOOLEAN" value="char(1)" dbms="mysql"/>
+    <property global="true" name="BOOLEAN" value="char(1)" dbms="oracle"/>
+    <property global="true" name="BOOLEAN" value="char(1)" dbms="sqlite"/>
 
     <!--小整数-->
-    <property global="true" name="SmallInt" value="SMALLINT" dbms="mssql"/>
-    <property global="true" name="SmallInt" value="SMALLINT" dbms="mysql"/>
-    <property global="true" name="SmallInt" value="NUMBER(5,0)" dbms="oracle"/>
-    <property global="true" name="SmallInt" value="SMALLINT" dbms="sqlite"/>
+    <property global="true" name="SMALLINT" value="smallint" dbms="mssql"/>
+    <property global="true" name="SMALLINT" value="smallint" dbms="mysql"/>
+    <property global="true" name="SMALLINT" value="number(5,0)" dbms="oracle"/>
+    <property global="true" name="SMALLINT" value="smallint" dbms="sqlite"/>
 
     <!--整数-->
-    <property global="true" name="Int" value="INT" dbms="mssql"/>
-    <property global="true" name="Int" value="INT" dbms="mysql"/>
-    <property global="true" name="Int" value="INT" dbms="oracle"/>
-    <property global="true" name="Int" value="INT" dbms="sqlite"/>
+    <property global="true" name="INT" value="int" dbms="mssql"/>
+    <property global="true" name="INT" value="int" dbms="mysql"/>
+    <property global="true" name="INT" value="int" dbms="oracle"/>
+    <property global="true" name="INT" value="int" dbms="sqlite"/>
+
 
     <!--大整数-->
-    <property global="true" name="BigInt" value="BIGINT" dbms="mssql"/>
-    <property global="true" name="BigInt" value="BIGINT" dbms="mysql"/>
-    <property global="true" name="BigInt" value="NUMBER" dbms="oracle"/>
-    <property global="true" name="BigInt" value="BIGINT" dbms="sqlite"/>
-
-    <!--近似值-->
-    <property global="true" name="Float" value="FLOAT" dbms="mssql"/>
-    <property global="true" name="Float" value="FLOAT" dbms="mysql"/>
-    <property global="true" name="Float" value="FLOAT" dbms="oracle"/>
-    <property global="true" name="Float" value="FLOAT" dbms="sqlite"/>
-
-    <!--单字符-->
-    <property global="true" name="Char" value="VARCHAR(1)" dbms="mssql"/>
-    <property global="true" name="Char" value="VARCHAR(1)" dbms="mysql"/>
-    <property global="true" name="Char" value="VARCHAR(1)" dbms="oracle"/>
-    <property global="true" name="Char" value="VARCHAR(1)" dbms="sqlite"/>
-
-    <!--短字符-->
-    <property global="true" name="ShortChar" value="VARCHAR(128)" dbms="mssql"/>
-    <property global="true" name="ShortChar" value="VARCHAR(128)" dbms="mysql"/>
-    <property global="true" name="ShortChar" value="VARCHAR2(128)" dbms="oracle"/>
-    <property global="true" name="ShortChar" value="VARCHAR(128)" dbms="sqlite"/>
-
-    <!--中字符-->
-    <property global="true" name="MiddleChar" value="VARCHAR(256)" dbms="mssql"/>
-    <property global="true" name="MiddleChar" value="VARCHAR(256)" dbms="mysql"/>
-    <property global="true" name="MiddleChar" value="VARCHAR2(256)" dbms="oracle"/>
-    <property global="true" name="MiddleChar" value="VARCHAR(256)" dbms="sqlite"/>
-
-    <!--长字符-->
-    <property global="true" name="LongChar" value="VARCHAR(512)" dbms="mssql"/>
-    <property global="true" name="LongChar" value="VARCHAR(512)" dbms="mysql"/>
-    <property global="true" name="LongChar" value="VARCHAR2(512)" dbms="oracle"/>
-    <property global="true" name="LongChar" value="VARCHAR(512)" dbms="sqlite"/>
-
-    <!--超长字符-->
-    <property global="true" name="SuperChar" value="TEXT" dbms="mssql"/>
-    <property global="true" name="SuperChar" value="TEXT" dbms="mysql"/>
-    <property global="true" name="SuperChar" value="CLOB" dbms="oracle"/>
-    <property global="true" name="SuperChar" value="TEXT" dbms="sqlite"/>
-
-    <!--字符串短-->
-    <property global="true" name="ShortString" value="NVARCHAR(512)" dbms="mssql"/>
-    <property global="true" name="ShortString" value="VARCHAR(512)" dbms="mysql"/>
-    <property global="true" name="ShortString" value="NVARCHAR2(512)" dbms="oracle"/>
-    <property global="true" name="ShortString" value="VARCHAR(512)" dbms="sqlite"/>
-
-    <!--字符串中-->
-    <property global="true" name="MiddleString" value="NVARCHAR(1024)" dbms="mssql"/>
-    <property global="true" name="MiddleString" value="VARCHAR(1024)" dbms="mysql"/>
-    <property global="true" name="MiddleString" value="NVARCHAR2(1024)" dbms="oracle"/>
-    <property global="true" name="MiddleString" value="VARCHAR(1024)" dbms="sqlite"/>
-
-    <!--字符串长-->
-    <property global="true" name="LongString" value="NVARCHAR(3072)" dbms="mssql"/>
-    <property global="true" name="LongString" value="VARCHAR(3072)" dbms="mysql"/>
-    <property global="true" name="LongString" value="NVARCHAR2(3072)" dbms="oracle"/>
-    <property global="true" name="LongString" value="VARCHAR(3072)" dbms="sqlite"/>
+    <property global="true" name="BIGINT" value="bigint" dbms="mssql"/>
+    <property global="true" name="BIGINT" value="bigint" dbms="mysql"/>
+    <property global="true" name="BIGINT" value="number" dbms="oracle"/>
+    <property global="true" name="BIGINT" value="bigint" dbms="sqlite"/>
 
     <!--文本-->
-    <property global="true" name="Text" value="NTEXT" dbms="mssql"/>
-    <property global="true" name="Text" value="TEXT" dbms="mysql"/>
-    <property global="true" name="Text" value="NCLOB" dbms="oracle"/>
-    <property global="true" name="Text" value="TEXT" dbms="sqlite"/>
+    <property global="true" name="TEXT" value="ntext" dbms="mssql"/>
+    <property global="true" name="TEXT" value="text" dbms="mysql"/>
+    <property global="true" name="TEXT" value="nclob" dbms="oracle"/>
+    <property global="true" name="TEXT" value="text" dbms="sqlite"/>
 
-    <!--TOKEN-->
-    <property global="true" name="Token" value="TEXT" dbms="mssql"/>
-    <property global="true" name="Token" value="BLOB" dbms="mysql"/>
-    <property global="true" name="Token" value="NCLOB" dbms="oracle"/>
-    <property global="true" name="Token" value="TEXT" dbms="sqlite"/>
+    <!--token-->
+    <property global="true" name="TOKEN" value="text" dbms="mssql"/>
+    <property global="true" name="TOKEN" value="blob" dbms="mysql"/>
+    <property global="true" name="TOKEN" value="nclob" dbms="oracle"/>
+    <property global="true" name="TOKEN" value="text" dbms="sqlite"/>
 
-    <!--数值-->数字
-    <property global="true" name="Numeral" value="DECIMAL(15,6)" dbms="mssql"/>
-    <property global="true" name="Numeral" value="DECIMAL(15,6)" dbms="mysql"/>
-    <property global="true" name="Numeral" value="NUMBER(15,6)" dbms="oracle"/>
-    <property global="true" name="Numeral" value="NUMBER(15,6)" dbms="sqlite"/>
+    <!--数值-->
+    <property global="true" name="NUMERAL" value="decimal(15,6)" dbms="mssql"/>
+    <property global="true" name="NUMERAL" value="decimal(15,6)" dbms="mysql"/>
+    <property global="true" name="NUMERAL" value="number(15,6)" dbms="oracle"/>
+    <property global="true" name="NUMERAL" value="number(15,6)" dbms="sqlite"/>
 
     <!--通用值-->
-    <property global="true" name="Common" value="NVARCHAR(256)" dbms="mssql"/>
-    <property global="true" name="Common" value="VARCHAR(256)" dbms="mysql"/>
-    <property global="true" name="Common" value="NVARCHAR2(256)" dbms="oracle"/>
-    <property global="true" name="Common" value="VARCHAR(256)" dbms="sqlite"/>
+    <property global="true" name="COMMON" value="nvarchar(256)" dbms="mssql"/>
+    <property global="true" name="COMMON" value="varchar(256)" dbms="mysql"/>
+    <property global="true" name="COMMON" value="nvarchar2(256)" dbms="oracle"/>
+    <property global="true" name="COMMON" value="varchar(256)" dbms="sqlite"/>
 
-    <!--类型（Int）-->
-    <property global="true" name="TypeInt" value="SMALLINT" dbms="mssql"/>
-    <property global="true" name="TypeInt" value="SMALLINT" dbms="mysql"/>
-    <property global="true" name="TypeInt" value="NUMBER(5,0)" dbms="oracle"/>
-    <property global="true" name="TypeInt" value="SMALLINT" dbms="sqlite"/>
+    <!--树层级-->
+    <property global="true" name="LEVEL" value="smallint" dbms="mssql"/>
+    <property global="true" name="LEVEL" value="tinyint" dbms="mysql"/>
+    <property global="true" name="LEVEL" value="number(5,0)" dbms="oracle"/>
+    <property global="true" name="LEVEL" value="smallint" dbms="sqlite"/>
 
-    <!--类型（编码）-->
-    <property global="true" name="TypeCode" value="VARCHAR(32)" dbms="mssql"/>
-    <property global="true" name="TypeCode" value="VARCHAR(32)" dbms="mysql"/>
-    <property global="true" name="TypeCode" value="VARCHAR2(32)" dbms="oracle"/>
-    <property global="true" name="TypeCode" value="VARCHAR(32)" dbms="sqlite"/>
+    <!--序号-->
+    <property global="true" name="SERIAL" value="smallint" dbms="mssql"/>
+    <property global="true" name="SERIAL" value="smallint" dbms="mysql"/>
+    <property global="true" name="SERIAL" value="number(5,0)" dbms="oracle"/>
+    <property global="true" name="SERIAL" value="smallint" dbms="sqlite"/>
+
+    <!--字典编码-->
+    <property global="true" name="DICTIONARY" value="varchar(32)" dbms="mssql"/>
+    <property global="true" name="DICTIONARY" value="tinyint" dbms="mysql"/>
+    <property global="true" name="DICTIONARY" value="varchar2(32)" dbms="oracle"/>
+    <property global="true" name="DICTIONARY" value="varchar(32)" dbms="sqlite"/>
 
     <!--名称-->
-    <property global="true" name="Name" value="NVARCHAR(128)" dbms="mssql"/>
-    <property global="true" name="Name" value="VARCHAR(128)" dbms="mysql"/>
-    <property global="true" name="Name" value="NVARCHAR2(128)" dbms="oracle"/>
-    <property global="true" name="Name" value="VARCHAR(128)" dbms="sqlite"/>
+    <property global="true" name="NAME" value="nvarchar(64)" dbms="mssql"/>
+    <property global="true" name="NAME" value="varchar(64)" dbms="mysql"/>
+    <property global="true" name="NAME" value="nvarchar2(64)" dbms="oracle"/>
+    <property global="true" name="NAME" value="varchar(64)" dbms="sqlite"/>
 
-    <!--IP地址-->
-    <property global="true" name="IP" value="VARCHAR(23)" dbms="mssql"/>
-    <property global="true" name="IP" value="VARCHAR(23)" dbms="mysql"/>
-    <property global="true" name="IP" value="VARCHAR2(23)" dbms="oracle"/>
-    <property global="true" name="IP" value="VARCHAR(23)" dbms="sqlite"/>
+    <!--ip地址-->
+    <property global="true" name="IP" value="int" dbms="mssql"/>
+    <property global="true" name="IP" value="int" dbms="mysql"/>
+    <property global="true" name="IP" value="vint" dbms="oracle"/>
+    <property global="true" name="IP" value="int" dbms="sqlite"/>
+
+    <!--登录账号-->
+    <property global="true" name="ACCOUNT" value="varchar(32)" dbms="mssql"/>
+    <property global="true" name="ACCOUNT" value="varchar(32)" dbms="mysql"/>
+    <property global="true" name="ACCOUNT" value="varchar2(32)" dbms="oracle"/>
+    <property global="true" name="ACCOUNT" value="varchar(32)" dbms="sqlite"/>
 
     <!--密码-->
-    <property global="true" name="Password" value="VARCHAR(64)" dbms="mssql"/>
-    <property global="true" name="Password" value="VARCHAR(64)" dbms="mysql"/>
-    <property global="true" name="Password" value="VARCHAR2(64)" dbms="oracle"/>
-    <property global="true" name="Password" value="VARCHAR(64)" dbms="sqlite"/>
+    <property global="true" name="PASSWORD" value="varchar(128)" dbms="mssql"/>
+    <property global="true" name="PASSWORD" value="varchar(128)" dbms="mysql"/>
+    <property global="true" name="PASSWORD" value="varchar2(128)" dbms="oracle"/>
+    <property global="true" name="PASSWORD" value="varchar(128)" dbms="sqlite"/>
 
-    <!--密钥-->
-    <property global="true" name="Secret" value="VARCHAR(256)" dbms="mssql"/>
-    <property global="true" name="Secret" value="VARCHAR(256)" dbms="mysql"/>
-    <property global="true" name="Secret" value="VARCHAR2(256)" dbms="oracle"/>
-    <property global="true" name="Secret" value="VARCHAR(256)" dbms="sqlite"/>
 
     <!--工号-->
-    <property global="true" name="WorkNo" value="VARCHAR(32)" dbms="mssql"/>
-    <property global="true" name="WorkNo" value="VARCHAR(32)" dbms="mysql"/>
-    <property global="true" name="WorkNo" value="VARCHAR2(32)" dbms="oracle"/>
-    <property global="true" name="WorkNo" value="VARCHAR(32)" dbms="sqlite"/>
-
-    <!--序列码-->
-    <property global="true" name="SerialNo" value="VARCHAR(32)" dbms="mssql"/>
-    <property global="true" name="SerialNo" value="VARCHAR(32)" dbms="mysql"/>
-    <property global="true" name="SerialNo" value="VARCHAR2(32)" dbms="oracle"/>
-    <property global="true" name="SerialNo" value="VARCHAR(32)" dbms="sqlite"/>
+    <property global="true" name="WORK_NO" value="varchar(32)" dbms="mssql"/>
+    <property global="true" name="WORK_NO" value="varchar(32)" dbms="mysql"/>
+    <property global="true" name="WORK_NO" value="varchar2(32)" dbms="oracle"/>
+    <property global="true" name="WORK_NO" value="varchar(32)" dbms="sqlite"/>
 
     <!--微信-->
-    <property global="true" name="WeChat" value="VARCHAR(20)" dbms="mssql"/>
-    <property global="true" name="WeChat" value="VARCHAR(20)" dbms="mysql"/>
-    <property global="true" name="WeChat" value="VARCHAR2(20)" dbms="oracle"/>
-    <property global="true" name="WeChat" value="VARCHAR(20)" dbms="sqlite"/>
+    <property global="true" name="WECHAT" value="varchar(20)" dbms="mssql"/>
+    <property global="true" name="WECHAT" value="varchar(20)" dbms="mysql"/>
+    <property global="true" name="WECHAT" value="varchar2(20)" dbms="oracle"/>
+    <property global="true" name="WECHAT" value="varchar(20)" dbms="sqlite"/>
+
+    <!--日期-->
+    <property global="true" name="DATE" value="datetime" dbms="mssql"/>
+    <property global="true" name="DATE" value="datetime(3)" dbms="mysql"/>
+    <property global="true" name="DATE" value="date" dbms="oracle"/>
+    <property global="true" name="DATE" value="datetime" dbms="sqlite"/>
 
     <!--时间、日期、日期时间-->
-    <property global="true" name="DateTime" value="DATETIME" dbms="mssql"/>
-    <property global="true" name="DateTime" value="DATETIME(3)" dbms="mysql"/>
-    <property global="true" name="DateTime" value="DATE" dbms="oracle"/>
-    <property global="true" name="DateTime" value="DATETIME" dbms="sqlite"/>
+    <property global="true" name="TIME" value="datetime" dbms="mssql"/>
+    <property global="true" name="TIME" value="datetime(3)" dbms="mysql"/>
+    <property global="true" name="TIME" value="date" dbms="oracle"/>
+    <property global="true" name="TIME" value="datetime" dbms="sqlite"/>
 
-    <!--比例-->
-    <property global="true" name="Ratio" value="DECIMAL(4,2)" dbms="mssql"/>
-    <property global="true" name="Ratio" value="DECIMAL(4,2)" dbms="mysql"/>
-    <property global="true" name="Ratio" value="NUMBER(4,2)" dbms="oracle"/>
-    <property global="true" name="Ratio" value="DECIMAL(4,2)" dbms="sqlite"/>
+    <!--日期时间-->
+    <property global="true" name="DATETIME" value="datetime" dbms="mssql"/>
+    <property global="true" name="DATETIME" value="datetime(3)" dbms="mysql"/>
+    <property global="true" name="DATETIME" value="date" dbms="oracle"/>
+    <property global="true" name="DATETIME" value="datetime" dbms="sqlite"/>
 
-    <!--温度-->
-    <property global="true" name="Temperature" value="FLOAT" dbms="mssql"/>
-    <property global="true" name="Temperature" value="FLOAT" dbms="mysql"/>
-    <property global="true" name="Temperature" value="FLOAT" dbms="oracle"/>
-    <property global="true" name="Temperature" value="FLOAT" dbms="sqlite"/>
+    <!--百分率-->
+    <property global="true" name="PERCENT" value="decimal(4,2)" dbms="mssql"/>
+    <property global="true" name="PERCENT" value="decimal(4,2)" dbms="mysql"/>
+    <property global="true" name="PERCENT" value="number(4,2)" dbms="oracle"/>
+    <property global="true" name="PERCENT" value="decimal(4,2)" dbms="sqlite"/>
 
     <!--电话-->
-    <property global="true" name="Phone" value="VARCHAR(11)" dbms="mssql"/>
-    <property global="true" name="Phone" value="VARCHAR(11)" dbms="mysql"/>
-    <property global="true" name="Phone" value="NVARCHAR2(11)" dbms="oracle"/>
-    <property global="true" name="Phone" value="VARCHAR(11)" dbms="sqlite"/>
+    <property global="true" name="PHONE" value="varchar(14)" dbms="mssql"/>
+    <property global="true" name="PHONE" value="varchar(14)" dbms="mysql"/>
+    <property global="true" name="PHONE" value="nvarchar2(14)" dbms="oracle"/>
+    <property global="true" name="PHONE" value="varchar(14)" dbms="sqlite"/>
 
     <!--坐标-->
-    <property global="true" name="Coordinate" value="DECIMAL(10,6)" dbms="mssql"/>
-    <property global="true" name="Coordinate" value="DECIMAL(10,6)" dbms="mysql"/>
-    <property global="true" name="Coordinate" value="NUMBER(10,6)"  dbms="oracle"/>
-    <property global="true" name="Coordinate" value="DECIMAL(10,6)" dbms="sqlite"/>
+    <property global="true" name="COORDINATE" value="decimal(10,6)" dbms="mssql"/>
+    <property global="true" name="COORDINATE" value="decimal(10,6)" dbms="mysql"/>
+    <property global="true" name="COORDINATE" value="number(10,6)" dbms="oracle"/>
+    <property global="true" name="COORDINATE" value="decimal(10,6)" dbms="sqlite"/>
 
     <!--邮箱-->
-    <property global="true" name="Email" value="VARCHAR(512)" dbms="mssql"/>
-    <property global="true" name="Email" value="VARCHAR(512)" dbms="mysql"/>
-    <property global="true" name="Email" value="VARCHAR2(512)" dbms="oracle"/>
-    <property global="true" name="Email" value="VARCHAR(512)" dbms="sqlite"/>
+    <property global="true" name="EMAIL" value="varchar(512)" dbms="mssql"/>
+    <property global="true" name="EMAIL" value="varchar(512)" dbms="mysql"/>
+    <property global="true" name="EMAIL" value="varchar2(512)" dbms="oracle"/>
+    <property global="true" name="EMAIL" value="varchar(512)" dbms="sqlite"/>
 
     <!--金额-->
-    <property global="true" name="Money" value="DECIMAL(18,4)" dbms="mssql"/>
-    <property global="true" name="Money" value="DECIMAL(18,4)" dbms="mysql"/>
-    <property global="true" name="Money" value="NUMBER(18,4)" dbms="oracle"/>
-    <property global="true" name="Money" value="DECIMAL(18,4)" dbms="sqlite"/>
+    <property global="true" name="MONEY" value="decimal(18,4)" dbms="mssql"/>
+    <property global="true" name="MONEY" value="decimal(18,4)" dbms="mysql"/>
+    <property global="true" name="MONEY" value="number(18,4)" dbms="oracle"/>
+    <property global="true" name="MONEY" value="decimal(18,4)" dbms="sqlite"/>
 
     <!--颜色-->
-    <property global="true" name="Color" value="VARCHAR(7)" dbms="mssql"/>
-    <property global="true" name="Color" value="VARCHAR(7)" dbms="mysql"/>
-    <property global="true" name="Color" value="VARCHAR(7)" dbms="oracle"/>
-    <property global="true" name="Color" value="VARCHAR(7)" dbms="sqlite"/>
+    <property global="true" name="COLOR" value="varchar(7)" dbms="mssql"/>
+    <property global="true" name="COLOR" value="varchar(7)" dbms="mysql"/>
+    <property global="true" name="COLOR" value="varchar(7)" dbms="oracle"/>
+    <property global="true" name="COLOR" value="varchar(7)" dbms="sqlite"/>
 
     <!--身份证-->
-    <property global="true" name="IdCard" value="VARCHAR(18)" dbms="mssql"/>
-    <property global="true" name="IdCard" value="VARCHAR(18)" dbms="mysql"/>
-    <property global="true" name="IdCard" value="VARCHAR2(18)" dbms="oracle"/>
-    <property global="true" name="IdCard" value="VARCHAR(18)" dbms="sqlite"/>
+    <property global="true" name="ID_CARD" value="varchar(18)" dbms="mssql"/>
+    <property global="true" name="ID_CARD" value="varchar(18)" dbms="mysql"/>
+    <property global="true" name="ID_CARD" value="varchar2(18)" dbms="oracle"/>
+    <property global="true" name="ID_CARD" value="varchar(18)" dbms="sqlite"/>
 
-    <!-- Address住址 -->
-    <property global="true" name="Address" value="NVARCHAR(128)" dbms="mssql"/>
-    <property global="true" name="Address" value="VARCHAR(128)" dbms="mysql"/>
-    <property global="true" name="Address" value="NVARCHAR2(128)" dbms="oracle"/>
-    <property global="true" name="Address" value="VARCHAR(128)" dbms="sqlite"/>
+    <!-- address住址 -->
+    <property global="true" name="ADDRESS" value="nvarchar(128)" dbms="mssql"/>
+    <property global="true" name="ADDRESS" value="varchar(128)" dbms="mysql"/>
+    <property global="true" name="ADDRESS" value="nvarchar2(128)" dbms="oracle"/>
+    <property global="true" name="ADDRESS" value="varchar(128)" dbms="sqlite"/>
 
-    <!--URL资源路径-->
-    <property global="true" name="URL" value="NVARCHAR(2048)" dbms="mssql"/>
-    <property global="true" name="URL" value="VARCHAR(2048)" dbms="mysql"/>
-    <property global="true" name="URL" value="NVARCHAR2(2048)" dbms="oracle"/>
-    <property global="true" name="URL" value="VARCHAR(2048)" dbms="sqlite"/>
-
-    <!--验证码-->
-    <property global="true" name="AuthCode" value="VARCHAR(6)" dbms="mssql"/>
-    <property global="true" name="AuthCode" value="VARCHAR(6)" dbms="mysql"/>
-    <property global="true" name="AuthCode" value="VARCHAR2(6)" dbms="oracle"/>
-    <property global="true" name="AuthCode" value="VARCHAR(6)" dbms="sqlite"/>
+    <!--url资源路径-->
+    <property global="true" name="URL" value="nvarchar(2048)" dbms="mssql"/>
+    <property global="true" name="URL" value="varchar(2048)" dbms="mysql"/>
+    <property global="true" name="URL" value="nvarchar2(2048)" dbms="oracle"/>
+    <property global="true" name="URL" value="varchar(2048)" dbms="sqlite"/>
 
     <!--备注/描述信息-->
-    <property global="true" name="Remark" value="NVARCHAR(512)" dbms="mssql"/>
-    <property global="true" name="Remark" value="VARCHAR(512)" dbms="mysql"/>
-    <property global="true" name="Remark" value="NVARCHAR2(512)" dbms="oracle"/>
-    <property global="true" name="Remark" value="VARCHAR(512)" dbms="sqlite"/>
+    <property global="true" name="REMARK" value="nvarchar(512)" dbms="mssql"/>
+    <property global="true" name="REMARK" value="varchar(512)" dbms="mysql"/>
+    <property global="true" name="REMARK" value="nvarchar2(512)" dbms="oracle"/>
+    <property global="true" name="REMARK" value="varchar(512)" dbms="sqlite"/>
 
     <!--流-->
-    <property global="true" name="Stream" value="VARBINARY(MAX)" dbms="mssql"/>
-    <property global="true" name="Stream" value="BLOB" dbms="mysql"/>
-    <property global="true" name="Stream" value="NCLOB" dbms="oracle"/>
-    <property global="true" name="Stream" value="TEXT" dbms="sqlite"/>
+    <property global="true" name="STREAM" value="varbinary(max)" dbms="mssql"/>
+    <property global="true" name="STREAM" value="blob" dbms="mysql"/>
+    <property global="true" name="STREAM" value="nclob" dbms="oracle"/>
+    <property global="true" name="STREAM" value="text" dbms="sqlite"/>
 
 
 </databaseChangeLog>
