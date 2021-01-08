@@ -7,10 +7,10 @@
         <artifactId>taurus-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.geekalliance</groupId>
     <artifactId>taurus-base-api</artifactId>
     <name>TaurusPlatformBaseApi</name>
     <description>Taurus Platform Base Api</description>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>com.geekalliance</groupId>
