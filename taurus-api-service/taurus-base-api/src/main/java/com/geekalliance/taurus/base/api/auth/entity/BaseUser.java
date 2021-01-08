@@ -13,8 +13,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("AM_USER")
-public class User extends BaseEntity {
+@TableName("BASE_USER")
+public class BaseUser extends BaseEntity {
 
     private static final long serialVersionUID=1L;
 

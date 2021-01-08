@@ -2,7 +2,7 @@ package com.geekalliance.taurus.base.oauth.controller;
 
 
 import com.geekalliance.taurus.base.api.auth.dto.LoginUserDTO;
-import com.geekalliance.taurus.base.api.auth.entity.User;
+import com.geekalliance.taurus.base.api.auth.entity.BaseUser;
 import com.geekalliance.taurus.base.api.auth.enums.GrantTypeEnum;
 import com.geekalliance.taurus.base.api.auth.vo.CurrUserVO;
 import com.geekalliance.taurus.base.api.auth.vo.CustomTokenVO;
@@ -101,8 +101,8 @@ public class OauthController extends BaseController {
     public Result<CurrUserVO> currUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         try {
-            User user = usernameUserDetailService.getUser(authentication.getName());
-            CurrUserVO userVO = beanGenerator.convert(user, CurrUserVO.class);
+            BaseUser baseUser = usernameUserDetailService.getUser(authentication.getName());
+            CurrUserVO userVO = beanGenerator.convert(baseUser, CurrUserVO.class);
             userVO.setRoles(new ArrayList<>());
             return Result.success(userVO);
         } catch (RuntimeException e) {
