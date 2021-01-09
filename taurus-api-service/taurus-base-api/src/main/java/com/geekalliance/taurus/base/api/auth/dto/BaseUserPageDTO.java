@@ -21,13 +21,4 @@ public class BaseUserPageDTO implements Serializable {
     @ApiModelProperty(value = "用户名", example = "账号")
     private String username;
 
-    @ApiModelProperty(value = "姓名", example = "姓名")
-    private String personName;
-
-    @ApiModelProperty(value = "昵称", example = "昵称")
-    private String nickName;
-
-    @ApiModelProperty(value = "用户类型", example = "用户类型")
-    private String typeName;
-
 }
