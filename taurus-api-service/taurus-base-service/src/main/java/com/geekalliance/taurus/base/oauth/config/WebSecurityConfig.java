@@ -10,7 +10,6 @@ import com.geekalliance.taurus.base.oauth.config.provider.PhoneAuthenticationPro
 import com.geekalliance.taurus.base.oauth.service.PhoneUserDetailService;
 import com.geekalliance.taurus.base.oauth.service.UsernameUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

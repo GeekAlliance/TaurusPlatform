@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -72,15 +73,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private CustomTokenEnhancer customTokenEnhancer;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Resource
     private DataSource dataSource;
-
-
-    @Bean("jdbcClientDetailsService")
-    public JdbcClientDetailsService getJdbcClientDetailsService() {
-        return new JdbcClientDetailsService(dataSource);
-    }
-
 
     @Value("${spring.security.oauth2.jwt.signingKey}")
     private String signingKey;
@@ -125,7 +122,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public TokenStore tokenStore() {
         //数据库存储 需要 oauth_refresh_token oauth_access_token表
         TokenStore tokenStore = new JdbcTokenStore(dataSource);
-
         //不使用数据库存储信息
         //TokenStore tokenStore = new JwtTokenStore(jwtAccessTokenConverter());
         return tokenStore;
@@ -176,7 +172,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);
         defaultTokenServices.setReuseRefreshToken(false);
-        //token 有效时间,默认12h
         defaultTokenServices.setClientDetailsService(clientDetailsService);
         // 如果没有设置它,JWT就失效了.
         defaultTokenServices.setTokenEnhancer(tokenEnhancerChain());
@@ -187,6 +182,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public DefaultOAuth2RequestFactory oAuth2RequestFactory() {
         return new DefaultOAuth2RequestFactory(clientDetailsService);
     }
+
+
+    @Bean("jdbcClientDetailsService")
+    public JdbcClientDetailsService getJdbcClientDetailsService() {
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+        jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
+        return jdbcClientDetailsService;
+    }
+
+    @Bean
+    public ClientAuthenticationManager clientAuthenticationManager() {
+        return new ClientAuthenticationManager(passwordEncoder, clientDetailsService);
+    }
+
 
     private TokenGranter tokenGranter() {
         return new TokenGranter() {
