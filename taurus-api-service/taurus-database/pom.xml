@@ -14,15 +14,15 @@
     <packaging>pom</packaging>
 
     <properties>
-        <environment>dev</environment>
         <dbms>mysql</dbms>
-        <author>GeeKeeper</author>
+        <author>MarkBell</author>
         <current.time>${maven.build.timestamp}</current.time>
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
     </properties>
 
     <build>
         <plugins>
+            <!--liquibase-->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
@@ -36,12 +36,21 @@
                 </dependencies>
                 <configuration>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
-                    <propertyFile>
-                        src/main/resources/liqubase/config/${dbms}/${environment}.properties
-                    </propertyFile>
+                    <propertyFile>src/main/resources/liqubase/config/${dbms}/${author}.properties</propertyFile>
+                    <changeLogFile>src/main/resources/liqubase/ChangelogMaster.xml</changeLogFile>
+                    <outputDirectory>src/main/resources/liqubase/document</outputDirectory>
+                    <migrationSqlOutputFile>
+                        src/main/resources/liqubase/${dbms}/update/${current.time}-${dbms}-update.sql
+                    </migrationSqlOutputFile>
+                    <diffTypes>tables,columns,primaryKeys</diffTypes>
+                    <outputChangeLogFile>
+                        src/main/resources/liqubase/generate/${current.time}-${dbms}-generate.xml
+                    </outputChangeLogFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <changeSetAuthor>${author}</changeSetAuthor>
                 </configuration>
             </plugin>
-
+            <!--screw-->
             <plugin>
                 <groupId>cn.smallbun.screw</groupId>
                 <artifactId>screw-maven-plugin</artifactId>
