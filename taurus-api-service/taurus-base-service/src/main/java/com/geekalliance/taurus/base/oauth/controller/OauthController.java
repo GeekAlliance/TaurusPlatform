@@ -139,7 +139,7 @@ public class OauthController extends BaseController {
         CustomTokenVO customToken = new CustomTokenVO();
         DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
         customToken.setAccessToken(token.getValue());
-        if (null != token.getRefreshToken()) {
+        if (Objects.nonNull(token.getRefreshToken())) {
             customToken.setRefreshToken(token.getRefreshToken().getValue());
         }
         customToken.setExpiresIn(token.getExpiresIn());
