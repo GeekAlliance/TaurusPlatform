@@ -13,17 +13,29 @@ import java.util.Date;
 @Data
 public class BaseEntity implements Serializable {
 
+    /**
+     * 创建时间
+     */
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    private Date createOn;
 
+    /**
+     * 创建人
+     */
     @ApiModelProperty(value = "创建人")
     private String createBy;
 
+    /**
+     * 修改时间
+     */
     @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
+    private Date updateOn;
 
+    /**
+     * 修改人
+     */
     @ApiModelProperty(value = "更新人")
     private String updateBy;
 }

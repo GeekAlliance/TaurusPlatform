@@ -286,7 +286,7 @@ public class DynamicDataSourceConfig extends AbstractDataSourceService implement
     }
 
     public static Connection getConnection() {
-        return getConnection(DynamicRoutingDataSource.getDataSourceTag(), null);
+        return getConnection(DynamicRoutingDataSource.getDataSourceTag(), 10000L);
     }
 
     public static Connection getConnection(Object dataSourceTag, Long maxWaitMillis) {

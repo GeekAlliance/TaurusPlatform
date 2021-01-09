@@ -5,6 +5,9 @@ import com.geekalliance.taurus.core.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.util.Date;
+
 /**
  *
  * @author Gen Code
@@ -15,44 +18,127 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("BASE_USER")
 public class BaseUser extends BaseEntity {
-
     private static final long serialVersionUID=1L;
 
     @TableId(value = "ID",type = IdType.ASSIGN_UUID)
     private String id;
-
-    private String externId;
-
-    private String username;
-
-    private String password;
-
-    private String departName;
-
+    /**
+     * 昵称
+     */
     private String nickName;
 
-    private String workNo;
+    /**
+     * 用户名
+     */
+    private String username;
 
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
+     * 失效时间
+     */
+    private Date expiredTime;
+
+    /**
+     * 状态
+     */
+    private Byte status;
+
+    /**
+     * 名称
+     */
+    private String name;
+
+    /**
+     * 工号
+     */
+    private String jobNumber;
+
+    /**
+     * 生日
+     */
+    private Date birthday;
+
+    /**
+     * 邮箱
+     */
     private String email;
 
+    /**
+     * 微信
+     */
     private String wechat;
 
+    /**
+     * 手机
+     */
     private String phone;
 
-    private String online;
+    /**
+     * 电话
+     */
+    private String telephone;
 
-    private String enable;
+    /**
+     * 备注信息
+     */
+    private String remark;
 
-    private String statusCode;
+    /**
+     * 数据源
+     */
+    private Byte dataSource;
 
-    private String isSuper;
+    /**
+     * 在线标识
+     */
+    private String onlineFlag;
 
-    private String personName;
+    /**
+     * 启用标识
+     */
+    private String enableFlag;
 
+    /**
+     * 超级管理员
+     */
+    private String superFlag;
+
+    /**
+     * 密码类型
+     */
     private String passwordType;
 
-    private String typeCode;
+    /**
+     * 删除标识
+     */
+    private String deleteFlag;
 
-    @TableLogic
-    private String deleteTag;
+    /**
+     * 创建时间
+     */
+    private Date createOn;
+
+    /**
+     * 创建人
+     */
+    private String createBy;
+
+    /**
+     * 修改时间
+     */
+    private Date updateOn;
+
+    /**
+     * 修改人
+     */
+    private String updateBy;
 }
