@@ -23,7 +23,7 @@ public class BaseEntity implements Serializable {
      */
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createOn;
+    private Date createAt;
 
     /**
      * 创建人
@@ -36,7 +36,7 @@ public class BaseEntity implements Serializable {
      */
     @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateOn;
+    private Date updateAt;
 
     /**
      * 修改人

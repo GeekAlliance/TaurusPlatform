@@ -17,10 +17,10 @@ public class BaseEntityFillUtils {
     public static void setBaseEntity(BaseEntity entity, boolean isSave) {
         TokenUser user = UserContextHolder.getInstance().getTokenUser();
         entity.setUpdateBy(user.getId());
-        entity.setUpdateOn(new Date());
+        entity.setUpdateAt(new Date());
         if (isSave) {
             entity.setCreateBy(user.getId());
-            entity.setCreateOn(new Date());
+            entity.setCreateAt(new Date());
         }
     }
 }
