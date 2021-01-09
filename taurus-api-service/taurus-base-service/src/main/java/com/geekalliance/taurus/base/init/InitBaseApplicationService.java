@@ -13,6 +13,7 @@ import com.geekalliance.taurus.toolkit.enums.CommonEnum;
 import com.hollysys.platform.common.core.utils.Md5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
@@ -35,6 +36,9 @@ import java.util.TreeSet;
 @Slf4j
 @Service
 public class InitBaseApplicationService {
+    @Value("${spring.liquibase.database-change-log-lock-table}")
+    private String lockTableName;
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -55,7 +59,7 @@ public class InitBaseApplicationService {
         Connection connection = DynamicDataSourceConfig.getConnection();
         try {
             if (Objects.nonNull(connection)) {
-                ExclusiveLockUtils.lockTable(connection, "dv_change_log_lock", "locked");
+                ExclusiveLockUtils.lockTable(connection, lockTableName, "locked");
                 initBrowserClient();
             }
         } catch (Exception e) {

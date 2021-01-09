@@ -10,7 +10,7 @@
     <result column="password_type" jdbcType="TINYINT" property="passwordType" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="expired_time" jdbcType="TIMESTAMP" property="expiredTime" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status_number" jdbcType="TINYINT" property="statusNumber" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="job_number" jdbcType="VARCHAR" property="jobNumber" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
@@ -27,8 +27,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    nick_name, username, `password`, password_type, avatar, expired_time, `status`, `name`, 
-    job_number, birthday, email, wechat, phone, telephone, remark, data_source, online_flag, 
-    enable_flag, super_flag, delete_flag
+    nick_name, username, `password`, password_type, avatar, expired_time, status_number, 
+    `name`, job_number, birthday, email, wechat, phone, telephone, remark, data_source, 
+    online_flag, enable_flag, super_flag, delete_flag
   </sql>
 </mapper>

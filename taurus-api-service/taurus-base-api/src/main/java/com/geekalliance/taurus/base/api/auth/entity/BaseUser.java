@@ -1,6 +1,5 @@
 package com.geekalliance.taurus.base.api.auth.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.geekalliance.taurus.core.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,10 +10,9 @@ import lombok.EqualsAndHashCode;
 /**
  * 用户表
  */
-@ApiModel(value = "用户表")
+@ApiModel(value = "com-geekalliance-taurus-base-api-auth-entity-BaseUser")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("base_user")
 public class BaseUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
     /**
@@ -57,7 +55,7 @@ public class BaseUser extends BaseEntity {
      * 状态
      */
     @ApiModelProperty(value = "状态")
-    private Integer status;
+    private Byte statusNumber;
 
     /**
      * 名称
@@ -111,7 +109,7 @@ public class BaseUser extends BaseEntity {
      * 数据源
      */
     @ApiModelProperty(value = "数据源")
-    private Byte dataSource;
+    private Integer dataSource;
 
     /**
      * 在线标识
