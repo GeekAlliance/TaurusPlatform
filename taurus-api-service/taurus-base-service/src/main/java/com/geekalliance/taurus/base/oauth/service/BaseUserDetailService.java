@@ -31,7 +31,7 @@ public abstract class BaseUserDetailService implements UserDetailsService {
         User userDetail =  new org.springframework.security.core.userdetails.User(
                 baseUser.getUsername(),
                 baseUser.getPassword(),
-                isActive(baseUser.getEnable()), true, true, true, this.convertToAuthorities(baseUser));
+                isActive(baseUser.getEnableFlag()), true, true, true, this.convertToAuthorities(baseUser));
         return userDetail;
     }
 

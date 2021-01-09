@@ -74,17 +74,17 @@ public class InitBaseApplicationService {
     @Async
     public void initUser() {
         try {
-            BaseUser user = baseUserService.getSysUserByUserName(initUserProperties.getUserName());
+            BaseUser user = baseUserService.getBaseUserByUserName(initUserProperties.getUsername());
             if (Objects.isNull(user)) {
-                log.info("初始化系统用户 {} 开始", initUserProperties.getUserName());
+                log.info("初始化系统用户 {} 开始", initUserProperties.getUsername());
                 user = new BaseUser();
-                user.setId(Md5Utils.encodeByMD5(initUserProperties.getUserName()));
-                user.setUsername(initUserProperties.getUserName());
+                user.setId(Md5Utils.encodeByMD5(initUserProperties.getUsername()));
+                user.setUsername(initUserProperties.getUsername());
                 user.setPassword(passwordEncoder.encode(initUserProperties.getPassword()));
                 user.setSuperFlag(CommonEnum.YES.getCode());
                 user.setPasswordType(PasswordTypeEnum.INIT_PASSWORD.getCode());
                 baseUserService.saveOrUpdate(user);
-                log.info("初始化系统用户 {} 结束", initUserProperties.getUserName());
+                log.info("初始化系统用户 {} 结束", initUserProperties.getUsername());
             }
         } catch (Exception e) {
             log.error("初始化系统用户错误 {}", e.getMessage());

@@ -1,5 +1,7 @@
 package com.geekalliance.taurus.core.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,6 +14,9 @@ import java.util.Date;
  */
 @Data
 public class BaseEntity implements Serializable {
+    @ApiModelProperty(value = "编号")
+    @TableId(type = IdType.ASSIGN_UUID)
+    private String id;
 
     /**
      * 创建时间

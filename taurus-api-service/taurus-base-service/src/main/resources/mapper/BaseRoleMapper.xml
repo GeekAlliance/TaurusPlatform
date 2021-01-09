@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekalliance.taurus.base.mapper.BaseRoleMapper">
+  <resultMap id="BaseResultMap" type="com.geekalliance.taurus.base.api.auth.entity.BaseRole">
+    <!--@mbg.generated-->
+    <!--@Table base_role-->
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="SMALLINT" property="sort" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="delete_flag" jdbcType="VARCHAR" property="deleteFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    code, `name`, sort, `status`, remark, delete_flag
+  </sql>
+</mapper>

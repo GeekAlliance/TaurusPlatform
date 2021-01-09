@@ -7,16 +7,16 @@ package com.geekalliance.taurus.base.api.auth.enums;
  **/
 
 public enum PasswordTypeEnum {
-    INIT_PASSWORD("0"),
-    CUSTOM_PASSWORD("1"),
+    INIT_PASSWORD(0),
+    CUSTOM_PASSWORD(1),
     ;
-    private String code;
+    private Integer code;
 
-    PasswordTypeEnum(String code) {
+    PasswordTypeEnum(Integer code) {
         this.code = code;
     }
 
-    public String getCode() {
+    public Integer getCode() {
         return this.code;
     }
 }
