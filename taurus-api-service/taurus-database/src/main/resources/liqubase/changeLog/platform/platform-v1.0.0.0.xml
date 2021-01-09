@@ -1,8 +1,8 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
-
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
 
     <!--应用表-->
     <changeSet id="base_st_20210103_01" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
@@ -563,111 +563,5 @@
             <column name="update_at" type="${DATETIME}" remarks="修改时间"/>
         </createTable>
     </changeSet>
-    <!--oauth_client_details-->
-    <changeSet id="base_st_20210109_01" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
-        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
-            <not>
-                <tableExists tableName="oauth_client_details"/>
-            </not>
-        </preConditions>
-        <comment>创建认证客户端表</comment>
-        <createTable tableName="oauth_client_details" remarks="认证客户端表">
-            <column name="client_id" type="VARCHAR(255)">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="resource_ids" type="VARCHAR(255)"/>
-            <column name="client_secret" type="VARCHAR(255)"/>
-            <column name="scope" type="VARCHAR(255)"/>
-            <column name="authorized_grant_types" type="VARCHAR(255)"/>
-            <column name="web_server_redirect_uri" type="VARCHAR(255)"/>
-            <column name="authorities" type="VARCHAR(255)"/>
-            <column name="access_token_validity" type="INT"/>
-            <column name="refresh_token_validity" type="INT"/>
-            <column name="additional_information" type="VARCHAR(255)"/>
-            <column name="autoapprove" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <!--oauth_client_token-->
-    <changeSet id="base_st_20210109_02" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
-        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
-            <not>
-                <tableExists tableName="oauth_client_token"/>
-            </not>
-        </preConditions>
-        <comment>创建客户端token表</comment>
-        <createTable tableName="oauth_client_token" remarks="客户端token表">
-            <column name="authentication_id" type="VARCHAR(255)" remarks="主键编号">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="client_id" type="VARCHAR(255)" remarks="客户端编号"/>
-            <column name="user_name" type="VARCHAR(255)" remarks="用户名"/>
-            <column name="token_id" type="VARCHAR(255)" remarks="token编号"/>
-            <column name="token" type="BLOB" remarks="token信息"/>
 
-        </createTable>
-    </changeSet>
-    <!--oauth_access_token-->
-    <changeSet id="base_st_20210109_03" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
-        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
-            <not>
-                <tableExists tableName="oauth_access_token"/>
-            </not>
-        </preConditions>
-        <comment>创建访问token表</comment>
-        <createTable tableName="oauth_access_token" remarks="访问token表">
-            <column name="authentication_id" type="VARCHAR(255)" remarks="主键编号">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="client_id" type="VARCHAR(255)"/>
-            <column name="user_name" type="VARCHAR(255)"/>
-            <column name="token_id" type="VARCHAR(255)"/>
-            <column name="token" type="BLOB"/>
-            <column name="refresh_token" type="VARCHAR(255)"/>
-            <column name="authentication" type="BLOB"/>
-        </createTable>
-    </changeSet>
-    <!--oauth_refresh_token-->
-    <changeSet id="base_st_20210109_04" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
-        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
-            <not>
-                <tableExists tableName="oauth_refresh_token"/>
-            </not>
-        </preConditions>
-        <comment>创建刷新token表</comment>
-        <createTable tableName="oauth_refresh_token" remarks="刷新token表">
-            <column name="token_id" type="VARCHAR(255)"/>
-            <column name="token" type="BLOB"/>
-            <column name="authentication" type="BLOB"/>
-        </createTable>
-    </changeSet>
-    <!--oauth_code-->
-    <changeSet id="base_st_20210109_05" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
-        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
-            <not>
-                <tableExists tableName="oauth_code"/>
-            </not>
-        </preConditions>
-        <comment>创建客户端token表</comment>
-        <createTable tableName="oauth_code">
-            <column name="code" type="VARCHAR(255)"/>
-            <column name="authentication" type="BLOB"/>
-        </createTable>
-    </changeSet>
-    <!--oauth_approvals-->
-    <changeSet id="base_st_20210109_06" author="GeeKeeper" logicalFilePath="BasePlatform.xml">
-        <preConditions onFail="MARK_RAN" onFailMessage="标记已运行">
-            <not>
-                <tableExists tableName="oauth_approvals"/>
-            </not>
-        </preConditions>
-        <comment>创建客户端token表</comment>
-        <createTable tableName="oauth_approvals">
-            <column name="user_Id" type="VARCHAR(255)"/>
-            <column name="client_id" type="VARCHAR(255)"/>
-            <column name="scope" type="VARCHAR(255)"/>
-            <column name="status" type="VARCHAR(10)"/>
-            <column name="expires_at" type="timestamp"/>
-            <column name="last_modified_at" type="timestamp"/>
-        </createTable>
-    </changeSet>
 </databaseChangeLog>
