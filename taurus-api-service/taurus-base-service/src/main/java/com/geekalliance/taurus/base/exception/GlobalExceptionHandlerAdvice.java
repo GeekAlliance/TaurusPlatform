@@ -8,6 +8,7 @@ import com.geekalliance.taurus.core.result.Result;
 import com.geekalliance.taurus.web.exception.DefaultGlobalExceptionHandlerAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -10,6 +10,7 @@ import com.geekalliance.taurus.base.oauth.config.ClientAuthenticationManager;
 import com.geekalliance.taurus.base.oauth.config.OauthClientProperties;
 import com.geekalliance.taurus.base.oauth.service.ResourceService;
 import com.geekalliance.taurus.base.oauth.service.UsernameUserDetailService;
+import com.geekalliance.taurus.core.exception.SystemErrorType;
 import com.geekalliance.taurus.core.holder.UserContextHolder;
 import com.geekalliance.taurus.core.result.Result;
 import com.geekalliance.taurus.core.utils.JwtUtils;
@@ -35,7 +36,10 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author maxuqiang
@@ -122,7 +126,12 @@ public class OauthController extends BaseController {
 
     private Result getTokenByType(String type, Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(oauthClient.getBrowserClientId(), oauthClient.getBrowserClientSecret());
-        Authentication authentication = authenticationManager.getOAuth2AuthenticationManager().authenticate(authRequest);
+        Authentication authentication = null;
+        try {
+            authentication = authenticationManager.getOAuth2AuthenticationManager().authenticate(authRequest);
+        } catch (Exception e) {
+            throwApiException(SystemErrorType.INVALID_CLIENT);
+        }
         parameters.put("client_id", oauthClient.getBrowserClientId());
         parameters.put("grant_type", type);
         parameters.put("client_secret", oauthClient.getBrowserClientSecret());
