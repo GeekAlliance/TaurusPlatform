@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Data
 public class BaseEntity implements Serializable {
-    @ApiModelProperty(value = "编号")
+    @ApiModelProperty(value = "主键编号")
     @TableId(type = IdType.ASSIGN_UUID)
     private String id;
 
