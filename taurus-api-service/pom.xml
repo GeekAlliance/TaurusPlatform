@@ -15,5 +15,7 @@
         <module>taurus-database</module>
         <module>taurus-base-service</module>
         <module>taurus-base-api</module>
+        <!-- 工程构建必须在最后一个 -->
+        <module>taurus-build</module>
     </modules>
 </project>
