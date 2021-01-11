@@ -1,8 +1,10 @@
 package com.geekalliance.taurus.base.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.geekalliance.taurus.base.api.auth.dto.QueryUserDTO;
 import com.geekalliance.taurus.base.api.auth.dto.BaseUserPageDTO;
+import com.geekalliance.taurus.base.api.auth.dto.QueryBaseUserDTO;
+import com.geekalliance.taurus.base.api.auth.dto.SaveBaseUserDTO;
+import com.geekalliance.taurus.base.api.auth.entity.BaseUser;
 import com.geekalliance.taurus.base.service.BaseUserService;
 import com.geekalliance.taurus.core.exception.ApiException;
 import com.geekalliance.taurus.core.params.PageQueryParam;
@@ -30,8 +32,15 @@ public class BaseUserController extends BaseController {
 
     @ApiOperation(value = "分页查询")
     @PostMapping("/page")
-    public Result<PageResult<BaseUserPageDTO>> pageQuery(@RequestBody @Valid PageQueryParam<QueryUserDTO> param) throws ApiException {
+    public Result<PageResult<BaseUserPageDTO>> pageQuery(@RequestBody @Valid PageQueryParam<QueryBaseUserDTO> param) throws ApiException {
         IPage<BaseUserPageDTO> pageResult = baseUserService.pageQuery(param);
         return Result.success(getResultByPage(pageResult, BaseUserPageDTO.class));
+    }
+
+    @ApiOperation(value = "新增用户")
+    @PostMapping
+    public Result<String> save(@Valid @RequestBody SaveBaseUserDTO saveBaseUser) throws ApiException {
+        BaseUser baseUser = beanGenerator.convert(saveBaseUser, BaseUser.class);
+        return baseUserService.saveBaseUser(baseUser) ? Result.success() : Result.fail();
     }
 }

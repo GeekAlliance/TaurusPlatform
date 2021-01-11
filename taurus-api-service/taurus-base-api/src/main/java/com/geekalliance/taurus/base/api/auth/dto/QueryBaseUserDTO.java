@@ -1,4 +1,4 @@
 package com.geekalliance.taurus.base.api.auth.dto;
 
-public class QueryUserDTO {
+public class QueryBaseUserDTO {
 }
