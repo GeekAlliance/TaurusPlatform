@@ -12,6 +12,7 @@ import com.geekalliance.taurus.base.oauth.service.ResourceService;
 import com.geekalliance.taurus.base.oauth.service.UsernameUserDetailService;
 import com.geekalliance.taurus.core.exception.SystemErrorType;
 import com.geekalliance.taurus.core.holder.UserContextHolder;
+import com.geekalliance.taurus.core.holder.entity.TokenUser;
 import com.geekalliance.taurus.core.result.Result;
 import com.geekalliance.taurus.core.utils.JwtUtils;
 import com.geekalliance.taurus.toolkit.StringPool;
@@ -98,6 +99,14 @@ public class OauthController extends BaseController {
     public Result<CustomTokenVO> login(@RequestBody LoginUserDTO loginUser) throws HttpRequestMethodNotSupportedException {
         Map<String, String> parameters = beanGenerator.convert(loginUser, HashMap.class);
         return getTokenByType(GrantTypeEnum.PASSWORD.getCode(), parameters);
+    }
+
+    @ApiOperation(value = "根据Token获取TokenUser")
+    @GetMapping(value = "/tokenUser")
+    public Result<TokenUser> tokenUser(HttpServletRequest request) {
+        String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = authorization.replace(JwtUtils.AUTHORIZATION_PREFIX, StringPool.EMPTY);
+        return Result.success(usernameUserDetailService.getTokenUserByToken(token));
     }
 
     @ApiOperation(value = "获取当前登录用户")

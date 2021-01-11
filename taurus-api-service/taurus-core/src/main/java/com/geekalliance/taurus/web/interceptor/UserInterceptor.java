@@ -3,9 +3,12 @@ package com.geekalliance.taurus.web.interceptor;
 
 import com.geekalliance.taurus.core.holder.UserContextHolder;
 import com.geekalliance.taurus.core.holder.entity.TokenUser;
+import com.geekalliance.taurus.core.result.Result;
+import com.geekalliance.taurus.web.rest.CommonAuthRestProvider;
 import com.geekalliance.taurus.web.utils.TokenUserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
@@ -31,6 +34,9 @@ public class UserInterceptor implements HandlerInterceptor {
 
     @Value("${spring.geekalliance.auth.resource.interceptor.enable}")
     private Boolean resourceInterceptorEnable;
+
+    @Autowired
+    private CommonAuthRestProvider commonAuthRestProvider;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -60,8 +66,8 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     private TokenUser getTokenUser(String authorization) {
-        TokenUser tokenUser = new TokenUser();
-        return tokenUser;
+        Result<TokenUser> result = commonAuthRestProvider.tokenUser(authorization);
+        return result.getData();
     }
 
     /**
