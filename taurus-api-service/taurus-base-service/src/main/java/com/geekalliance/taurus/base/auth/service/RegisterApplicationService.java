@@ -75,7 +75,7 @@ public class RegisterApplicationService extends RdbService<ApplicationMapper, Ap
     private void addRegisterModules(RegisterApplicationDTO regApp, RegisterApplication application, Optional<List<RegisterModule>> modules) {
         if (modules.isPresent()) {
             for (RegisterModule module : modules.get()) {
-                module.setParentId(TreeEnum.ROOT_NODE.getCode());
+                module.setParent(TreeEnum.ROOT_NODE.getCode());
                 module.setApplication(application.getId());
                 module.setLevel(TreeEnum.ROOT_LEVEL.getCode());
                 addRegisterModuleAndSubModule(regApp, application, module);
@@ -88,10 +88,14 @@ public class RegisterApplicationService extends RdbService<ApplicationMapper, Ap
         Resource moduleResource = beanGenerator.convert(module, Resource.class);
         moduleResource.setType(ResourceTypeEnum.MODULE.getCode());
         moduleResource.setDeleteFlag(logicNotDeleteValue);
+        setBaseEntity(moduleResource, regApp.getUserId());
         regApp.getResources().add(moduleResource);
+
         List<RegisterAction> actions = Optional.ofNullable(module.getActions()).orElseGet(Collections::emptyList);
         for (RegisterAction action : actions) {
             Resource actionResource = beanGenerator.convert(action, Resource.class);
+            int level = Integer.parseInt(module.getLevel()) + 1;
+            actionResource.setLevel(level);
             actionResource.setDeleteFlag(logicNotDeleteValue);
             actionResource.setType(ResourceTypeEnum.ACTION.getCode());
             actionResource.setApplication(application.getId());
@@ -104,7 +108,7 @@ public class RegisterApplicationService extends RdbService<ApplicationMapper, Ap
         for (RegisterModule subModule : subModules) {
             int level = Integer.parseInt(module.getLevel()) + 1;
             subModule.setLevel(String.valueOf(level));
-            subModule.setParentId(moduleResource.getId());
+            subModule.setParent(moduleResource.getId());
             subModule.setApplication(application.getId());
             addRegisterModuleAndSubModule(regApp, application, subModule);
         }

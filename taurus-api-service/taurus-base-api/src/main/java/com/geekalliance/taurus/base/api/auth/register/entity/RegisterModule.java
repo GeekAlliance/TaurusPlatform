@@ -30,7 +30,7 @@ public class RegisterModule implements Serializable {
     private String application;
 
     @JsonIgnore
-    private String parentId;
+    private String parent;
 
     @JsonIgnore
     private String level;
