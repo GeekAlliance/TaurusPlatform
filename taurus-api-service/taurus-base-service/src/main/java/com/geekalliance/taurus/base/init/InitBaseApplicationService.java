@@ -6,7 +6,7 @@ import com.geekalliance.taurus.base.api.auth.enums.GrantTypeEnum;
 import com.geekalliance.taurus.base.api.auth.enums.PasswordTypeEnum;
 import com.geekalliance.taurus.base.config.InitUserProperties;
 import com.geekalliance.taurus.base.oauth.config.OauthClientProperties;
-import com.geekalliance.taurus.base.service.BaseUserService;
+import com.geekalliance.taurus.base.auth.service.BaseUserService;
 import com.geekalliance.taurus.rdb.config.DynamicDataSourceConfig;
 import com.geekalliance.taurus.rdb.utils.ExclusiveLockUtils;
 import com.geekalliance.taurus.toolkit.enums.CommonEnum;

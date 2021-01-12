@@ -1,4 +1,4 @@
-package com.geekalliance.taurus.base.service;
+package com.geekalliance.taurus.base.auth.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -6,7 +6,7 @@ import com.geekalliance.taurus.base.api.auth.dto.BaseUserPageDTO;
 import com.geekalliance.taurus.base.api.auth.dto.QueryBaseUserDTO;
 import com.geekalliance.taurus.base.api.auth.entity.BaseUser;
 import com.geekalliance.taurus.base.config.InitUserProperties;
-import com.geekalliance.taurus.base.mapper.BaseUserMapper;
+import com.geekalliance.taurus.base.auth.mapper.BaseUserMapper;
 import com.geekalliance.taurus.core.params.PageQueryParam;
 import com.geekalliance.taurus.core.utils.BaseEntityFillUtils;
 import com.geekalliance.taurus.rdb.service.RdbService;

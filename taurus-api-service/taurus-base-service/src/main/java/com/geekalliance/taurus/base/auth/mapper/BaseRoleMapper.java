@@ -1,4 +1,4 @@
-package com.geekalliance.taurus.base.mapper;
+package com.geekalliance.taurus.base.auth.mapper;
 
 import com.geekalliance.taurus.base.api.auth.entity.BaseRole;
 import com.geekalliance.taurus.rdb.mapper.RdbBaseMapper;

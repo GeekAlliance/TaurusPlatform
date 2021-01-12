@@ -1,11 +1,11 @@
-package com.geekalliance.taurus.base.controller;
+package com.geekalliance.taurus.base.auth.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.geekalliance.taurus.base.api.auth.dto.BaseUserPageDTO;
 import com.geekalliance.taurus.base.api.auth.dto.QueryBaseUserDTO;
 import com.geekalliance.taurus.base.api.auth.dto.SaveBaseUserDTO;
 import com.geekalliance.taurus.base.api.auth.entity.BaseUser;
-import com.geekalliance.taurus.base.service.BaseUserService;
+import com.geekalliance.taurus.base.auth.service.BaseUserService;
 import com.geekalliance.taurus.core.exception.ApiException;
 import com.geekalliance.taurus.core.params.PageQueryParam;
 import com.geekalliance.taurus.core.result.PageResult;

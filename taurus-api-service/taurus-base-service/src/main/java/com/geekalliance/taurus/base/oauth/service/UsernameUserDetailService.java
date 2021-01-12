@@ -2,7 +2,7 @@ package com.geekalliance.taurus.base.oauth.service;
 
 
 import com.geekalliance.taurus.base.api.auth.entity.BaseUser;
-import com.geekalliance.taurus.base.service.BaseUserService;
+import com.geekalliance.taurus.base.auth.service.BaseUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
