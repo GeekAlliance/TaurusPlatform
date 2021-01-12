@@ -8,9 +8,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * @author maxuqiang
  * @description
  * @date 2019/12/30
- * @author maxuqiang
  **/
 @Slf4j
 @Component
@@ -23,7 +23,8 @@ public class InitBaseApplicationListener implements ApplicationListener<Applicat
         initSystem();
     }
 
-    private void initSystem(){
+    private void initSystem() {
+        initBaseApplicationService.initApplication();
         initBaseApplicationService.initUser();
         initBaseApplicationService.initClient();
     }

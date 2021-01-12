@@ -21,7 +21,7 @@ import java.util.*;
  */
 @Service
 @Slf4j
-public class ResourceService {
+public class AuthResourceService {
     @Autowired
     private TokenStore tokenStore;
     /**

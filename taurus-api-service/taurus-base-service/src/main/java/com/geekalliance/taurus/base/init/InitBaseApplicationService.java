@@ -4,16 +4,21 @@ package com.geekalliance.taurus.base.init;
 import com.geekalliance.taurus.base.api.auth.entity.BaseUser;
 import com.geekalliance.taurus.base.api.auth.enums.GrantTypeEnum;
 import com.geekalliance.taurus.base.api.auth.enums.PasswordTypeEnum;
+import com.geekalliance.taurus.base.api.auth.register.entity.RegisterApplication;
+import com.geekalliance.taurus.base.api.auth.register.utils.GenRegisterResourceUtil;
+import com.geekalliance.taurus.base.auth.service.BaseUserService;
+import com.geekalliance.taurus.base.auth.service.RegisterApplicationService;
 import com.geekalliance.taurus.base.config.InitUserProperties;
 import com.geekalliance.taurus.base.oauth.config.OauthClientProperties;
-import com.geekalliance.taurus.base.auth.service.BaseUserService;
 import com.geekalliance.taurus.rdb.config.DynamicDataSourceConfig;
 import com.geekalliance.taurus.rdb.utils.ExclusiveLockUtils;
+import com.geekalliance.taurus.toolkit.StringPool;
 import com.geekalliance.taurus.toolkit.enums.CommonEnum;
 import com.hollysys.platform.common.core.utils.Md5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.NoSuchClientException;
@@ -24,6 +29,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
@@ -36,6 +42,10 @@ import java.util.TreeSet;
 @Slf4j
 @Service
 public class InitBaseApplicationService {
+    private static boolean complete = false;
+
+    private static String APPLICATION_INIT = "i18n/base_application_init_" + LocaleContextHolder.getLocale() + StringPool.DOT_XML;
+
     @Value("${spring.liquibase.database-change-log-lock-table}")
     private String lockTableName;
 
@@ -53,6 +63,31 @@ public class InitBaseApplicationService {
 
     @Resource
     private InitUserProperties initUserProperties;
+
+    @Autowired
+    private RegisterApplicationService registerApplicationService;
+
+    @Async
+    public void initApplication() {
+        while (!complete) {
+            synchronized (APPLICATION_INIT) {
+                List<RegisterApplication> applications = GenRegisterResourceUtil.getApplication(APPLICATION_INIT);
+                try {
+                    registerApplicationService.register(applications, true);
+                    complete = true;
+                } catch (RuntimeException e) {
+                    log.error("init application error {}", e);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException ex) {
+                        log.error("init application interrupted exception");
+                        complete = false;
+                    }
+                    complete = false;
+                }
+            }
+        }
+    }
 
     @Async
     public void initClient() {

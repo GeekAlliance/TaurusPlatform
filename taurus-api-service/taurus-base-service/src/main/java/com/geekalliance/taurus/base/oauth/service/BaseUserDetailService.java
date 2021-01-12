@@ -25,7 +25,7 @@ import java.util.*;
 @Slf4j
 public abstract class BaseUserDetailService implements UserDetailsService {
     @Autowired
-    private ResourceService resourceService;
+    private AuthResourceService authResourceService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -41,7 +41,7 @@ public abstract class BaseUserDetailService implements UserDetailsService {
 
     public TokenUser getTokenUserByToken(String token) {
         if (StringUtils.isNotBlank(token)) {
-            resourceService.tokenValid(token);
+            authResourceService.tokenValid(token);
             try {
                 Jwt jwt = JwtUtils.getJwt(token);
                 String jsonStr = jwt.getClaims();
@@ -70,7 +70,7 @@ public abstract class BaseUserDetailService implements UserDetailsService {
     }
 
     private List<GrantedAuthority> convertToAuthorities(BaseUser baseUser) {
-        List<String> roles = resourceService.getAuthorities(baseUser.getId());
+        List<String> roles = authResourceService.getAuthorities(baseUser.getId());
         List<GrantedAuthority> authorities = new ArrayList();
         roles.forEach(s -> {
             GrantedAuthority authority = new SimpleGrantedAuthority(s);

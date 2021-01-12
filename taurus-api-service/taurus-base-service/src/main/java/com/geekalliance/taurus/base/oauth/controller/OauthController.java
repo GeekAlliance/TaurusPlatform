@@ -8,7 +8,7 @@ import com.geekalliance.taurus.base.api.auth.vo.CurrUserVO;
 import com.geekalliance.taurus.base.api.auth.vo.CustomTokenVO;
 import com.geekalliance.taurus.base.oauth.config.ClientAuthenticationManager;
 import com.geekalliance.taurus.base.oauth.config.OauthClientProperties;
-import com.geekalliance.taurus.base.oauth.service.ResourceService;
+import com.geekalliance.taurus.base.oauth.service.AuthResourceService;
 import com.geekalliance.taurus.base.oauth.service.UsernameUserDetailService;
 import com.geekalliance.taurus.core.exception.SystemErrorType;
 import com.geekalliance.taurus.core.holder.UserContextHolder;
@@ -64,7 +64,7 @@ public class OauthController extends BaseController {
     private ConsumerTokenServices consumerTokenServices;
 
     @Autowired
-    private ResourceService resourceService;
+    private AuthResourceService resourceService;
 
     @Autowired
     private UsernameUserDetailService usernameUserDetailService;

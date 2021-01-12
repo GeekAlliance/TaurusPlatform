@@ -8,42 +8,48 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 角色表
+ * 应用表
  */
-@ApiModel(value = "角色表")
+@ApiModel(value = "应用表")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("base_role")
-public class BaseRole extends BaseEntity {
+@TableName("base_application")
+public class Application extends BaseEntity {
     /**
-     * 角色编码
+     * 应用编码
      */
-    @ApiModelProperty(value = "角色编码")
+    @ApiModelProperty(value = "应用编码")
     private String code;
 
     /**
-     * 角色名称
+     * 应用名称
      */
-    @ApiModelProperty(value = "角色名称")
+    @ApiModelProperty(value = "应用名称")
     private String name;
 
     /**
-     * 排序编号
+     * 链接地址
      */
-    @ApiModelProperty(value = "排序编号")
-    private Short sort;
+    @ApiModelProperty(value = "链接地址")
+    private String link;
 
     /**
      * 状态
      */
     @ApiModelProperty(value = "状态")
-    private Byte status;
+    private Byte statusNumber;
 
     /**
      * 备注信息
      */
     @ApiModelProperty(value = "备注信息")
     private String remark;
+
+    /**
+     * 启用标识
+     */
+    @ApiModelProperty(value = "启用标识")
+    private String enableFlag;
 
     /**
      * 删除标识

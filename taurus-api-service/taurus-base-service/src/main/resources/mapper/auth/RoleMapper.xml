@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.geekalliance.taurus.base.auth.mapper.BaseRoleMapper">
-  <resultMap id="BaseResultMap" type="com.geekalliance.taurus.base.api.auth.entity.BaseRole">
+<mapper namespace="com.geekalliance.taurus.base.auth.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.geekalliance.taurus.base.api.auth.entity.Role">
     <!--@mbg.generated-->
     <!--@Table base_role-->
     <result column="code" jdbcType="VARCHAR" property="code" />

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<applications>
+    <application code="BaseService" name="基础服务" moduleStartSortIndex="1000000">
+        <module code="authManage" name="权限管理" icon="">
+            <module code="baseUserManage" name="用户管理" icon="" route="" component="">
+                <action name="新增" code="add"></action>
+                <action name="编辑" code="update"></action>
+                <action name="删除" code="delete"></action>
+            </module>
+        </module>
+        <module code="organizationManage" name="组织机构管理" icon="">
+
+        </module>
+    </application>
+</applications>
