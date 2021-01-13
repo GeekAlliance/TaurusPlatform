@@ -1,4 +1,4 @@
-package com.hollysys.platform.common.core.utils;
+package com.geekalliance.taurus.toolkit.utils;
 
 import lombok.extern.slf4j.Slf4j;
 

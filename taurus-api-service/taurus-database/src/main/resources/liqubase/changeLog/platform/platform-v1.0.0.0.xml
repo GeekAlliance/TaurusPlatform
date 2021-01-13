@@ -43,7 +43,7 @@
             </column>
             <column name="code" type="${CODE}" remarks="机构编码"/>
             <column name="short_name" type="${NAME}" remarks="机构名称(简称)"/>
-            <column name="full_name" type="${NAME}" remarks="机构名称(全称)"/>
+            <column name="name" type="${NAME}" remarks="机构名称"/>
             <column name="icon" type="${URL}" remarks="机构图标"/>
             <column name="parent" type="${ID}" remarks="父级编号"/>
             <column name="level" type="${LEVEL}" remarks="层级编号"/>

@@ -20,9 +20,9 @@ public enum OperateTypeEnum {
     DELETE,
 
     /**
-     * 更新
+     * 其他
      */
-    UPDATE,
+    OTHER,
 
     /**
      * 查询
@@ -30,7 +30,13 @@ public enum OperateTypeEnum {
     QUERY,
 
     /**
-     * 其他
+     * 树
      */
-    OTHER
+    TREE,
+
+    /**
+     * 更新
+     */
+    UPDATE,
+
 }

@@ -23,14 +23,14 @@ public class Organization extends BaseEntity {
     private String code;
 
     /**
+     * 机构名称(全称)
+     */
+    private String name;
+
+    /**
      * 机构名称(简称)
      */
     private String shortName;
-
-    /**
-     * 机构名称(全称)
-     */
-    private String fullName;
 
     /**
      * 机构图标
