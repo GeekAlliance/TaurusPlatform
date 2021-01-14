@@ -1,7 +1,11 @@
 package com.geekalliance.taurus.base.oauth.service;
 
+import com.geekalliance.taurus.base.api.auth.entity.Resource;
+import com.geekalliance.taurus.base.auth.mapper.ResourceMapper;
+import com.geekalliance.taurus.core.entity.BaseTreeNode;
 import com.geekalliance.taurus.core.exception.InternalException;
 import com.geekalliance.taurus.core.exception.SystemErrorType;
+import com.geekalliance.taurus.core.utils.BaseTreeNodeConverterUtils;
 import com.geekalliance.taurus.toolkit.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,9 @@ import java.util.*;
 public class AuthResourceService {
     @Autowired
     private TokenStore tokenStore;
+
+    @Autowired
+    private ResourceMapper resourceMapper;
     /**
      * 根据当前用户 查询角色编号
      *
@@ -52,5 +59,10 @@ public class AuthResourceService {
             throw new InternalException(SystemErrorType.valueOf(e.getOAuth2ErrorCode().toUpperCase()));
         }
         return true;
+    }
+
+    public List<BaseTreeNode<Resource>> getPermissionModule() {
+        List<Resource> resources = resourceMapper.selectList(null);
+        return BaseTreeNodeConverterUtils.converter(resources);
     }
 }

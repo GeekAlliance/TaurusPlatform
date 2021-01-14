@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2021-01-11 22:26
  */
 @Data
-public class BaseTreeNode {
+public class BaseTreeNode<T> {
     /**
      * 主键编号
      */
@@ -37,6 +37,10 @@ public class BaseTreeNode {
      * 排序编号
      */
     private Integer sortNumber;
+    /**
+     * 节点数据
+     */
+    private T data;
     /**
      * 子节点
      */
