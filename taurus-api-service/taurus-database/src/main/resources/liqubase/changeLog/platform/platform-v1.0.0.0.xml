@@ -315,8 +315,8 @@
                 <tableExists tableName="base_dictionary_key"/>
             </not>
         </preConditions>
-        <comment>创建字典键表</comment>
-        <createTable tableName="base_dictionary_type" remarks="字典键表">
+        <comment>创建字典类型表</comment>
+        <createTable tableName="base_dictionary_type" remarks="字典类型表">
             <column name="id" type="${ID}" remarks="主键编号">
                 <constraints primaryKey="true"/>
             </column>
@@ -351,8 +351,15 @@
             <column name="id" type="${ID}" remarks="条目编号">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="type" type="${DICTIONARY}" remarks="字典类型"/>
-            <column name="code" type="${CODE}" remarks="字典编码"/>
+            <column name="type_id" type="${ID}" remarks="字典类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_code" type="${CODE}" remarks="字典类型">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="${DICTIONARY}" remarks="字典编码">
+                <constraints nullable="false"/>
+            </column>
             <column name="dictionary_value" type="${Common}" remarks="字典值">
                 <constraints nullable="false"/>
             </column>
@@ -381,7 +388,7 @@
             </column>
             <column name="application" type="${ID}" remarks="应用编号"/>
             <column name="module" type="${ID}" remarks="模块编号"/>
-            <column name="group" type="${CODE}" remarks="模块编号"/>
+            <column name="group" type="${CODE}" remarks="配置组"/>
             <column name="code" type="${CODE}" remarks="配置编码">
                 <constraints nullable="false"/>
             </column>

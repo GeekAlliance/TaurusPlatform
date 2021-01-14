@@ -31,13 +31,13 @@ public class Role extends BaseEntity {
      * 排序编号
      */
     @ApiModelProperty(value = "排序编号")
-    private Short sort;
+    private Short sortNumber;
 
     /**
      * 状态
      */
     @ApiModelProperty(value = "状态")
-    private Byte status;
+    private Byte statusNumber;
 
     /**
      * 备注信息

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekalliance.taurus.base.system.mapper.OperateLogMapper">
+    <resultMap id="BaseResultMap" type="com.geekalliance.taurus.base.api.system.entity.OperateLog">
+        <!--@Table base_operate_log-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="resource_name" jdbcType="VARCHAR" property="resourceName"/>
+        <result column="operate_type" jdbcType="TINYINT" property="operateType"/>
+        <result column="operate_system" jdbcType="TINYINT" property="operateSystem"/>
+        <result column="ip_address" jdbcType="INTEGER" property="ipAddress"/>
+        <result column="browser" jdbcType="TINYINT" property="browser"/>
+        <result column="request_url" jdbcType="VARCHAR" property="requestUrl"/>
+        <result column="request_method" jdbcType="TINYINT" property="requestMethod"/>
+        <result column="class_name" jdbcType="VARCHAR" property="className"/>
+        <result column="method_name" jdbcType="VARCHAR" property="methodName"/>
+        <result column="request_param" jdbcType="LONGVARCHAR" property="requestParam"/>
+        <result column="return_result" jdbcType="LONGVARCHAR" property="returnResult"/>
+        <result column="operate_time" jdbcType="TIMESTAMP" property="operateTime"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="success_flag" jdbcType="CHAR" property="successFlag"/>
+        <result column="response_time" jdbcType="INTEGER" property="responseTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        resource_name,
+        operate_type,
+        operate_system,
+        ip_address,
+        browser,
+        request_url,
+        request_method,
+        class_name,
+        method_name,
+        request_param,
+        return_result,
+        operate_time,
+        account,
+        success_flag,
+        response_time
+    </sql>
+</mapper>

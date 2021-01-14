@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.geekalliance.taurus.base.organization.mapper.OrganizationPersonMapper">
-  <resultMap id="BaseResultMap" type="com.geekalliance.taurus.base.api.organization.entity.OrganizationPerson">
-    <!--@mbg.generated-->
-    <!--@Table base_organization_person-->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="organization_id" jdbcType="VARCHAR" property="organizationId" />
-    <result column="person_id" jdbcType="VARCHAR" property="personId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, organization_id, person_id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
-    <include refid="Base_Column_List" />
-    from base_organization_person
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    <!--@mbg.generated-->
-    delete from base_organization_person
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
+    <resultMap id="BaseResultMap" type="com.geekalliance.taurus.base.api.organization.entity.OrganizationPerson">
+        <!--@Table base_organization_person-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="organization_id" jdbcType="VARCHAR" property="organizationId"/>
+        <result column="person_id" jdbcType="VARCHAR" property="personId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        organization_id,
+        person_id
+    </sql>
 </mapper>
