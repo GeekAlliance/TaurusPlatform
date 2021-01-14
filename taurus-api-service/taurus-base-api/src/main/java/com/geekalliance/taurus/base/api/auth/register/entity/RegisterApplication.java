@@ -1,7 +1,7 @@
 package com.geekalliance.taurus.base.api.auth.register.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hollysys.platform.common.core.utils.Md5Utils;
+import com.geekalliance.taurus.toolkit.utils.Md5Utils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

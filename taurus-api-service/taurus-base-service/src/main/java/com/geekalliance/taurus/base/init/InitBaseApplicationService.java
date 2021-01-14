@@ -14,7 +14,7 @@ import com.geekalliance.taurus.rdb.config.DynamicDataSourceConfig;
 import com.geekalliance.taurus.rdb.utils.ExclusiveLockUtils;
 import com.geekalliance.taurus.toolkit.StringPool;
 import com.geekalliance.taurus.toolkit.enums.CommonEnum;
-import com.hollysys.platform.common.core.utils.Md5Utils;
+import com.geekalliance.taurus.toolkit.utils.Md5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -26,6 +26,7 @@ import java.util.List;
  */
 @Api(value = "权限资源", tags = {"权限资源"})
 @Slf4j
+@RestController
 @RequestMapping("/permission")
 public class AuthResourceController {
     @Autowired
