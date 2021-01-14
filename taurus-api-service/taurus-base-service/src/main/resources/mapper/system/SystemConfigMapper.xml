@@ -6,7 +6,7 @@
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="application" jdbcType="VARCHAR" property="application"/>
         <result column="module" jdbcType="VARCHAR" property="module"/>
-        <result column="group" jdbcType="VARCHAR" property="group"/>
+        <result column="subgroup" jdbcType="VARCHAR" property="subgroup"/>
         <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="config_value" jdbcType="VARCHAR" property="configValue"/>
@@ -23,7 +23,7 @@
         id,
         application,
         module,
-        `group`,
+        subgroup,
         code,
         name,
         config_value,

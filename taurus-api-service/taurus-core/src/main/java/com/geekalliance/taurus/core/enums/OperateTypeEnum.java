@@ -38,5 +38,9 @@ public enum OperateTypeEnum {
      * 更新
      */
     UPDATE,
+    /**
+     * 分组
+     */
+    SUBGROUP
 
 }

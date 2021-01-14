@@ -30,7 +30,7 @@ public class SystemConfig extends BaseEntity {
     /**
      * 配置组
      */
-    private String group;
+    private String subgroup;
 
     /**
      * 配置编码

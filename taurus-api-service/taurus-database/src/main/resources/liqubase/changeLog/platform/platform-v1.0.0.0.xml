@@ -388,7 +388,7 @@
             </column>
             <column name="application" type="${ID}" remarks="应用编号"/>
             <column name="module" type="${ID}" remarks="模块编号"/>
-            <column name="group" type="${CODE}" remarks="配置组"/>
+            <column name="grouping" type="${CODE}" remarks="分组"/>
             <column name="code" type="${CODE}" remarks="配置编码">
                 <constraints nullable="false"/>
             </column>

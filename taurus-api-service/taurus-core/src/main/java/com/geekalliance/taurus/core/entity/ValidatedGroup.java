@@ -30,4 +30,9 @@ public class ValidatedGroup implements Serializable {
     public @interface update {
     }
 
+    /**
+     * 分组校验：分组
+     */
+    public @interface group{}
+
 }
