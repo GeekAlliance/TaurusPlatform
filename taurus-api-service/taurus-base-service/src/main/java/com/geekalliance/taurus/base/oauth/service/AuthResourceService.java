@@ -11,6 +11,7 @@ import com.geekalliance.taurus.core.holder.UserContextHolder;
 import com.geekalliance.taurus.core.holder.entity.TokenUser;
 import com.geekalliance.taurus.core.utils.BaseTreeNodeConverterUtils;
 import com.geekalliance.taurus.toolkit.StringPool;
+import com.geekalliance.taurus.toolkit.utils.CollectionUtils;
 import com.geekalliance.taurus.toolkit.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,17 @@ public class AuthResourceService {
 
     public List<Resource> getPermissionAction(String parent) {
         return getPermissionResourceByTypeAndParent(ResourceTypeEnum.ACTION, parent);
+    }
+
+    public boolean hasPermissionByPermitFlag(String permitFlag) {
+        QueryWrapper<Resource> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("res.permit_flag", permitFlag);
+        TokenUser tokenUser = UserContextHolder.getInstance().getTokenUser();
+        if (!tokenUser.isSuperManage()) {
+            queryWrapper.eq("ur.user_id", UserContextHolder.getInstance().getTokenUser().getId());
+        }
+        List<Resource> resources = resourceMapper.selectListByUserPermission(queryWrapper);
+        return CollectionUtils.isNotEmpty(resources) ? true : false;
     }
 
     private List<Resource> getPermissionResourceByTypeAndParent(ResourceTypeEnum type, String parent) {

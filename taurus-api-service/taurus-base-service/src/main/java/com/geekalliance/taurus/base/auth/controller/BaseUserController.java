@@ -10,6 +10,7 @@ import com.geekalliance.taurus.core.exception.ApiException;
 import com.geekalliance.taurus.core.params.PageQueryParam;
 import com.geekalliance.taurus.core.result.PageResult;
 import com.geekalliance.taurus.core.result.Result;
+import com.geekalliance.taurus.web.annotation.PermitFlag;
 import com.geekalliance.taurus.web.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,7 @@ public class BaseUserController extends BaseController {
     @Autowired
     private BaseUserService baseUserService;
 
+    @PermitFlag("user-add")
     @ApiOperation(value = "分页查询")
     @PostMapping("/page")
     public Result<PageResult<BaseUserPageDTO>> pageQuery(@RequestBody @Valid PageQueryParam<QueryBaseUserDTO> param) throws ApiException {

@@ -4,6 +4,7 @@ package com.geekalliance.taurus.web.interceptor;
 import com.geekalliance.taurus.core.holder.UserContextHolder;
 import com.geekalliance.taurus.core.holder.entity.TokenUser;
 import com.geekalliance.taurus.core.result.Result;
+import com.geekalliance.taurus.toolkit.StringPool;
 import com.geekalliance.taurus.web.rest.CommonAuthRestProvider;
 import com.geekalliance.taurus.web.utils.TokenUserUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +14,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * 当前用户拦截
@@ -43,15 +47,25 @@ public class UserInterceptor implements HandlerInterceptor {
         if (request.getMethod().equals(HttpMethod.OPTIONS.name())) {
             return true;
         }
-        HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(request);
-        requestWrapper.addHeader(TokenUserUtils.HTTP_HEADERS_SIGNING_KEY, signingKey);
-        String authorization = TokenUserUtils.getAuthorization(requestWrapper);
+        String authorization = getAuthorizationToken();
         if (StringUtils.isNotBlank(authorization)) {
             TokenUser tokenUser = getTokenUser(authorization);
             UserContextHolder.getInstance().setContext(tokenUser);
             validAuthResource(request);
         }
         return true;
+    }
+
+    public String getAuthorizationToken() {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = servletRequestAttributes.getRequest();
+        if (Objects.isNull(request)) {
+            return StringPool.EMPTY;
+        }
+        HeaderMapRequestWrapper requestWrapper = new HeaderMapRequestWrapper(request);
+        requestWrapper.addHeader(TokenUserUtils.HTTP_HEADERS_SIGNING_KEY, signingKey);
+        String authorization = TokenUserUtils.getAuthorization(requestWrapper);
+        return authorization;
     }
 
     @Override

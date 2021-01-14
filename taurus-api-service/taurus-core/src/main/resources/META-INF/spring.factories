@@ -9,4 +9,5 @@ com.geekalliance.taurus.rdb.interceptor.SpecialCharLikeInterceptor,\
 com.geekalliance.taurus.web.WebServerMacConfigureAdapter,\
 com.geekalliance.taurus.web.interceptor.UserInterceptor,\
 com.geekalliance.taurus.web.config.CustomCorsFilter,\
-com.geekalliance.taurus.web.config.SwaggerConfig
+com.geekalliance.taurus.web.config.SwaggerConfig,\
+com.geekalliance.taurus.web.aop.PermitFlagAopService
