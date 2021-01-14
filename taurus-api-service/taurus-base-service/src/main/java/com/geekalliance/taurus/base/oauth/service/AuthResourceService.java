@@ -10,6 +10,7 @@ import com.geekalliance.taurus.core.exception.SystemErrorType;
 import com.geekalliance.taurus.core.holder.UserContextHolder;
 import com.geekalliance.taurus.core.holder.entity.TokenUser;
 import com.geekalliance.taurus.core.utils.BaseTreeNodeConverterUtils;
+import com.geekalliance.taurus.toolkit.StringPool;
 import com.geekalliance.taurus.toolkit.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,13 +68,21 @@ public class AuthResourceService {
     }
 
     public List<BaseTreeNode<Resource>> getPermissionModule() {
+        return BaseTreeNodeConverterUtils.converter(getPermissionResourceByTypeAndParent(ResourceTypeEnum.MODULE, StringPool.EMPTY));
+    }
+
+    public List<Resource> getPermissionAction(String parent) {
+        return getPermissionResourceByTypeAndParent(ResourceTypeEnum.ACTION, parent);
+    }
+
+    private List<Resource> getPermissionResourceByTypeAndParent(ResourceTypeEnum type, String parent) {
         QueryWrapper<Resource> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("res.type", ResourceTypeEnum.MODULE.getCode());
+        queryWrapper.eq("res.type", type.getCode());
+        queryWrapper.eq(StringUtils.isNotBlank(parent), "res.parent", parent);
         TokenUser tokenUser = UserContextHolder.getInstance().getTokenUser();
-        if(!tokenUser.isSuperManage()){
+        if (!tokenUser.isSuperManage()) {
             queryWrapper.eq("ur.user_id", UserContextHolder.getInstance().getTokenUser().getId());
         }
-        List<Resource> resources = resourceMapper.selectListByUserPermission(queryWrapper);
-        return BaseTreeNodeConverterUtils.converter(resources);
+        return resourceMapper.selectListByUserPermission(queryWrapper);
     }
 }

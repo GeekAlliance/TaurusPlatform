@@ -3,22 +3,16 @@ package com.geekalliance.taurus.base.oauth.controller;
 import com.geekalliance.taurus.base.api.auth.entity.Resource;
 import com.geekalliance.taurus.base.oauth.service.AuthResourceService;
 import com.geekalliance.taurus.core.entity.BaseTreeNode;
-import com.geekalliance.taurus.core.holder.UserContextHolder;
-import com.geekalliance.taurus.core.holder.entity.TokenUser;
 import com.geekalliance.taurus.core.result.Result;
-import com.geekalliance.taurus.core.utils.JwtUtils;
-import com.geekalliance.taurus.toolkit.StringPool;
-import com.geekalliance.taurus.web.utils.TokenUserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -37,5 +31,12 @@ public class AuthResourceController {
     public Result<List<BaseTreeNode<Resource>>> getPermissionModule() {
         List<BaseTreeNode<Resource>> resourceTree = authResourceService.getPermissionModule();
         return Result.success(resourceTree);
+    }
+
+    @ApiOperation(value = "查询用户授权的行为信息")
+    @GetMapping(value = "/action/{resourceId}")
+    public Result<List<Resource>> getPermissionAction(@PathVariable("resourceId") String resourceId) {
+        List<Resource> resources = authResourceService.getPermissionAction(resourceId);
+        return Result.success(resources);
     }
 }
