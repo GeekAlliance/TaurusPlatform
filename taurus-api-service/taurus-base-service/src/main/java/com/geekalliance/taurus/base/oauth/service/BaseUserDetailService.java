@@ -89,7 +89,7 @@ public abstract class BaseUserDetailService implements UserDetailsService {
     private TokenUser convertTokenUser(BaseUser user) {
         TokenUser tokenUser = new TokenUser();
         if (!Objects.isNull(user)) {
-            tokenUser.setSuper(CommonEnum.YES.getCode().equals(user.getSuperFlag()));
+            tokenUser.setSuperManage(CommonEnum.YES.getCode().equals(user.getSuperFlag()));
             tokenUser.setId(user.getId());
             tokenUser.setUsername(user.getUsername());
             tokenUser.setAuthorities(new ArrayList());

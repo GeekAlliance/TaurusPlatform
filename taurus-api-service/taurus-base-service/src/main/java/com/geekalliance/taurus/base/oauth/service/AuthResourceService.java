@@ -1,22 +1,26 @@
 package com.geekalliance.taurus.base.oauth.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.geekalliance.taurus.base.api.auth.entity.Resource;
+import com.geekalliance.taurus.base.api.auth.enums.ResourceTypeEnum;
 import com.geekalliance.taurus.base.auth.mapper.ResourceMapper;
 import com.geekalliance.taurus.core.entity.BaseTreeNode;
 import com.geekalliance.taurus.core.exception.InternalException;
 import com.geekalliance.taurus.core.exception.SystemErrorType;
+import com.geekalliance.taurus.core.holder.UserContextHolder;
+import com.geekalliance.taurus.core.holder.entity.TokenUser;
 import com.geekalliance.taurus.core.utils.BaseTreeNodeConverterUtils;
 import com.geekalliance.taurus.toolkit.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 提供权限验证时用户、角色、行为、模块列表等资源信息的查询
@@ -31,6 +35,7 @@ public class AuthResourceService {
 
     @Autowired
     private ResourceMapper resourceMapper;
+
     /**
      * 根据当前用户 查询角色编号
      *
@@ -62,7 +67,13 @@ public class AuthResourceService {
     }
 
     public List<BaseTreeNode<Resource>> getPermissionModule() {
-        List<Resource> resources = resourceMapper.selectList(null);
+        QueryWrapper<Resource> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("res.type", ResourceTypeEnum.MODULE.getCode());
+        TokenUser tokenUser = UserContextHolder.getInstance().getTokenUser();
+        if(!tokenUser.isSuperManage()){
+            queryWrapper.eq("ur.user_id", UserContextHolder.getInstance().getTokenUser().getId());
+        }
+        List<Resource> resources = resourceMapper.selectListByUserPermission(queryWrapper);
         return BaseTreeNodeConverterUtils.converter(resources);
     }
 }

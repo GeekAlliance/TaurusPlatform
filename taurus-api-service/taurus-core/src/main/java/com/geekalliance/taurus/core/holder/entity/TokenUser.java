@@ -28,7 +28,7 @@ public class TokenUser implements Serializable {
     private List<String> authorities;
 
     @ApiModelProperty(value = "是否超级管理员", example = "是否超级管理员")
-    private boolean isSuper = false;
+    private boolean superManage = false;
 
     public TokenUser() {
 
