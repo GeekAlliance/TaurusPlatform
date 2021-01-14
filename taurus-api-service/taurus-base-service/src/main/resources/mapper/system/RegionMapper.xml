@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekalliance.taurus.base.system.mapper.RegionMapper">
+    <resultMap id="BaseResultMap" type="com.geekalliance.taurus.base.api.system.entity.Region">
+        <!--@Table base_region-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="parent" jdbcType="VARCHAR" property="parent"/>
+        <result column="level" jdbcType="TINYINT" property="level"/>
+        <result column="sort_number" jdbcType="SMALLINT" property="sortNumber"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="system_flag" jdbcType="CHAR" property="systemFlag"/>
+        <result column="delete_flag" jdbcType="VARCHAR" property="deleteFlag"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_at" jdbcType="TIMESTAMP" property="createAt"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_at" jdbcType="TIMESTAMP" property="updateAt"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        code,
+        name,
+        type,
+        parent,
+        level,
+        sort_number,
+        remark,
+        system_flag,
+        delete_flag,
+        create_by,
+        create_at,
+        update_by,
+        update_at
+    </sql>
+</mapper>

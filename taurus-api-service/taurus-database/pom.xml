@@ -15,7 +15,7 @@
 
     <properties>
         <dbms>mysql</dbms>
-        <author>GeeKeeper</author>
+        <author>MarkBell</author>
         <current.time>${maven.build.timestamp}</current.time>
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
     </properties>
