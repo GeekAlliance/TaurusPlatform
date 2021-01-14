@@ -25,14 +25,31 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        `application`, code, `name`, `type`, icon, route, component, link, redirect, remark,
-        status_number, parent, `level`, sort_number, permit_flag, visible_flag, enable_flag,
+        id, application, code, name, type, icon, route, component, link, redirect, remark,
+        status_number, parent, level, sort_number, permit_flag, visible_flag, enable_flag,
         delete_flag
     </sql>
 
     <select id="selectListByUserPermission" resultType="com.geekalliance.taurus.base.api.auth.entity.Resource">
-        select
-        <include refid="Base_Column_List"/>
+        select res.id,
+               res.application,
+               res.code,
+               res.name,
+               res.type,
+               res.icon,
+               res.route,
+               res.component,
+               res.link,
+               res.redirect,
+               res.remark,
+               res.status_number,
+               res.parent,
+               res.level,
+               res.sort_number,
+               res.permit_flag,
+               res.visible_flag,
+               res.enable_flag,
+               res.delete_flag
         from base_resource as res
                      left join base_role_resource as rr on rr.resource_id = res.id
                      left join base_user_role as ur on ur.role_id = rr.role_id
