@@ -40,5 +40,5 @@ public class BaseTreeNode {
     /**
      * 子节点
      */
-    private List<?> children;
+    private List<BaseTreeNode> children;
 }
