@@ -17,7 +17,7 @@ public enum TreeEnum {
     ROOT_LEVEL("1"),
     ;
 
-    private String code;
+    private final String code;
 
     TreeEnum(String code) {
         this.code = code;

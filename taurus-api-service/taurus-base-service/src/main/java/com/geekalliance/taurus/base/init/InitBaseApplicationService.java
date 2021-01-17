@@ -44,7 +44,7 @@ import java.util.TreeSet;
 public class InitBaseApplicationService {
     private static boolean complete = false;
 
-    private static String APPLICATION_INIT = "i18n/base_application_init_" + LocaleContextHolder.getLocale() + StringPool.DOT_XML;
+    private static final String APPLICATION_INIT = "i18n/base_application_init_" + LocaleContextHolder.getLocale() + StringPool.DOT_XML;
 
     @Value("${spring.liquibase.database-change-log-lock-table}")
     private String lockTableName;

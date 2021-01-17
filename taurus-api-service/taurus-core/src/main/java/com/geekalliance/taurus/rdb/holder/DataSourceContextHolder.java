@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 @Slf4j
 public class DataSourceContextHolder {
-    private volatile static String CURR_DATASOURCE_TAG = DataSourceService.MASTER_DATASOURCE_TAG;
+    private static final String CURR_DATASOURCE_TAG = DataSourceService.MASTER_DATASOURCE_TAG;
 
     private static final ThreadLocal<String> LOCAL = new ThreadLocal<String>();
 

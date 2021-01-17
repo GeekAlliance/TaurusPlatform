@@ -19,7 +19,7 @@ public class PhoneAuthenticationFilter extends AbstractAuthenticationProcessingF
     private static final String SPRING_SECURITY_RESTFUL_VERIFY_CODE_KEY = "verifyCode";
 
     private static final String SPRING_SECURITY_RESTFUL_LOGIN_URL = "/phoneLogin";
-    private boolean postOnly = true;
+    private final boolean postOnly = true;
 
     public PhoneAuthenticationFilter() {
         super(new AntPathRequestMatcher(SPRING_SECURITY_RESTFUL_LOGIN_URL, "POST"));

@@ -7,7 +7,7 @@ import org.apache.ibatis.mapping.SqlSource;
  * @author maxuqiang
  */
 public class BoundSqlSqlSource implements SqlSource {
-    private BoundSql boundSql;
+    private final BoundSql boundSql;
 
     public BoundSqlSqlSource(BoundSql boundSql) {
         this.boundSql = boundSql;

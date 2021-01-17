@@ -37,11 +37,11 @@ import java.util.*;
 @Configuration
 @EnableConfigurationProperties({DynamicDataSourceProperties.class, DataSourceProperties.class, DruidDataSourceWrapper.class})
 public class DynamicDataSourceConfig extends AbstractDataSourceService implements ApplicationListener<ApplicationReadyEvent> {
-    private static Map<Object, Object> DATA_SOURCES = new HashMap<>(1);
+    private static final Map<Object, Object> DATA_SOURCES = new HashMap<>(1);
 
     private static String REAL_DB_SERVICE_IP = StringPool.EMPTY;
 
-    private static DynamicRoutingDataSource routingDataSource = new DynamicRoutingDataSource();
+    private static final DynamicRoutingDataSource routingDataSource = new DynamicRoutingDataSource();
 
     public static String getRealDbServiceIp() {
         return REAL_DB_SERVICE_IP;

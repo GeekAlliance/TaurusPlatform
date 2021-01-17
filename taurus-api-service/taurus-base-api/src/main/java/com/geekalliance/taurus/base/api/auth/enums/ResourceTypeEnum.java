@@ -4,7 +4,7 @@ public enum ResourceTypeEnum {
     MODULE(1),
     ACTION(2),
     ;
-    private int code;
+    private final int code;
 
     ResourceTypeEnum(int code) {
         this.code = code;

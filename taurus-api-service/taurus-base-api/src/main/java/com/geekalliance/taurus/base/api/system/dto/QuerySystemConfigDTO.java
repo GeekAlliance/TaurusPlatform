@@ -7,8 +7,8 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.NotBlank;
 
 /**
- * SubgroupQueryDTO
- * 系统设置分组查询
+ * QuerySystemConfigDTO
+ * 系统设置查询DTO
  *
  * @author geekeeper
  * @email geekkeeper@163.com
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SubgroupQueryDTO extends ValidatedGroup {
+public class QuerySystemConfigDTO extends ValidatedGroup {
     /**
      * 应用编号
      */

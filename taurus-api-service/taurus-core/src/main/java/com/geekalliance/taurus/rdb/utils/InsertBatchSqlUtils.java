@@ -77,7 +77,7 @@ public class InsertBatchSqlUtils {
     private static String valueScript(TableInfo tableInfo, Object data) {
         String valueScript = getValue(data, tableInfo.getKeyProperty()) + StringPool.COMMA +
                 filterTableFieldInfo(tableInfo.getFieldList(), null, i -> getValue(data, i.getProperty()), StringPool.COMMA);
-        valueScript = StringPool.LEFT_BRACKET + valueScript.substring(0, valueScript.length()) + StringPool.RIGHT_BRACKET;
+        valueScript = StringPool.LEFT_BRACKET + valueScript + StringPool.RIGHT_BRACKET;
         return valueScript;
     }
 
@@ -91,7 +91,7 @@ public class InsertBatchSqlUtils {
                 } else if (isNumber(field)) {
                     return String.valueOf(field.get(data));
                 } else {
-                    return StringPool.SINGLE_QUOTE + String.valueOf(field.get(data)) + StringPool.SINGLE_QUOTE;
+                    return StringPool.SINGLE_QUOTE + field.get(data) + StringPool.SINGLE_QUOTE;
                 }
             }
         } catch (NoSuchFieldException e) {
@@ -115,9 +115,6 @@ public class InsertBatchSqlUtils {
         if (field.getType().equals(short.class) || field.getType().equals(short.class)) {
             return true;
         }
-        if (field.getType().equals(float.class) || field.getType().equals(Float.class)) {
-            return true;
-        }
-        return false;
+        return field.getType().equals(float.class) || field.getType().equals(Float.class);
     }
 }

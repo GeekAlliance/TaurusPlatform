@@ -10,7 +10,7 @@ public enum PasswordTypeEnum {
     INIT_PASSWORD(0),
     CUSTOM_PASSWORD(1),
     ;
-    private Integer code;
+    private final Integer code;
 
     PasswordTypeEnum(Integer code) {
         this.code = code;

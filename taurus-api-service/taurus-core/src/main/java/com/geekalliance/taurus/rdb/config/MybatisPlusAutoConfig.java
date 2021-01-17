@@ -82,13 +82,13 @@ public class MybatisPlusAutoConfig implements InitializingBean {
 
     public MybatisPlusAutoConfig(MybatisPlusProperties properties, ObjectProvider<Interceptor[]> interceptorsProvider, ObjectProvider<TypeHandler[]> typeHandlersProvider, ObjectProvider<LanguageDriver[]> languageDriversProvider, ResourceLoader resourceLoader, ObjectProvider<DatabaseIdProvider> databaseIdProvider, ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider, ObjectProvider<List<MybatisPlusPropertiesCustomizer>> mybatisPlusPropertiesCustomizerProvider, ApplicationContext applicationContext) {
         this.properties = properties;
-        this.interceptors = (Interceptor[])interceptorsProvider.getIfAvailable();
-        this.typeHandlers = (TypeHandler[])typeHandlersProvider.getIfAvailable();
-        this.languageDrivers = (LanguageDriver[])languageDriversProvider.getIfAvailable();
+        this.interceptors = interceptorsProvider.getIfAvailable();
+        this.typeHandlers = typeHandlersProvider.getIfAvailable();
+        this.languageDrivers = languageDriversProvider.getIfAvailable();
         this.resourceLoader = resourceLoader;
-        this.databaseIdProvider = (DatabaseIdProvider)databaseIdProvider.getIfAvailable();
-        this.configurationCustomizers = (List)configurationCustomizersProvider.getIfAvailable();
-        this.mybatisPlusPropertiesCustomizers = (List)mybatisPlusPropertiesCustomizerProvider.getIfAvailable();
+        this.databaseIdProvider = databaseIdProvider.getIfAvailable();
+        this.configurationCustomizers = configurationCustomizersProvider.getIfAvailable();
+        this.mybatisPlusPropertiesCustomizers = mybatisPlusPropertiesCustomizerProvider.getIfAvailable();
         this.applicationContext = applicationContext;
     }
 

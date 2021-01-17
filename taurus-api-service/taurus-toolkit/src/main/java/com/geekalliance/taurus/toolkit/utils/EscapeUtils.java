@@ -14,7 +14,7 @@ public class EscapeUtils {
 
     public static String ESCAPE_KEY = "escape " + StringPool.SINGLE_QUOTE + EscapeUtils.ESCAPE_CHAR + StringPool.SINGLE_QUOTE;
 
-    private static List<String> SPECIAL_CHAR = new ArrayList<>();
+    private static final List<String> SPECIAL_CHAR = new ArrayList<>();
 
     static {
         SPECIAL_CHAR.add(StringPool.SLASH);

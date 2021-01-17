@@ -24,7 +24,7 @@ public class DbDialectRegistry {
     }
 
     public DbDialect getDialect(DbType dbType) {
-        return (DbDialect) this.DIALECT_ENUM_MAP.get(dbType);
+        return this.DIALECT_ENUM_MAP.get(dbType);
     }
 
     public Collection<DbDialect> getDialects() {

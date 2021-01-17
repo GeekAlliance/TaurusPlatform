@@ -43,8 +43,8 @@ public class SpecialCharLikeInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        DbType dbType = (DbType) Optional.ofNullable(this.dbType).orElse(JdbcUtils.getDbType(dataSourceService.getCurrentDbUrl()));
-        DbDialect dialect = (DbDialect) Optional.ofNullable(this.dialect).orElse(DbDialectFactory.getDialect(dbType));
+        DbType dbType = Optional.ofNullable(this.dbType).orElse(JdbcUtils.getDbType(dataSourceService.getCurrentDbUrl()));
+        DbDialect dialect = Optional.ofNullable(this.dialect).orElse(DbDialectFactory.getDialect(dbType));
         // 拦截sql
         Object[] args = invocation.getArgs();
         MappedStatement statement = (MappedStatement) args[0];

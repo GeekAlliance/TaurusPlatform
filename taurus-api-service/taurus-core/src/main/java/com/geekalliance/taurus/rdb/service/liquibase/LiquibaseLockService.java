@@ -178,7 +178,7 @@ public class LiquibaseLockService implements LockService {
     @Override
     public DatabaseChangeLogLock[] listLocks() throws LockException {
         List<DatabaseChangeLogLock> allLocks = new ArrayList();
-        return (DatabaseChangeLogLock[]) allLocks.toArray(new DatabaseChangeLogLock[allLocks.size()]);
+        return allLocks.toArray(new DatabaseChangeLogLock[allLocks.size()]);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class LiquibaseLockService implements LockService {
             DatabaseObject example = (new Table()).setName(this.database.getDatabaseChangeLogLockTableName()).setSchema(this.database.getLiquibaseCatalogName(), this.database.getLiquibaseSchemaName());
             if (SnapshotGeneratorFactory.getInstance().has(example, this.database)) {
                 DatabaseObject table = SnapshotGeneratorFactory.getInstance().createSnapshot(example, this.database);
-                DiffOutputControl diffOutputControl = new DiffOutputControl(true, true, false, (CompareControl.SchemaComparison[]) null);
+                DiffOutputControl diffOutputControl = new DiffOutputControl(true, true, false, null);
                 Change[] change = ChangeGeneratorFactory.getInstance().fixUnexpected(table, diffOutputControl, this.database, this.database);
                 SqlStatement[] sqlStatement = change[0].generateStatements(this.database);
                 ExecutorService.getInstance().getExecutor(this.database).execute(sqlStatement[0]);

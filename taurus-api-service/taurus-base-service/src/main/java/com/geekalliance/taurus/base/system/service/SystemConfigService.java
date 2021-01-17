@@ -1,7 +1,7 @@
 package com.geekalliance.taurus.base.system.service;
 
-import com.geekalliance.taurus.base.api.system.dto.AddConfigDTO;
-import com.geekalliance.taurus.base.api.system.dto.CommonDeleteDTO;
+import com.geekalliance.taurus.base.api.system.dto.AddSystemConfigDTO;
+import com.geekalliance.taurus.core.params.CommonDeleteParam;
 import com.geekalliance.taurus.base.api.system.dto.UpdateConfigDTO;
 import com.geekalliance.taurus.base.api.system.entity.SystemConfig;
 import com.geekalliance.taurus.base.system.mapper.SystemConfigMapper;
@@ -26,11 +26,12 @@ public class SystemConfigService extends RdbService<SystemConfigMapper, SystemCo
     private SystemConfigMapper systemConfigMapper;
 
 
-    public boolean add(AddConfigDTO saveParam) {
+
+    public boolean add(AddSystemConfigDTO saveParam) {
         return false;
     }
 
-    public boolean delete(CommonDeleteDTO deleteParam) {
+    public boolean delete(CommonDeleteParam deleteParam) {
         return false;
     }
 

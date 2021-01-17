@@ -9,5 +9,5 @@ public interface Creator<T> {
      * @param source 转换类创建对象
      * @return 返回目标对象
      */
-    public T create(Object source);
+    T create(Object source);
 }

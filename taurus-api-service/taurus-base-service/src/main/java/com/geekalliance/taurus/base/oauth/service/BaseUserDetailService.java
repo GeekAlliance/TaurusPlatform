@@ -63,10 +63,7 @@ public abstract class BaseUserDetailService implements UserDetailsService {
     protected abstract BaseUser getUser(String username);
 
     private boolean isActive(String active) {
-        if (CommonEnum.NO.equals(active)) {
-            return false;
-        }
-        return true;
+        return !CommonEnum.NO.equals(active);
     }
 
     private List<GrantedAuthority> convertToAuthorities(BaseUser baseUser) {

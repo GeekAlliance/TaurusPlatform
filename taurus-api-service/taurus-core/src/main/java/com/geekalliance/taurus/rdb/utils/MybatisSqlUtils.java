@@ -175,6 +175,7 @@ public class MybatisSqlUtils {
         // 对关键字进行特殊字符“清洗”，如果有特殊字符的，在特殊字符前添加转义字符
         HashMap parameter = (HashMap) parameterObject;
         for (String keyName : keyNames) {
+            // 第二种情况：未使用条件构造器，但是在service层进行了查询关键字与模糊查询符`%`手动拼接
             if (keyName.contains("ew.paramNameValuePairs.") && isLikeMarkPatternMatcher(sqlTemp)) {
                 // 在业务层进行条件构造产生的模糊查询关键字
                 QueryWrapper wrapper = (QueryWrapper) parameter.get("ew");
@@ -185,12 +186,7 @@ public class MybatisSqlUtils {
                     valuePairs.put(keyList[2],
                             StringPool.PERCENT + dialect.sqlEscapeChar(a.toString().substring(1, a.toString().length() - 1)) + StringPool.PERCENT);
                 }
-            } else if (!keyName.contains("ew.paramNameValuePairs.") && isLikeMarkPatternMatcher(sqlTemp)) {
-                // 第二种情况：未使用条件构造器，但是在service层进行了查询关键字与模糊查询符`%`手动拼接
-                MybatisSqlUtils.escapeChar(parameter, keyName, true, dialect, 0);
-            } else {
-                MybatisSqlUtils.escapeChar(parameter, keyName, false, dialect, 0);
-            }
+            } else MybatisSqlUtils.escapeChar(parameter, keyName, !keyName.contains("ew.paramNameValuePairs.") && isLikeMarkPatternMatcher(sqlTemp), dialect, 0);
         }
         return sql;
     }
@@ -257,10 +253,6 @@ public class MybatisSqlUtils {
      * 判断是否需要处理特殊字符
      */
     private static Boolean isEscapeChar(Object value) {
-        if (value instanceof String && EscapeUtils.isEscapeChar(value.toString())) {
-            return true;
-        } else {
-            return false;
-        }
+        return value instanceof String && EscapeUtils.isEscapeChar(value.toString());
     }
 }

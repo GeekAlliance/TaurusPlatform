@@ -23,7 +23,7 @@ import java.util.Objects;
  **/
 @Slf4j
 public class GenRegisterResourceUtil {
-    private static String APPLICATION_INIT = "i18n/application_init_" + LocaleContextHolder.getLocale() + StringPool.DOT_XML;
+    private static final String APPLICATION_INIT = "i18n/application_init_" + LocaleContextHolder.getLocale() + StringPool.DOT_XML;
 
     public static List<RegisterApplication> getApplication(String resourcePath) {
         return getApplicationsByContent(getResourceContent(resourcePath));

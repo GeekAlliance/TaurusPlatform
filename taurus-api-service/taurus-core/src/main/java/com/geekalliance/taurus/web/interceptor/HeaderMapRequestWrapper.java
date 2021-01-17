@@ -12,7 +12,7 @@ import java.util.Map;
  **/
 
 public class HeaderMapRequestWrapper extends HttpServletRequestWrapper {
-    private Map<String,String> headerMap = new HashMap<>();
+    private final Map<String,String> headerMap = new HashMap<>();
 
     public HeaderMapRequestWrapper(HttpServletRequest request) {
         super(request);

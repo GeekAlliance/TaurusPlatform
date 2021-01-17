@@ -15,6 +15,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AddConfigDTO extends ValidatedGroup {
+public class AddSystemConfigDTO extends ValidatedGroup {
 
 }

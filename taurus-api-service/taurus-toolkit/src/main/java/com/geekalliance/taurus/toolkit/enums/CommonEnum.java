@@ -11,7 +11,7 @@ public enum CommonEnum {
     YES("Y"),
     NO("N"),
     ;
-    private String code;
+    private final String code;
 
     CommonEnum(String code) {
         this.code = code;

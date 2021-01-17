@@ -5,7 +5,7 @@ public enum ExceptionMessage {
     INVALID_REFRESH_TOKEN("Invalid refresh token"),
     BAD_CREDENTIALS("Bad credentials"),
     ;
-    private String code;
+    private final String code;
 
     ExceptionMessage(String code) {
         this.code = code;

@@ -1,8 +1,8 @@
 package com.geekalliance.taurus.base.system.controller;
 
-import com.geekalliance.taurus.base.api.system.dto.CommonDeleteDTO;
-import com.geekalliance.taurus.base.api.system.dto.AddConfigDTO;
-import com.geekalliance.taurus.base.api.system.dto.SubgroupQueryDTO;
+import com.geekalliance.taurus.base.api.system.dto.AddSystemConfigDTO;
+import com.geekalliance.taurus.core.params.CommonDeleteParam;
+import com.geekalliance.taurus.base.api.system.dto.QuerySystemConfigDTO;
 import com.geekalliance.taurus.base.api.system.dto.UpdateConfigDTO;
 import com.geekalliance.taurus.base.system.service.SystemConfigService;
 import com.geekalliance.taurus.core.annotion.OperateLog;
@@ -37,15 +37,15 @@ public class SystemConfigController extends BaseController {
 
     @ApiOperation("分组查询")
     @GetMapping("subgroup")
-    @OperateLog(BusinessName = "配置管理-分组查询",operateType = OperateTypeEnum.SUBGROUP)
-    public Result subgroup(@RequestBody @Validated SubgroupQueryDTO queryParam) {
+    @OperateLog(BusinessName = "配置管理-分组查询", operateType = OperateTypeEnum.SUBGROUP)
+    public Result subgroup(@RequestBody @Validated QuerySystemConfigDTO queryParam) {
         return Result.success();
     }
 
     @ApiOperation("新增")
     @PostMapping
     @OperateLog(BusinessName = "配置管理-新增", operateType = OperateTypeEnum.ADD)
-    public Result add(@RequestBody @Validated(ValidatedGroup.add.class) AddConfigDTO saveParam) {
+    public Result add(@RequestBody @Validated(ValidatedGroup.add.class) AddSystemConfigDTO saveParam) {
 
         return systemConfigService.add(saveParam) ? Result.success() : Result.fail();
     }
@@ -53,7 +53,7 @@ public class SystemConfigController extends BaseController {
     @ApiOperation("删除")
     @DeleteMapping
     @OperateLog(BusinessName = "配置管理-删除", operateType = OperateTypeEnum.DELETE)
-    public Result delete(@RequestBody @Validated(ValidatedGroup.delete.class) CommonDeleteDTO deleteParam) {
+    public Result delete(@RequestBody @Validated(ValidatedGroup.delete.class) CommonDeleteParam deleteParam) {
         return systemConfigService.delete(deleteParam) ? Result.success() : Result.fail();
     }
 

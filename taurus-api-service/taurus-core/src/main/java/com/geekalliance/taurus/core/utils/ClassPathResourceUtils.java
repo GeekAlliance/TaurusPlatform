@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 public class ClassPathResourceUtils {
@@ -29,7 +30,7 @@ public class ClassPathResourceUtils {
         StringBuffer buffer = new StringBuffer();
         try {
             //利用输入流获取XML文件内容
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StringPool.UTF_8));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             String line = "";
             while ((line = br.readLine()) != null) {
                 buffer.append(line);

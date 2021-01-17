@@ -1,9 +1,9 @@
 package com.geekalliance.taurus.base.api.auth.enums;
 
 /**
- * @Description
- * @Date 2019/12/25
- * @Author maxuqiang
+ * @description
+ * @date 2019/12/25
+ * @author maxuqiang
  **/
 
 public enum GrantTypeEnum {
@@ -13,7 +13,7 @@ public enum GrantTypeEnum {
     AUTHORIZATION_CODE("authorization_code"),
     IMPLICIT("implicit"),
     ;
-    private String code;
+    private final String code;
 
     GrantTypeEnum(String code) {
         this.code = code;

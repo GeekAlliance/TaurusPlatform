@@ -1,12 +1,17 @@
 package com.geekalliance.taurus.base.system.service;
 
-import com.geekalliance.taurus.base.api.system.entity.Dictionary;
+import com.geekalliance.taurus.base.api.system.dto.QueryDictionaryDTO;
+import com.geekalliance.taurus.base.api.system.dto.QueryDictionaryTypeDTO;
+import com.geekalliance.taurus.base.api.system.vo.DictionaryTypeVO;
+import com.geekalliance.taurus.base.api.system.vo.DictionaryVO;
 import com.geekalliance.taurus.base.system.mapper.DictionaryMapper;
 import com.geekalliance.taurus.base.system.mapper.DictionaryTypeMapper;
 import com.geekalliance.taurus.rdb.service.RdbService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.geekalliance.taurus.base.api.system.entity.DictionaryType;
+
+import java.util.List;
 
 /**
  *DictionaryTypeService
@@ -21,4 +26,14 @@ public class DictionaryTypeService extends RdbService<DictionaryTypeMapper, Dict
     @Resource
     private DictionaryTypeMapper dictionaryTypeMapper;
 
+    @Resource
+    private DictionaryMapper dictionaryMapper;
+
+    public List<DictionaryTypeVO> getDictionaryTypes(QueryDictionaryTypeDTO queryParam) {
+        return null;
+    }
+
+    public List<DictionaryVO> getDictionaries(QueryDictionaryDTO queryParam) {
+        return null;
+    }
 }

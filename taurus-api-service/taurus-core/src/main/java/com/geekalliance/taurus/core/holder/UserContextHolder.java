@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 public class UserContextHolder {
 
-    private ThreadLocal<Map<String, String>> threadLocal;
+    private final ThreadLocal<Map<String, String>> threadLocal;
 
     private UserContextHolder() {
         this.threadLocal = new ThreadLocal<>();

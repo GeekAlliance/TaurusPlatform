@@ -9,7 +9,7 @@ import java.time.*;
  * @author maxuqiang
  */
 public class Jdk8CompatibilityConverter implements CustomConverter {
-    private CreatorFactory creatorFactory = new CreatorFactory();
+    private final CreatorFactory creatorFactory = new CreatorFactory();
 
     @Override
     public Object convert(Object destination, Object source, Class<?> destinationClass, Class<?> sourceClass) {

@@ -36,17 +36,14 @@ public class ReflectUtils {
 
     public static boolean isBaseType(Object object) {
         Class className = object.getClass();
-        if (className.equals(java.lang.Integer.class) ||
-                className.equals(java.lang.String.class) ||
-                className.equals(java.lang.Byte.class) ||
-                className.equals(java.lang.Long.class) ||
-                className.equals(java.lang.Double.class) ||
-                className.equals(java.lang.Float.class) ||
-                className.equals(java.lang.Character.class) ||
-                className.equals(java.lang.Short.class) ||
-                className.equals(java.lang.Boolean.class)) {
-            return true;
-        }
-        return false;
+        return className.equals(Integer.class) ||
+                className.equals(String.class) ||
+                className.equals(Byte.class) ||
+                className.equals(Long.class) ||
+                className.equals(Double.class) ||
+                className.equals(Float.class) ||
+                className.equals(Character.class) ||
+                className.equals(Short.class) ||
+                className.equals(Boolean.class);
     }
 }

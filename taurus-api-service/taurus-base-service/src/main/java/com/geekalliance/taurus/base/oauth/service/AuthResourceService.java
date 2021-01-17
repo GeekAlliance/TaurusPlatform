@@ -84,7 +84,7 @@ public class AuthResourceService {
             queryWrapper.eq("ur.user_id", UserContextHolder.getInstance().getTokenUser().getId());
         }
         List<Resource> resources = resourceMapper.selectListByUserPermission(queryWrapper);
-        return CollectionUtils.isNotEmpty(resources) ? true : false;
+        return CollectionUtils.isNotEmpty(resources);
     }
 
     private List<Resource> getPermissionResourceByTypeAndParent(ResourceTypeEnum type, String parent) {

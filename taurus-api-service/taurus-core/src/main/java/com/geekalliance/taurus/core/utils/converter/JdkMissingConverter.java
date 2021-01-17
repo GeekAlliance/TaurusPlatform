@@ -11,7 +11,7 @@ import java.util.Locale;
  */
 public class JdkMissingConverter implements CustomConverter {
 
-    private CreatorFactory creatorFactory = new CreatorFactory();
+    private final CreatorFactory creatorFactory = new CreatorFactory();
 
     @Override
     public Object convert(Object destination, Object source, Class<?> destinationClass, Class<?> sourceClass) {

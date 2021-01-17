@@ -19,7 +19,7 @@ import java.util.List;
 
 
 public class ClientAuthenticationManager {
-    private ProviderManager oAuth2AuthenticationManager;
+    private final ProviderManager oAuth2AuthenticationManager;
 
     ClientAuthenticationManager(PasswordEncoder passwordEncoder, ClientDetailsService clientDetailsService) {
         List<AuthenticationProvider> providers = new ArrayList<>();

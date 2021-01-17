@@ -15,7 +15,7 @@ public class DeleteBatchByIdsIgnoreLogicDelete extends AbstractMethod {
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
         RdbSqlMethodEnum sqlMethod = RdbSqlMethodEnum.IGNORE_LOGIC_DELETE_BATCH_BY_IDS;
-        String sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), tableInfo.getKeyColumn(), SqlScriptUtils.convertForeach("#{item}", "coll", (String)null, "item", ","));
+        String sql = String.format(sqlMethod.getSql(), tableInfo.getTableName(), tableInfo.getKeyColumn(), SqlScriptUtils.convertForeach("#{item}", "coll", null, "item", ","));
         SqlSource sqlSource = this.languageDriver.createSqlSource(this.configuration, sql, Object.class);
         return this.addDeleteMappedStatement(mapperClass, sqlMethod.getMethod(), sqlSource);
     }

@@ -21,7 +21,7 @@ public class DbDialectFactory {
     }
 
     public static DbDialect getDialect(String dialectClazz) {
-        return (DbDialect) DIALECT_CACHE.computeIfAbsent(dialectClazz, DbDialectFactory::classToDialect);
+        return DIALECT_CACHE.computeIfAbsent(dialectClazz, DbDialectFactory::classToDialect);
     }
 
     private static DbDialect classToDialect(String dialectClazz) {
@@ -34,13 +34,13 @@ public class DbDialectFactory {
             }
             return dialect;
         } catch (ClassNotFoundException var3) {
-            throw ExceptionUtils.mpe("Class : %s is not found", new Object[]{dialectClazz});
+            throw ExceptionUtils.mpe("Class : %s is not found", dialectClazz);
         }
     }
 
     private static DbDialect newInstance(Class<? extends DbDialect> dialectClazz) {
-        DbDialect dialect = (DbDialect) ClassUtils.newInstance(dialectClazz);
-        Assert.notNull(dialect, "the value of the dialect property in mybatis configuration.xml is not defined.", new Object[0]);
+        DbDialect dialect = ClassUtils.newInstance(dialectClazz);
+        Assert.notNull(dialect, "the value of the dialect property in mybatis configuration.xml is not defined.");
         return dialect;
     }
 }

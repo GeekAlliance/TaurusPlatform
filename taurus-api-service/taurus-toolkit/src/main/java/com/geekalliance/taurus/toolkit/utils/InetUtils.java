@@ -39,13 +39,10 @@ public class InetUtils {
                 log.error("has bind ip address {} error {}", ip, e.getMessage());
                 return false;
             }
-            if (allIps.contains(ip)) {
-                return true;
-            }
+            return allIps.contains(ip);
         } else {
             throw new RuntimeException("has bind ip not null");
         }
-        return false;
     }
 
     public static boolean testSocketConnect(String ip, int port) {

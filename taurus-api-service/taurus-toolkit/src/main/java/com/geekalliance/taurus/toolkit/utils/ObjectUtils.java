@@ -44,9 +44,7 @@ public class ObjectUtils {
         }
 
         if (pObj instanceof Number) {
-            if (convertToInteger(pObj) >= 0) {
-                return true;
-            }
+            return convertToInteger(pObj) >= 0;
         }
 
         return false;
@@ -58,9 +56,7 @@ public class ObjectUtils {
         }
 
         if (pObj instanceof Number) {
-            if (convertToInteger(pObj) <= 0) {
-                return true;
-            }
+            return convertToInteger(pObj) <= 0;
         }
 
         return false;
@@ -81,17 +77,11 @@ public class ObjectUtils {
         }
 
         if (pObj instanceof String) {
-            if (((String) pObj).length() == 0) {
-                return true;
-            }
+            return ((String) pObj).length() == 0;
         } else if (pObj instanceof Collection) {
-            if (((Collection) pObj).size() == 0) {
-                return true;
-            }
+            return ((Collection) pObj).size() == 0;
         } else if (pObj instanceof Map) {
-            if (((Map) pObj).size() == 0) {
-                return true;
-            }
+            return ((Map) pObj).size() == 0;
         }
         return false;
     }
@@ -223,7 +213,7 @@ public class ObjectUtils {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i)).append(separator);
         }
-        return sb.toString().substring(0, sb.toString().length() - 1);
+        return sb.substring(0, sb.toString().length() - 1);
     }
 
 

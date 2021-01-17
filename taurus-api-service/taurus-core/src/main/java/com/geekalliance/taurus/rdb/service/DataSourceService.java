@@ -11,9 +11,9 @@ public interface DataSourceService {
     /**
      * 多线程中对DATA_SOURCES 操作需要先获取到锁，初始化数据源和清理数据源的时候
      */
-    static final Object LOCK = new Object();
+    Object LOCK = new Object();
 
-    static final String MASTER_DATASOURCE_TAG = "master";
+    String MASTER_DATASOURCE_TAG = "master";
 
     /**
      * 初始化数据源
