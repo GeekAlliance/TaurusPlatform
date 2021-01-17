@@ -1,12 +1,11 @@
-package com.geekalliance.taurus.base.api.system.dto;
+package com.geekalliance.taurus.base.api.system.params;
 
 import com.geekalliance.taurus.core.entity.ValidatedGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * SaveSystemConfigDTO
- * 新增配置信息模型
+ * AddSystemConfigDTO
  *
  * @author geekeeper
  * @email geekkeeper@163.com
@@ -15,6 +14,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AddSystemConfigDTO extends ValidatedGroup {
+public class AddSystemConfigParam extends ValidatedGroup {
 
 }

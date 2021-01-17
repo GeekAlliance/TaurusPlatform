@@ -1,4 +1,4 @@
-package com.geekalliance.taurus.base.api.system.dto;
+package com.geekalliance.taurus.base.api.system.params;
 
 import com.geekalliance.taurus.core.validation.LengthConstraint;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @date 2021-01-17 21:25
  */
 @Data
-public class AddDictionaryDTO implements Serializable {
+public class AddDictionaryParam implements Serializable {
 
     @ApiModelProperty(name = "字典类型")
     @NotBlank

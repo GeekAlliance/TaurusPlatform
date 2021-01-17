@@ -1,4 +1,4 @@
-package com.geekalliance.taurus.base.api.system.dto;
+package com.geekalliance.taurus.base.api.system.params;
 
 import com.geekalliance.taurus.core.entity.ValidatedGroup;
 import lombok.Data;
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QuerySystemConfigDTO extends ValidatedGroup {
+public class QuerySystemConfigParam extends ValidatedGroup {
     /**
      * 应用编号
      */

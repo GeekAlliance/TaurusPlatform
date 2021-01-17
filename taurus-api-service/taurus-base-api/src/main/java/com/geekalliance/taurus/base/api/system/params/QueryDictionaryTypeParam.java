@@ -1,4 +1,4 @@
-package com.geekalliance.taurus.base.api.system.dto;
+package com.geekalliance.taurus.base.api.system.params;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @date 2021-01-17 20:18
  */
 @Data
-public class QueryDictionaryTypeDTO implements Serializable {
+public class QueryDictionaryTypeParam implements Serializable {
 
     @ApiModelProperty(value = "应用编码", example = "应用编码")
     @NotBlank(message = "应用编码不能为空，请检查application参数")

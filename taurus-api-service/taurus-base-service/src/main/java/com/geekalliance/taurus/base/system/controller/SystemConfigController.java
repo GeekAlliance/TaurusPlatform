@@ -1,9 +1,9 @@
 package com.geekalliance.taurus.base.system.controller;
 
-import com.geekalliance.taurus.base.api.system.dto.AddSystemConfigDTO;
+import com.geekalliance.taurus.base.api.system.params.AddSystemConfigParam;
 import com.geekalliance.taurus.core.params.CommonDeleteParam;
-import com.geekalliance.taurus.base.api.system.dto.QuerySystemConfigDTO;
-import com.geekalliance.taurus.base.api.system.dto.UpdateConfigDTO;
+import com.geekalliance.taurus.base.api.system.params.QuerySystemConfigParam;
+import com.geekalliance.taurus.base.api.system.params.UpdateSystemConfigParam;
 import com.geekalliance.taurus.base.system.service.SystemConfigService;
 import com.geekalliance.taurus.core.annotion.OperateLog;
 import com.geekalliance.taurus.core.entity.ValidatedGroup;
@@ -38,14 +38,14 @@ public class SystemConfigController extends BaseController {
     @ApiOperation("分组查询")
     @GetMapping("subgroup")
     @OperateLog(BusinessName = "配置管理-分组查询", operateType = OperateTypeEnum.SUBGROUP)
-    public Result subgroup(@RequestBody @Validated QuerySystemConfigDTO queryParam) {
+    public Result subgroup(@RequestBody @Validated QuerySystemConfigParam queryParam) {
         return Result.success();
     }
 
     @ApiOperation("新增")
     @PostMapping
     @OperateLog(BusinessName = "配置管理-新增", operateType = OperateTypeEnum.ADD)
-    public Result add(@RequestBody @Validated(ValidatedGroup.add.class) AddSystemConfigDTO saveParam) {
+    public Result add(@RequestBody @Validated(ValidatedGroup.add.class) AddSystemConfigParam saveParam) {
 
         return systemConfigService.add(saveParam) ? Result.success() : Result.fail();
     }
@@ -60,7 +60,7 @@ public class SystemConfigController extends BaseController {
     @ApiOperation("编辑")
     @PutMapping
     @OperateLog(BusinessName = "配置管理-编辑", operateType = OperateTypeEnum.UPDATE)
-    public Result update(@RequestBody @Validated List<UpdateConfigDTO> updateParam) {
+    public Result update(@RequestBody @Validated List<UpdateSystemConfigParam> updateParam) {
 
         return systemConfigService.update(updateParam) ? Result.success() : Result.fail();
     }

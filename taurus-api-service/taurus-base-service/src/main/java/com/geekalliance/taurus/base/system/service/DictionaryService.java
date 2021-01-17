@@ -1,8 +1,8 @@
 package com.geekalliance.taurus.base.system.service;
 
 import com.geekalliance.taurus.core.params.CommonDeleteParam;
-import com.geekalliance.taurus.base.api.system.dto.AddDictionaryDTO;
-import com.geekalliance.taurus.base.api.system.dto.UpdateDictionaryDTO;
+import com.geekalliance.taurus.base.api.system.params.AddDictionaryParam;
+import com.geekalliance.taurus.base.api.system.params.UpdateDictionaryParam;
 import com.geekalliance.taurus.base.api.system.entity.Dictionary;
 import com.geekalliance.taurus.base.system.mapper.DictionaryMapper;
 import com.geekalliance.taurus.rdb.service.RdbService;
@@ -23,7 +23,7 @@ public class DictionaryService extends RdbService<DictionaryMapper, Dictionary> 
     @Resource
     private DictionaryMapper dictionaryMapper;
 
-    public boolean add(AddDictionaryDTO saveParam) {
+    public boolean add(AddDictionaryParam saveParam) {
         return false;
     }
 
@@ -31,7 +31,7 @@ public class DictionaryService extends RdbService<DictionaryMapper, Dictionary> 
         return false;
     }
 
-    public boolean update(UpdateDictionaryDTO updateParam) {
+    public boolean update(UpdateDictionaryParam updateParam) {
         return false;
     }
 }

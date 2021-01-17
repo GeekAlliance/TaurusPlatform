@@ -1,8 +1,7 @@
-package com.geekalliance.taurus.base.api.system.dto;
+package com.geekalliance.taurus.base.api.system.params;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import java.io.Serializable;
  * @date 2021-01-14 23:21
  */
 @Data
-public class UpdateConfigDTO implements Serializable {
+public class UpdateSystemConfigParam implements Serializable {
 
     @ApiModelProperty(value = "主键编号", example = "主键编号")
     @NotBlank(message = "主键编号不能为空，请检查id参数")

@@ -1,7 +1,7 @@
 package com.geekalliance.taurus.base.system.service;
 
-import com.geekalliance.taurus.base.api.system.dto.QueryDictionaryDTO;
-import com.geekalliance.taurus.base.api.system.dto.QueryDictionaryTypeDTO;
+import com.geekalliance.taurus.base.api.system.params.QueryDictionaryParam;
+import com.geekalliance.taurus.base.api.system.params.QueryDictionaryTypeParam;
 import com.geekalliance.taurus.base.api.system.vo.DictionaryTypeVO;
 import com.geekalliance.taurus.base.api.system.vo.DictionaryVO;
 import com.geekalliance.taurus.base.system.mapper.DictionaryMapper;
@@ -29,11 +29,11 @@ public class DictionaryTypeService extends RdbService<DictionaryTypeMapper, Dict
     @Resource
     private DictionaryMapper dictionaryMapper;
 
-    public List<DictionaryTypeVO> getDictionaryTypes(QueryDictionaryTypeDTO queryParam) {
+    public List<DictionaryTypeVO> getDictionaryTypes(QueryDictionaryTypeParam queryParam) {
         return null;
     }
 
-    public List<DictionaryVO> getDictionaries(QueryDictionaryDTO queryParam) {
+    public List<DictionaryVO> getDictionaries(QueryDictionaryParam queryParam) {
         return null;
     }
 }
