@@ -8,12 +8,12 @@ public class BaseException extends RuntimeException {
     private ErrorType errorType;
 
     public BaseException() {
-        super(SystemErrorType.SYSTEM_ERROR.getMsg());
+        super(SystemErrorType.SYSTEM_ERROR.getMessage());
         this.errorType = SystemErrorType.SYSTEM_ERROR;
     }
 
     public BaseException(ErrorType errorType) {
-        super(errorType.getMsg());
+        super(errorType.getMessage());
         this.errorType = errorType;
     }
 

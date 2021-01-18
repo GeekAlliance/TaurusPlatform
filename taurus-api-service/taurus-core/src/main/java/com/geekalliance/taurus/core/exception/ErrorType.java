@@ -25,5 +25,5 @@ public interface ErrorType extends Serializable {
      *
      * @return
      */
-    String getMsg();
+    String getMessage();
 }

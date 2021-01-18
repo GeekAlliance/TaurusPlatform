@@ -27,7 +27,7 @@ public final class Result<T> extends CommonResult {
 
     public Result(ErrorType errorType) {
         this.code = errorType.getCode();
-        this.msg = errorType.getMsg() + StringPool.LEFT_BRACKET + errorType.getCode() + StringPool.RIGHT_BRACKET;
+        this.msg = errorType.getMessage() + StringPool.LEFT_BRACKET + errorType.getCode() + StringPool.RIGHT_BRACKET;
     }
 
     private Result(int code, String msg, T data) {

@@ -43,16 +43,16 @@ public class DictionaryController extends BaseController {
         return Result.success(dictionaryTypeService.getDictionaryTypes(queryParam));
     }
 
-    @ApiOperation("字典列表")
-    @GetMapping("dictionaries")
-    @OperateLog(BusinessName = "字典列表", operateType = OperateTypeEnum.QUERY)
+    @ApiOperation("字典查询")
+    @GetMapping
+    @OperateLog(BusinessName = "字典查询", operateType = OperateTypeEnum.QUERY)
     public Result getDictionaries(@RequestBody @Validated QueryDictionaryParam queryParam) {
-        return Result.success(dictionaryTypeService.getDictionaries(queryParam));
+        return Result.success(dictionaryService.getDictionaries(queryParam));
     }
 
     @ApiOperation("新增")
     @PostMapping
-    @OperateLog(BusinessName = "组织机构-新增", operateType = OperateTypeEnum.ADD)
+    @OperateLog(BusinessName = "字典管理-新增", operateType = OperateTypeEnum.ADD)
     public Result add(@RequestBody @Validated(ValidatedGroup.add.class) AddDictionaryParam saveParam) {
 
         return dictionaryService.add(saveParam) ? Result.success() : Result.fail();
@@ -60,14 +60,14 @@ public class DictionaryController extends BaseController {
 
     @ApiOperation("删除")
     @DeleteMapping
-    @OperateLog(BusinessName = "组织机构-删除", operateType = OperateTypeEnum.DELETE)
+    @OperateLog(BusinessName = "字典管理-删除", operateType = OperateTypeEnum.DELETE)
     public Result delete(@RequestBody @Validated(ValidatedGroup.delete.class) CommonDeleteParam deleteParam) {
         return dictionaryService.delete(deleteParam) ? Result.success() : Result.fail();
     }
 
     @ApiOperation("编辑")
     @PutMapping
-    @OperateLog(BusinessName = "组织机构-编辑", operateType = OperateTypeEnum.UPDATE)
+    @OperateLog(BusinessName = "字典管理-编辑", operateType = OperateTypeEnum.UPDATE)
     public Result update(@RequestBody @Validated(ValidatedGroup.update.class) UpdateDictionaryParam updateParam) {
         return dictionaryService.update(updateParam) ? Result.success() : Result.fail();
     }

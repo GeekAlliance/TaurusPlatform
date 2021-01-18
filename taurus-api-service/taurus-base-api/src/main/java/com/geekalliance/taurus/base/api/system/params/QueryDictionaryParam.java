@@ -1,6 +1,7 @@
 package com.geekalliance.taurus.base.api.system.params;
 
 import com.geekalliance.taurus.base.api.system.validation.DictionaryValidationGroup;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -12,4 +13,10 @@ import lombok.Data;
  */
 @Data
 public class QueryDictionaryParam extends DictionaryValidationGroup {
+
+    @ApiModelProperty(value = "类型编号", example = "类型编号")
+    private String typeId;
+
+    @ApiModelProperty(value = "类型编码", example = "类型编码")
+    private String typeCode;
 }

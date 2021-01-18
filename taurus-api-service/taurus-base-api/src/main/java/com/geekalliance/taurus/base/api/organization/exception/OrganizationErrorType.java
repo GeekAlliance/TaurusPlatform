@@ -33,7 +33,7 @@ public enum OrganizationErrorType implements ErrorType {
     }
 
     @Override
-    public String getMsg() {
+    public String getMessage() {
         return localeMessage.getMessage(msg);
     }
 }

@@ -1,16 +1,22 @@
 package com.geekalliance.taurus.base.system.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.geekalliance.taurus.base.api.system.entity.Dictionary;
+import com.geekalliance.taurus.base.api.system.entity.DictionaryType;
+import com.geekalliance.taurus.base.api.system.exception.DictionaryErrorType;
 import com.geekalliance.taurus.base.api.system.params.QueryDictionaryParam;
 import com.geekalliance.taurus.base.api.system.params.QueryDictionaryTypeParam;
 import com.geekalliance.taurus.base.api.system.vo.DictionaryTypeVO;
 import com.geekalliance.taurus.base.api.system.vo.DictionaryVO;
 import com.geekalliance.taurus.base.system.mapper.DictionaryMapper;
 import com.geekalliance.taurus.base.system.mapper.DictionaryTypeMapper;
+import com.geekalliance.taurus.core.exception.InternalException;
 import com.geekalliance.taurus.rdb.service.RdbService;
+import com.geekalliance.taurus.toolkit.enums.CommonEnum;
+import com.geekalliance.taurus.toolkit.utils.StringUtils;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
-import com.geekalliance.taurus.base.api.system.entity.DictionaryType;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -26,14 +32,22 @@ public class DictionaryTypeService extends RdbService<DictionaryTypeMapper, Dict
     @Resource
     private DictionaryTypeMapper dictionaryTypeMapper;
 
-    @Resource
-    private DictionaryMapper dictionaryMapper;
 
     public List<DictionaryTypeVO> getDictionaryTypes(QueryDictionaryTypeParam queryParam) {
-        return null;
+
+        QueryWrapper<DictionaryType> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("application",queryParam.getApplication());
+        if(StringUtils.isNotEmpty(queryParam.getModule())){
+            queryWrapper.eq("module",queryParam.getModule());
+        }
+        if(StringUtils.isNotEmpty(queryParam.getCode())){
+            queryWrapper.eq("code",queryParam.getCode());
+        }
+        queryWrapper.eq("delete_flag", CommonEnum.NO);
+        List<DictionaryType> result = this.list(queryWrapper);
+        return beanGenerator.convert(result,DictionaryTypeVO.class);
+
     }
 
-    public List<DictionaryVO> getDictionaries(QueryDictionaryParam queryParam) {
-        return null;
-    }
+
 }
