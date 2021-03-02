@@ -13,27 +13,32 @@
               type="password"
               placeholder="password"
               v-model="param.password"
-              @keyup.enter.native="submitForm()"
+              @keyup.enter.native="handleSubmit()"
           >
             <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
           </el-input>
         </el-form-item>
         <div class="login-btn">
-          <el-button type="primary" @click="submitForm()">登录</el-button>
+          <el-button type="primary" @click="handleSubmit()">登录</el-button>
         </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
+        <p class="login-tips"></p>
       </el-form>
     </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   data: function () {
     return {
       param: {
-        username: 'admin',
-        password: '123123',
+        loginStatus: false,
+        loginErrMsg: "",
+        username: "",
+        password: "",
+        isRemember: true,
       },
       rules: {
         username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
@@ -42,15 +47,29 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      this.$refs.login.validate(valid => {
-        if (valid) {
-          this.$router.push('/');
-        } else {
-          return false;
-        }
-      });
-    },
+    ...mapActions("User", ["userLogin", "getUserInfo"]),
+    handleSubmit() {
+      this.userLogin({username: this.username, password: this.password})
+          .then(res => {
+            if (res.code == 1) {
+              this.getUserInfo().then(res => {
+                if (res.code == 1) {
+                  this.$router.push('/');
+                } else {
+                  this.loginErrMsg = res.msg;
+                  this.loginStatus = true;
+                }
+              });
+            } else {
+              this.loginErrMsg = res.msg;
+              this.loginStatus = true;
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            this.loginStatus = true;
+          });
+    }
   },
 };
 </script>
